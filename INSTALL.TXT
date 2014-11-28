@@ -1,0 +1,72 @@
+
+Go through the Getting Started with Google Fusion Tables API
+
+I think this is what I did https://developers.google.com/fusiontables/docs/v1/getting_started
+* Get a Google Account
+* Create a Google Fiustion table based off of your city and 
+* Share the fusion table to the world view onlyo
+* Google Using Fusion Tables https://developers.google.com/fusiontables/docs/v1/using#auth
+    * About authorization protocols - I did the 
+        * Goto Google Developers Console
+        * Create or Select a project.
+        * In the sidebar on the left, select APIs & auth. In the list of APIs, 
+
+              make sure the status is ON for the Fusion Tables API.  <--- Big deal
+
+        * In the sidebar on the left, select Credentials.
+        * Public API keys: A request that does not provide an OAuth 2.0 token must send an API key. The key identifies your project and provides API access, quota, and reports. If the key type you need does not already exist, create an API key by selecting Create New Key and then selecting the appropriate key type. Then enter the additional data required for that key type.
+            * Leave the URL blank
+
+* You should beable to run a query against it
+
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1KxVV0wQXhxhMScSDuqr-0Ebf0YEt4m4xzVplKd4&key=your API key
+                                                                        \ from the url of your fustion table   /
+                                                                          or file -> about-> id
+                                                                          they also refer to this as the table id
+
+    https://www.googleapis.com/fusiontables/v1/tables/tableId/columns
+
+
+Google has disabled use of the Maps API for this application. This site is not authorized to use the Google Maps client ID provided. If you are the owner of this application, you can learn more about registering URLs here: https://developers.google.com/maps/documentation/business/clientside/auth#registering_authorized_url
+
+I tried turning on Google Maps JavaScript API v3 in the developers console
+Then https://developers.google.com/maps/documentation/javascript/tutorial#api_key 
+
+    * Visit the APIs Console at https://code.google.com/apis/console and log in with your Google Account.
+    *  the Services link from the left-hand menu.
+    *  the Google Maps JavaScript API v3 service.
+    *  the API Access link from the left-hand menu. Your API key is available from the API Access page, in the Simple API Access section. Maps API applications use the Key for browser apps
+
+Use the value of API key in main.js's googlemapsapikey: value
+
+
+Setup a web site to run this and its one php 
+    Modify
+        main.js - city:
+                  lat:
+                  lng:
+                  state:
+
+
+Create a Google Fiustion table based off of your city and 
+
+Update the Code with google doc id and api key
+
+    Modify
+        main.js     - eventquery:
+
+You will need to get a API key for google maps https://developers.google.com/maps/documentation/javascript/tutorial#api_key
+
+    Modify 
+        index.html  - src="//maps.googl.....
+        main.js     - googlemapsapikey
+
+
+
+Turn on Contacts API and Google+ API"  per http://stackoverflow.com/questions/22870082/getting-error-403-access-not-configured-please-use-google-developers-console-t
+
+
+
+
+See https://developers.google.com/fusiontables/docs/v1/getting_started 
+
