@@ -1,23 +1,63 @@
+This documents how we setup the Google Fusion Table and connected it to the application in Kansas City.
 
 Go through the Getting Started with Google Fusion Tables API
 
 I think this is what I did https://developers.google.com/fusiontables/docs/v1/getting_started
-* Get a Google Account
-* Create a Google Fiustion table based off of your city and 
-* Share the fusion table to the world view onlyo
+* Create a Google Account for the project
+* Connect Fusion Tables to your Google Drive
+  * Open Drive
+  * Click on New
+  * Hover over More
+  * Click on "+ Connect More Apps"
+  * Search for Fusion Tables
+  * Click on "+ Connect"
+
+* Create a Google Fusion table from the template in data/fluehot.csv
+  * Open Drive
+  * Click on New
+  * Hover over More
+  * Click on "Google Fusion Tables"
+  * Click on "Choose Files"
+  * Navigate to data
+  * Select flushot.csv
+  * Press Next, for Coman and UTF-8
+  * Press Next, for using row one for the column names
+  * Press Finish
+
+* Import some rows
+  * File
+  * Import more rows...
+
+
+
+* Share the fusion table to the world view only
+  * Click Share
+  * Change access to "Anyone with the link" can view
+
+* Share with other on your team to edit.
+
+
+
 * Google Using Fusion Tables https://developers.google.com/fusiontables/docs/v1/using#auth
     * About authorization protocols - I did the 
-        * Goto Google Developers Console
+        * Go to Google Developers Console https://console.developers.google.com/project
         * Create or Select a project.
         * In the sidebar on the left, select APIs & auth. In the list of APIs, 
 
               make sure the status is ON for the Fusion Tables API.  <--- Big deal
 
         * In the sidebar on the left, select Credentials.
-        * Public API keys: A request that does not provide an OAuth 2.0 token must send an API key. The key identifies your project and provides API access, quota, and reports. If the key type you need does not already exist, create an API key by selecting Create New Key and then selecting the appropriate key type. Then enter the additional data required for that key type.
-            * Leave the URL blank
+        * Public API keys: A request that does not provide an OAuth 2.0 token must send an API key. 
+          The key identifies your project and provides API access, quota, and reports. 
+          If the key type you need does not already exist, create an API key by selecting Create New Key 
+          and then selecting the appropriate key type. 
+          Then enter the additional data required for that key type.
+            * Click on Credentials under APIs & auth
+            * Click on "Create new Key"
+            * Select "Browser key"
+            * Leave "ACCEPT REQUESTS FROM THESE HTTP REFERERS (WEB SITES)" blank
 
-* You should beable to run a query against it
+* You should be able to run a query against it
 
      https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1KxVV0wQXhxhMScSDuqr-0Ebf0YEt4m4xzVplKd4&key=your API key
                                                                         \ from the url of your fustion table   /
@@ -69,4 +109,3 @@ Turn on Contacts API and Google+ API"  per http://stackoverflow.com/questions/22
 
 
 See https://developers.google.com/fusiontables/docs/v1/getting_started 
-
