@@ -8,6 +8,15 @@ Special thanks to Ashly Hand of KCMO for suggesting that we do this project.
 
 The data behind this site is a Google Fusion Table https://www.google.com/fusiontables/DataSource?docid=1JL0TihFJT5MTJiVK1t54e6hE836Fw-UHwdB_8YOA.
 
+### Problem Statement
+
+Need for a community project map: The Community Capital Fund and our partners have realized through our 
+work that a map of existing community-based projects does not exist and that often, neighborhood associations 
+and organizations are not aware of projects/programs occurring near them, and often do not know of other 
+organizations doing similar work. CCF believes that neighborhoods that partner with and learn from others 
+doing similar work will have greater capacity, opportunities, and resources to carry out their work; will have a 
+greater impact on community development and revitalization than when working in a silo; and will have a more 
+sustained, long-term impact.
 
 
 
