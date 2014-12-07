@@ -32,6 +32,8 @@
       dt, dd { float: left }
       dt { clear:both }
 
+      .filter-1 { background-color: hsl(87, 64%, 42%); }
+
     </style>
   </head>
 
@@ -59,22 +61,16 @@
       </div>
     </nav>
 
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">All</a></li>
-            <li><a href="#about">Capacity Building</a></li>
-            <li><a href="#about">Housing and Physical Development</a></li>
-            <li><a href="#about">Environmental and Public Health</a></li>
-            <li><a href="#about">Public Safety & Crime</a></li>
-            <li><a href="#about">Education</a></li>
-            <li><a href="#about">Arts and Culture</a></li>
-            <li><a href="#about">Other</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+    <ul class="nav nav-pills" role="tablist">
+      <li role="presentation" class="active"><a href="#">All <span class="badge">42</span></a></li>
+      <li role="presentation" class="filter-1"><a href="#">Capacity Building <span class="badge">4</span></a></li>
+      <li role="presentation" class="filter-2"><a href="#">Housing and Physical Development <span class="badge">8</span></a></li>
+      <li role="presentation"><a href="#">Environmental and Public Health <span class="badge">5</span></a></li>
+      <li role="presentation"><a href="#">Public Safety & Crime <span class="badge">8</span></a></li>
+      <li role="presentation"><a href="#">Education <span class="badge">7</span></a></li>
+      <li role="presentation"><a href="#">Arts and Culture <span class="badge">2</span></a></li>
+      <li role="presentation"><a href="#">Other <span class="badge">0</span></a></li>
+    </ul>
 
     <div class="container-fluid">
 
