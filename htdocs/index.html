@@ -29,28 +29,6 @@
     <style type="text/css">
       #map-canvas { height: 400px; margin: 0; padding: 0;}
 
-      .category-filter-1, 
-      .category-filter-2,
-      .category-filter-3,
-      .category-filter-4,
-      .category-filter-5,
-      .category-filter-6,
-      .category-filter-7
-      {
-        border-style: dotted dashed;
-        color: black;
-        display: block;
-        font-size: 12px;
-        letter-spacing: 0.1rem;
-        line-height: 4;
-        text-align: left;
-        text-transform: uppercase;
-      }
-/*
-      .category-filter-1 {     background-color: hsl(204, 87%, 39%); }
-      .category-filter-2 {     background-color: hsl(87, 64%, 42%);  }
-*/
-
     </style>
   </head>
 
@@ -73,59 +51,35 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://getbootstrap.com/examples/navbar/">Default</a></li>
-            <li class="active"><a href="http://getbootstrap.com/examples/navbar-static-top/">Static top <span class="sr-only">(current)</span></a></li>
-            <li><a href="http://getbootstrap.com/examples/navbar-fixed-top/">Fixed top</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">All</a></li>
+            <li><a href="#about">Capacity Building</a></li>
+            <li><a href="#about">Housing and Physical Development</a></li>
+            <li><a href="#about">Environmental and Public Health</a></li>
+            <li><a href="#about">Public Safety & Crime</a></li>
+            <li><a href="#about">Education</a></li>
+            <li><a href="#about">Arts and Culture</a></li>
+            <li><a href="#about">Other</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-2 category-filter-1">
-          <a href="#">Capacity Building</a>
-        </div>
-        <div class="col-md-2 category-filter-2">
-          <a href="#">Housing and Physical Development</a>
-        </div>
-        <div class="col-md-2 category-filter-3">
-          <a href="#">Environmental and Public Health</a>
-        </div>
-        <div class="col-md-2 category-filter-4">
-          <a href="#">Public Safety & Crime</a>
-        </div>
-        <div class="col-md-1 category-filter-5">
-          <a href="#">Education</a>
-        </div>
-        <div class="col-md-2 category-filter-6">
-          <a href="#">Arts and Culture</a>
-        </div>
-        <div class="col-md-1 category-filter-7">
-          <a href="#">Other</a>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-md-3">
           <h1>list of programs</h1>
         </div>
-        <div id="map-canvas" class="col-md-5">
+        <div id="map-canvas" class="col-md-9">
         </div>
     </div> <!-- /container -->
 
