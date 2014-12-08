@@ -1,155 +1,215 @@
 <!DOCTYPE html>
-<html lang=en>
-<head>
-	<meta charset=utf-8>
-	<title>Get A Flu Shot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
-	<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" />
-	<link rel="icon" href="img/favicon.ico" type=”image/x-icon”>
-	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<!-- Bootstrap -->
-	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<style>
-		body { padding-bottom: 75px; }
-		.google-map-canvas,
-		.google-map-canvas * { .box-sizing(content-box); }
-		#map img { max-width: none; }
-		.dropdown-menu { background-color:#333; }
-		.dropdown-menu > li > a { color:#aaa; }
-		.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {background-color:#fff; color:#333; text-decoration:none;}
-	</style>
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		<script src="js/ltIE9.min.js"></script>
-	<![endif]-->
-</head>
-<body>
-	
-	<div id=map style="position:absolute; top:0; bottom:50px; left:0; right:0;"></div>
-	
-	<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-		<div class="navbar-header">
-			<button id="navbar-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a id="nav-brand" class="navbar-brand" data-toggle="modal" href="#modal-gafs">Get A Flu Shot</a>
-		</div>
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<ul class="nav navbar-nav">
-				<li id="nav-li-all" class="active"><a id="nav-all" href="#all">All</a></li>
-				<li id="nav-li-seven"><a id="nav-seven" href="#seven">Next 7 Days</a></li>
-				<li id="nav-li-days" class="dropdown">
-					<a id="nav-days" href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="nav-days-text">On A Day</span><b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="#today" id="nav-today" class="day">Today</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="#sunday" id="nav-sunday" class="day">Sunday</a>
-						</li>
-						<li>
-							<a href="#monday" id="nav-monday" class="day">Monday</a>
-						</li>
-						<li>
-							<a href="#tuesday" id="nav-tuesday" class="day">Tuesday</a>
-						</li>
-						<li>
-							<a href="#wednesday" id="nav-wednesday" class="day">Wednesday</a>
-						</li>
-						<li>
-							<a href="#thursday" id="nav-thursday" class="day">Thursday</a>
-						</li>
-						<li>
-							<a href="#friday" id="nav-friday" class="day">Friday</a>
-						</li>
-						<li>
-							<a href="#saturday" id="nav-saturday" class="day">Saturday</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<form class="navbar-form navbar-left" onSubmit="$('#nav-go').click(); return false;" role="search">
-				<div class="form-group">
-					<input id="nav-address" type="text" class="form-control input-sm" placeholder="Enter an address">
-				</div>
-				<button id="nav-go" class="btn btn-default btn-sm" type="button">Go</button>
-			</form>
-			<a id="nav-agency" class="navbar-text pull-right" data-toggle="modal" href="#modal-cdph"><small>Kansasa City Brigade</small></a>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-		</div>
-	</nav>
+    <title>Static Top Navbar Example for Bootstrap</title>
 
-	<!-- CDPH Modal -->
-	<div class="modal fade" id="modal-cdph" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Notes</h4>
-				</div>
-				<div class="modal-body">
-					<small>Built by <a href="http://about.me/tomkompare" target="_blank">Tom Kompare</a> in partnership with the Chicago Department of Public Health (CDPH). This was not developed by CDPH and CDPH makes no representations as to the accuracy of the information provided by this map application. This map application is hosted by the <a href="http://codeforkc.org/" target="_blank">Kansas City Code for America Brigade</a>. <a href="https://github.com/codeforkansascity/flushots2013" target="_blank">The code behind this web application</a> is free, open, and under a <a href="https://github.com/codeforkansascity/flushots2013/blob/master/LICENSE.TXT"target="_blank">MIT License</a>. Feel free to <a href="https://github.com/codeforkansascity/flushots2013/issues" target="_blank">send me comments</a>.</small>
-					<p><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button><br></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!-- Get A Flu Shot Modal -->
-	<div class="modal fade" id="modal-gafs" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Learn More</h4>
-				</div>
-				<div class="modal-body">
-					<small>Welcome to the flu shot finder. If your device has GPS, you may click on the <i>Find Me</i> button to see locations near you. You may enter your address and click on <i>Go</i> to do the same. Click on <i>All</i>, <i>Next 7 Days</i>, or <i>On A Day</i> of the week to highlight locations available on a certain day. Blue map locations offer free flu shots for anyone six months of age or older.<br><br></small>
-					<p><br><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button><br></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<script>
-		window.jQuery
-			|| document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')
-	</script>
-	<!-- All JS files below are included in 'main.min.js' file -->
-	<script src="js/maps.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/date.js"></script>
-	<script src="js/jquery.icalendar.js"></script>
-	<script src="js/infobox.js"></script>
-	<script src="js/tkmap.4.0.0.js"></script>
-	<script src="js/fusiontable.js"></script>
-	<script src="js/event.js"></script>
-	<script src="js/flushots.js"></script>
-	<script src="js/main.js"></script>
-<!--
-	<script src="js/main.min.js"></script>
--->
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-42855450-2']);
-		_gaq.push(['_trackPageview']);
-		// SCC Analytics
-		_gaq.push(['scc._setAccount', 'UA-37739534-17']);
-		_gaq.push(['scc._trackPageview']);
-	
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
-</body>
-</html>
+    <!-- Bootstrap core CSS -->
+    <link href="index_files/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="index_files/navbar-static-top.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="index_files/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+      #map-canvas { height: 900px; margin: 0; padding: 0;}
+
+      dt, dd { float: left }
+      dt { clear:both }
+
+      .filter-1 { background-color: hsl(87, 64%, 42%); }
+
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project Mapping</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <ul class="nav nav-pills" role="tablist">
+      <li role="presentation" class="active"><a href="#">All <span class="badge">42</span></a></li>
+      <li role="presentation" class="filter-1"><a href="#">Capacity Building <span class="badge">4</span></a></li>
+      <li role="presentation" class="filter-2"><a href="#">Housing and Physical Development <span class="badge">8</span></a></li>
+      <li role="presentation"><a href="#">Environmental and Public Health <span class="badge">5</span></a></li>
+      <li role="presentation"><a href="#">Public Safety & Crime <span class="badge">8</span></a></li>
+      <li role="presentation"><a href="#">Education <span class="badge">7</span></a></li>
+      <li role="presentation"><a href="#">Arts and Culture <span class="badge">2</span></a></li>
+      <li role="presentation"><a href="#">Other <span class="badge">0</span></a></li>
+    </ul>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		    Vine Street Gardens at the KC Workhouse
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+		  <dl>
+                   <dt>Organization: </dt><dd>2orMore in partnership with Kansas City Business Center For Entrepreneurial Development <span style="color:gray">(Nonprofit)</style></dd>
+                   <dt>Location: </dt><dd>20th and Vine Street</dd>
+		  </dl> 
+		  <br>
+		  <br>
+                  <p><button type="button" class="btn btn-default">Show on map</button></p>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Immanuel Manor Communal Garden
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+
+		  <dl>
+                   <dt>Organization: </dt><dd>Blue Hills Community Services <span style="color:gray">(Nonprofit)</style></dd>
+                   <dt>Location: </dt><dd>42nd Street and Tracy Avenue</dd>
+		  </dl> 
+		  <br>
+		  <br>
+                  <p><button type="button" class="btn btn-default">Show on map</button></p>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Continuing the Town Fork Creek Role
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+
+		  <dl>
+                   <dt>Organization: </dt><dd>Town Fork Creek Neighborhood Association <span style="color:gray">(Neighborhood)</style></dd>
+                   <dt>Location: </dt><dd>2803 E 51st Street</dd>
+		  </dl> 
+	         
+                  <br> 
+                  <br> 
+                  <p><button type="button" class="btn btn-default" style="clear: both;">Show on map</button></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div id="map-canvas">
+          </div>
+        </div>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="index_files/jquery.js"></script>
+    <script src="index_files/bootstrap.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="index_files/ie10-viewport-bug-workaround.js"></script>
+ 
+    <!-- Ask google to allow us to use the maps api --> 
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAuoNKx1nLl4zH0pow7HFlSTrldRzOnSc">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: { lat: 39.05067, lng: -94.569935},
+          zoom: 12
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+
+        var myLatlng = new google.maps.LatLng(39.085912, -94.5635965);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            title:"Vine Street Gardens at the KC Workhouse "
+        });
+
+        // To add the marker to the map, call setMap();
+        marker.setMap(map);
+
+
+
+        var myLatlng = new google.maps.LatLng(39.0506221, -94.5699358);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            title:"Immanuel Manor Communal Garden"
+        });
+
+        // To add the marker to the map, call setMap();
+        marker.setMap(map);
+
+
+
+        var myLatlng = new google.maps.LatLng(39.032739, -94.551891);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            title:"Continuing the Town Fork Creek Role "
+        });
+
+        // To add the marker to the map, call setMap();
+        marker.setMap(map);
+
+
+
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+
+    </script>
+</body></html>
