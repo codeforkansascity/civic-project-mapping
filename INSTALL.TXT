@@ -2,6 +2,13 @@ This documents how we setup the Google Fusion Table and connected it to the appl
 
 Go through the Getting Started with Google Fusion Tables API
 
+Create a google form
+* Make sure it saves to a spread sheet
+
+Add an entry and make sure it makes it to the spread sheet
+
+
+
 I think this is what I did https://developers.google.com/fusiontables/docs/v1/getting_started
 * Create a Google Account for the project
 * Connect Fusion Tables to your Google Drive
