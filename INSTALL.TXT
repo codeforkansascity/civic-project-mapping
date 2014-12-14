@@ -1,39 +1,73 @@
-This documents how we setup the Google Fusion Table and connected it to the application in Kansas City.
+This documents how we setup a Google Form that updates a Google Fusion Table and connected it to the application in Kansas City.
 
-Go through the Getting Started with Google Fusion Tables API
+https://www.youtube.com/watch?v=sxR4ZETbK3U&noredirect=1
 
-Create a google form
-* Make sure it saves to a spread sheet
+Create From
+===========
 
-Add an entry and make sure it makes it to the spread sheet
+Location Field: Text, users will be able to enter addresses in the same formats that google maps use.  i.g. 31st and Troost Kansas City mo.
+
+Confirmation page: "Your response has been recorded.  Please enter your project only once.  It make take a few moments to appear on the map."
+
+Make the form save to the same table.
+
+Enter a entry so, the spread sheet should now have a header row, and the data you entered.
 
 
+Create Fusion table
+================================
+* Import from Google Spread sheets, using your resoponse table
+* Add "Location" Column, type location
+* Get ID of Fusion table 
+  File -> About this table
+  id  1MfAjP3KeJ8Zh27vzPNXuVmr9pXb4Cqch1bqY4pq9
 
-I think this is what I did https://developers.google.com/fusiontables/docs/v1/getting_started
-* Create a Google Account for the project
-* Connect Fusion Tables to your Google Drive
-  * Open Drive
-  * Click on New
-  * Hover over More
-  * Click on "+ Connect More Apps"
-  * Search for Fusion Tables
-  * Click on "+ Connect"
 
-* Create a Google Fusion table from the template in data/fluehot.csv
-  * Open Drive
-  * Click on New
-  * Hover over More
-  * Click on "Google Fusion Tables"
-  * Click on "Choose Files"
-  * Navigate to data
-  * Select flushot.csv
-  * Press Next, for Coman and UTF-8
-  * Press Next, for using row one for the column names
-  * Press Finish
+Add script to spread sheet
+==========================
+Go back to spread sheet
+Start Goolge Apps Script Project
+   Tools -> Script Editor -> Create Blank Project
+   Name it "Sync Script"
+Tell Script where table is, the address column in the spread sheet, and where to put the location in the Fusion table.
+   File -> Project Properties -> Script properties
+   Add
+     docid  and the id of the table
+     addressColumn  Address column in the spread sheet  "Address of the project"
+     latlngColumn  to put in the Fustion table "Location"
+Replace the script with "script for Google forms.txt" from  https://github.com/lclontz/google_forms_to_fusion_tables/
 
-* Import some rows
-  * File
-  * Import more rows...
+Enable the Spread Sheet script update the Fusion table
+======================================================
+In script window
+   Resources -> Advanced Google services
+   Turn on Fusion table API
+   Click on the Developer Console link
+        * Make sure Fusion table API is on
+In google developer consols
+        * Go to Google Developers Console https://console.developers.google.com/project
+        * Make sure Fusion table API is on
+
+
+Check authorization
+===================
+In script window
+   Run -> checkAuthorization
+   Click Contineu on Authorization required
+   Click Accept on "Sync Script would like to:
+
+Have spread sheet up date the google fusion table whenever it is updated
+========================================================================
+In script window
+Resources -> Current project's triggers
+Add
+Run: onFormSubmit, Events: From spreadsheet, On form submit
+Add a new trigger
+Run: Sync,  Events: Time-driven, Hour timer, Every hour
+
+Problems
+========
+View logs
 
 
 
@@ -42,7 +76,6 @@ I think this is what I did https://developers.google.com/fusiontables/docs/v1/ge
   * Change access to "Anyone with the link" can view
 
 * Share with other on your team to edit.
-
 
 
 * Google Using Fusion Tables https://developers.google.com/fusiontables/docs/v1/using#auth
@@ -64,14 +97,6 @@ I think this is what I did https://developers.google.com/fusiontables/docs/v1/ge
             * Select "Browser key"
             * Leave "ACCEPT REQUESTS FROM THESE HTTP REFERERS (WEB SITES)" blank
 
-* You should be able to run a query against it
-
-     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1KxVV0wQXhxhMScSDuqr-0Ebf0YEt4m4xzVplKd4&key=your API key
-                                                                        \ from the url of your fustion table   /
-                                                                          or file -> about-> id
-                                                                          they also refer to this as the table id
-
-    https://www.googleapis.com/fusiontables/v1/tables/tableId/columns
 
 
 Google has disabled use of the Maps API for this application. This site is not authorized to use the Google Maps client ID provided. If you are the owner of this application, you can learn more about registering URLs here: https://developers.google.com/maps/documentation/business/clientside/auth#registering_authorized_url
@@ -86,33 +111,20 @@ Then https://developers.google.com/maps/documentation/javascript/tutorial#api_ke
 
 Use the value of API key in main.js's googlemapsapikey: value
 
-
-Setup a web site to run this and its one php 
-    Modify
-        main.js - city:
-                  lat:
-                  lng:
-                  state:
-
-
-Create a Google Fiustion table based off of your city and 
-
-Update the Code with google doc id and api key
-
-    Modify
-        main.js     - eventquery:
-
-You will need to get a API key for google maps https://developers.google.com/maps/documentation/javascript/tutorial#api_key
-
-    Modify 
-        index.html  - src="//maps.googl.....
-        main.js     - googlemapsapikey
-
-
-
 Turn on Contacts API and Google+ API"  per http://stackoverflow.com/questions/22870082/getting-error-403-access-not-configured-please-use-google-developers-console-t
 
 
-
-
 See https://developers.google.com/fusiontables/docs/v1/getting_started 
+
+* You should be able to run a query against it
+
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1KxVV0wQXhxhMScSDuqr-0Ebf0YEt4m4xzVplKd4&key=your API key
+                                                                        \ from the url of your fustion table   /
+                                                                          or file -> about-> id
+                                                                          they also refer to this as the table id
+
+    https://www.googleapis.com/fusiontables/v1/tables/tableId/columns
+
+
+
+
