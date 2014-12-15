@@ -155,63 +155,124 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="index_files/jquery.js"></script>
-    <script src="index_files/bootstrap.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="index_files/ie10-viewport-bug-workaround.js"></script>
- 
-    <!-- Ask google to allow us to use the maps api --> 
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAuoNKx1nLl4zH0pow7HFlSTrldRzOnSc">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: { lat: 39.05067, lng: -94.569935},
-          zoom: 12
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+      <script src="index_files/jquery.js"></script>
+      <script src="index_files/bootstrap.js"></script>
+      <script src="js/tkmap.4.0.0.js"></script>
+      <script src="js/projects.js"></script>
+      <script src="js/fusiontable.js"></script>
+        <script src="js/event.js"></script>
 
-
-        var myLatlng = new google.maps.LatLng(39.085912, -94.5635965);
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            title:"Vine Street Gardens at the KC Workhouse "
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
+        <script src="js/infobox.js"></script>
 
 
 
-        var myLatlng = new google.maps.LatLng(39.0506221, -94.5699358);
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            title:"Immanuel Manor Communal Garden"
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
 
 
+      <script type="text/javascript">
+          google.maps = google.maps || {};
+      (function($,TkMap,Projects,FusionTable){
+          /**
+           * @classDescription - Default settings for this application
+           * @class - Default
+           */
+          var Default = {
+              // City
+              city:'Kansas City',
+              // DOM ID of where the Google Map is to be rendered
+              domid:'map-canvas',
+              // Google Fusion Tables SQL-like query string for flu shot location data
+              eventquery:'SELECT * FROM 1MfAjP3KeJ8Zh27vzPNXuVmr9pXb4Cqch1bqY4pq9',
+              // Google Fusion Tables URI
+              fturl:'https://www.googleapis.com/fusiontables/v1/query',
+              // Google maps API key
+              googlemapsapikey:'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
+               // Start center latutude of the Google map
+              lat:39.0997,
+              // Start center longitude of the Google map
+              lng:-94.5783,
+              // State
+              state:'Missouri',
+              // Defined style types passed to TkMap
+              styles:'grey minlabels',
+              // Initial zoom level for the Google map
+              zoom:12,
+              // Zoom for finding address
+              zoomaddress:14
+          };
 
-        var myLatlng = new google.maps.LatLng(39.032739, -94.551891);
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            title:"Continuing the Town Fork Creek Role "
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
+          /*
+           * jQuery's 'on document ready' function
+           * Run this after the DOM is fully loaded.
+           */
+          $(function(){
 
 
 
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
+
+              var Map = new TkMap({
+                  domid:Default.domid,
+                  init:true,
+                  lat:Default.lat,
+                  lng:Default.lng,
+                  styles:Default.styles,
+                  zoom:Default.zoom
+              }); // END Map object constructor
+
+              /**
+               * The Project application object
+               */
+              var Flu = new Projects(Default.infoboxoptions);
+
+              /**
+               * Put a legend up for the pins in on the right bottom of the screen
+               */
+
+              var LegendDiv = document.createElement('div');
+              Flu.setMapLegend(LegendDiv,Map,Flu,Default);
+              LegendDiv.index = 1;
+              Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
+
+              /**
+               * Put the Find Me button up on the upper right hand of the screen
+               */
+
+              if(Flu.geolocate)
+              {
+                  var FindMeDiv = document.createElement('div');
+                  Flu.setFindMeControl(FindMeDiv,Map,Flu,Default);
+                  FindMeDiv.index = 1;
+                  Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
+              }
+
+              /**
+               * Load the projects data
+               */
+
+              // Get the flu shot event data from the Google Fusion Table
+              var EventsFT = new FusionTable(Default.fturl,Default.eventquery,Default.googlemapsapikey);
+              $.getJSON(EventsFT.url, {
+                  dataType: 'jsonp',
+                  timeout: 5000
+              })
+              .done(function (ftdata) {
+                          console.dir(ftdata);
+                  EventsFT.columns = ftdata.columns;
+                  EventsFT.rows = ftdata.rows;
+                  Flu.getEvents(EventsFT.columns,EventsFT.rows,Map);
+                  // Highlight all today's and upcoming events.
+                  Flu.setMarkersByDay('all');
+              })
+              .fail(function(){
+                  alert('Oh, no! We are having trouble getting the information we need from storage.');
+              });
+
+
+
+
+
+          }); // END jQuery on document ready
+      })(jQuery,TkMap,Projects,FusionTable);
 
 
     </script>
