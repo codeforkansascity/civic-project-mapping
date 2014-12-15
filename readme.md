@@ -2,15 +2,11 @@ This code is based of of Tom Kompare's https://github.com/tkompare/flushots2013.
 
 This is a volunteer effort of the Kansas City Brigade of Code for America. http://codeforkc.org
 
-The live site is at http://kcflushots.com/
-
-Special thanks to Ashly Hand of KCMO for suggesting that we do this project.
-
-The data behind this site is a Google Fusion Table https://www.google.com/fusiontables/DataSource?docid=1JL0TihFJT5MTJiVK1t54e6hE836Fw-UHwdB_8YOA.
+The data behind this site is a Google Fusion Table 
 
 ### Problem Statement
 
-Need for a community project map: The Community Capital Fund and our partners have realized through our 
+Need for a community project map: *The Community Capital Fund* and our partners have realized through our 
 work that a map of existing community-based projects does not exist and that often, neighborhood associations 
 and organizations are not aware of projects/programs occurring near them, and often do not know of other 
 organizations doing similar work. CCF believes that neighborhoods that partner with and learn from others 
