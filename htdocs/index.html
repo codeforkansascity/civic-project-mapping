@@ -222,14 +222,14 @@
               /**
                * The Project application object
                */
-              var Flu = new Projects(Default.infoboxoptions);
+              var Proj = new Projects(Default.infoboxoptions);
 
               /**
                * Put a legend up for the pins in on the right bottom of the screen
                */
 
               var LegendDiv = document.createElement('div');
-              Flu.setMapLegend(LegendDiv,Map,Flu,Default);
+              Proj.setMapLegend(LegendDiv,Map,Proj,Default);
               LegendDiv.index = 1;
               Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
 
@@ -237,10 +237,10 @@
                * Put the Find Me button up on the upper right hand of the screen
                */
 
-              if(Flu.geolocate)
+              if(Proj.geolocate)
               {
                   var FindMeDiv = document.createElement('div');
-                  Flu.setFindMeControl(FindMeDiv,Map,Flu,Default);
+                  Proj.setFindMeControl(FindMeDiv,Map,Proj,Default);
                   FindMeDiv.index = 1;
                   Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
               }
@@ -259,9 +259,9 @@
                           console.dir(ftdata);
                   EventsFT.columns = ftdata.columns;
                   EventsFT.rows = ftdata.rows;
-                  Flu.getEvents(EventsFT.columns,EventsFT.rows,Map);
+                  Proj.getEvents(EventsFT.columns,EventsFT.rows,Map);
                   // Highlight all today's and upcoming events.
-                  Flu.setMarkersByDay('all');
+                  Proj.setMarkersByDay('all');
               })
               .fail(function(){
                   alert('Oh, no! We are having trouble getting the information we need from storage.');
