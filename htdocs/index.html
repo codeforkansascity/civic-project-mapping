@@ -152,16 +152,23 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
       <script src="index_files/jquery.js"></script>
       <script src="index_files/bootstrap.js"></script>
-        <script src="js/tkmap.4.0.0.js"></script>
+      <script src="js/tkmap.4.0.0.js"></script>
+      <script src="js/projects.js"></script>
+      <script src="js/fusiontable.js"></script>
+        <script src="js/event.js"></script>
 
-      <script type="text/javascript"
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8">
-      </script>
+        <script src="js/infobox.js"></script>
+
+
+
+
 
       <script type="text/javascript">
-      (function($,TkMap,FusionTable,Projects){
+          google.maps = google.maps || {};
+      (function($,TkMap,Projects,FusionTable){
           /**
            * @classDescription - Default settings for this application
            * @class - Default
@@ -209,9 +216,60 @@
                   zoom:Default.zoom
               }); // END Map object constructor
 
+              /**
+               * The Project application object
+               */
+              var Flu = new Projects(Default.infoboxoptions);
+
+              /**
+               * Put a legend up for the pins in on the right bottom of the screen
+               */
+
+              var LegendDiv = document.createElement('div');
+              Flu.setMapLegend(LegendDiv,Map,Flu,Default);
+              LegendDiv.index = 1;
+              Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
+
+              /**
+               * Put the Find Me button up on the upper right hand of the screen
+               */
+
+              if(Flu.geolocate)
+              {
+                  var FindMeDiv = document.createElement('div');
+                  Flu.setFindMeControl(FindMeDiv,Map,Flu,Default);
+                  FindMeDiv.index = 1;
+                  Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
+              }
+
+              /**
+               * Load the projects data
+               */
+
+              // Get the flu shot event data from the Google Fusion Table
+              var EventsFT = new FusionTable(Default.fturl,Default.eventquery,Default.googlemapsapikey);
+              $.getJSON(EventsFT.url, {
+                  dataType: 'jsonp',
+                  timeout: 5000
+              })
+              .done(function (ftdata) {
+                          console.dir(ftdata);
+                  EventsFT.columns = ftdata.columns;
+                  EventsFT.rows = ftdata.rows;
+                  Flu.getEvents(EventsFT.columns,EventsFT.rows,Map);
+                  // Highlight all today's and upcoming events.
+                  Flu.setMarkersByDay('all');
+              })
+              .fail(function(){
+                  alert('Oh, no! We are having trouble getting the information we need from storage.');
+              });
+
+
+
+
 
           }); // END jQuery on document ready
-      })(jQuery,TkMap);
+      })(jQuery,TkMap,Projects,FusionTable);
 
 
     </script>
