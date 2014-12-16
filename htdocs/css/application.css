@@ -44,8 +44,12 @@
 	border-radius: 5px;
 }
 
-li a {
-	color: #eee;
+.nav-pills > li > a {
+    color: #eee;
+}
+
+.nav-pills > li > a:hover {
+    color: #337ab7;
 }
 
 #all a {
