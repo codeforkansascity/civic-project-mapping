@@ -65,6 +65,34 @@ var Projects = (function($) {
                     // Make the info box
     				this.Events[i].infobox = new InfoBox(infoboxoptions);
 
+                  var p_description = rows[i][9];
+
+                  var accordion = '';
+                  accordion += '           <div class="panel panel-default">' + "\n";
+                  accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
+                  accordion += '                <h4 class="panel-title">' + "\n";
+                  accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
+                  accordion += '                    ' + p_description + "\n";
+                  accordion += '                  </a>' + "\n";
+                  accordion += '                </h4>' + "\n";
+                  accordion += '              </div>' + "\n";
+                  accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
+                  accordion += '                <div class="panel-body">' + "\n";
+                  accordion += '' + "\n";
+                  accordion += '        <dl>' + "\n";
+                  accordion += '                   <dt>Organization: </dt><dd>Blue Hills Community Services <span style="color:gray">(Nonprofit)</style></dd>' + "\n";
+                  accordion += '                   <dt>Location: </dt><dd>42nd Street and Tracy Avenue</dd>' + "\n";
+                  accordion += '        </dl>' + "\n";
+                  accordion += '        <br>' + "\n";
+                  accordion += '        <br>' + "\n";
+                  accordion += '                  <p><button type="button" class="btn btn-default">Show on map</button></p>' + "\n";
+                  accordion += '                </div>' + "\n";
+                  accordion += '              </div>' + "\n";
+                  accordion += '            </div>' + "\n";
+
+
+                  $('#accordion').append(accordion);
+
                 }
 			}
 			for(var i in this.Events)
