@@ -57,97 +57,42 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
-    <ul class="nav nav-pills" role="tablist">
-      <li role="presentation" id="all"><a href="#">All <span class="badge">42</span></a></li>
-      <li role="presentation" id="capacity-building"><a href="#">Capacity Building <span class="badge">4</span></a></li>
-      <li role="presentation" id="housing"><a href="#">Housing and Physical Development <span class="badge">8</span></a></li>
-      <li role="presentation" id="environmental"><a href="#">Environmental and Public Health <span class="badge">5</span></a></li>
-      <li role="presentation" id="public-safety"><a href="#">Public Safety & Crime <span class="badge">8</span></a></li>
-      <li role="presentation" id="education"><a href="#">Education <span class="badge">7</span></a></li>
-      <li role="presentation" id="arts-and-culture"><a href="#">Arts and Culture <span class="badge">2</span></a></li>
-      <li role="presentation" id="other"><a href="#">Other <span class="badge">0</span></a></li>
-    </ul>
+
 
     <div class="container-fluid">
 
-      <div class="row">
-        <div class="col-md-3">
-          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-		    Vine Street Gardens at the KC Workhouse
-                  </a>
-                </h4>
-              </div>
-              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-		  <dl>
-                   <dt>Organization: </dt><dd>2orMore in partnership with Kansas City Business Center For Entrepreneurial Development <span style="color:gray">(Nonprofit)</style></dd>
-                   <dt>Location: </dt><dd>20th and Vine Street</dd>
-		  </dl> 
-		  <br>
-		  <br>
-                  <p><button type="button" class="btn btn-default">Show on map</button></p>
-                </div>
-              </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation" id="all"><a href="#">All <span id="cnt-all" class="badge">0</span></a></li>
+                    <li role="presentation" id="capacity-building"><a href="#">Capacity Building <span id="cnt-capacity-building" class="badge">0</span></a></li>
+                    <li role="presentation" id="housing"><a href="#">Housing and Physical Development <span class="badge">0</span></a></li>
+                    <li role="presentation" id="environmental"><a href="#">Environmental and Public Health <span id="cnt-environmental" class="badge">0</span></a></li>
+                    <li role="presentation" id="public-safety"><a href="#">Public Safety & Crime <span class="badge">0</span></a></li>
+                    <li role="presentation" id="education"><a href="#">Education <span class="badge">0</span></a></li>
+                    <li role="presentation" id="arts-and-culture"><a href="#">Arts and Culture <span id="cnt-arts-and-culture" class="badge">0</span></a></li>
+                    <li role="presentation" id="other"><a href="#">Other <span class="badge">0</span></a></li>
+                </ul>
             </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Immanuel Manor Communal Garden
-                  </a>
-                </h4>
-              </div>
-              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body">
-
-		  <dl>
-                   <dt>Organization: </dt><dd>Blue Hills Community Services <span style="color:gray">(Nonprofit)</style></dd>
-                   <dt>Location: </dt><dd>42nd Street and Tracy Avenue</dd>
-		  </dl> 
-		  <br>
-		  <br>
-                  <p><button type="button" class="btn btn-default">Show on map</button></p>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading" role="tab" id="headingThree">
-                <h4 class="panel-title">
-                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Continuing the Town Fork Creek Role
-                  </a>
-                </h4>
-              </div>
-              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                <div class="panel-body">
-
-		  <dl>
-                   <dt>Organization: </dt><dd>Town Fork Creek Neighborhood Association <span style="color:gray">(Neighborhood)</style></dd>
-                   <dt>Location: </dt><dd>2803 E 51st Street</dd>
-		  </dl> 
-	         
-                  <br> 
-                  <br> 
-                  <p><button type="button" class="btn btn-default" style="clear: both;">Show on map</button></p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="col-md-9">
-          <div id="map-canvas">
-          </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="map-canvas">
+                </div>
+            </div>
         </div>
     </div> <!-- /container -->
 
@@ -187,7 +132,26 @@
               fturl:'https://www.googleapis.com/fusiontables/v1/query',
               // Google maps API key
               googlemapsapikey:'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
-               // Start center latutude of the Google map
+
+              infoboxoptions:{
+                  disableAutoPan: false,
+                  maxWidth: 0,
+                  pixelOffset: new google.maps.Size(-121, 0),
+                  zIndex: null,
+                  boxStyle: {
+                      background: "url('img/tipbox.gif') no-repeat",
+                      opacity: 0.92,
+                      width: "240px",
+                      height: "240px"
+                  },
+                  closeBoxMargin: "11px 4px 4px 4px",
+                  closeBoxURL: "img/close_x.png",
+                  infoBoxClearance: new google.maps.Size(25, 60),
+                  visible: false,
+                  pane: "floatPane",
+                  enableEventPropagation: false
+              },
+              // Start center latutude of the Google map
               lat:39.0997,
               // Start center longitude of the Google map
               lng:-94.5783,
@@ -228,10 +192,10 @@
                * Put a legend up for the pins in on the right bottom of the screen
                */
 
-              var LegendDiv = document.createElement('div');
-              Proj.setMapLegend(LegendDiv,Map,Proj,Default);
-              LegendDiv.index = 1;
-              Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
+              // var LegendDiv = document.createElement('div');
+              // Proj.setMapLegend(LegendDiv,Map,Proj,Default);
+              // LegendDiv.index = 1;
+              // Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
 
               /**
                * Put the Find Me button up on the upper right hand of the screen

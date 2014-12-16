@@ -27,9 +27,12 @@ var Event = (function($){
 				else
 				{
 					ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#ddd; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif">';
-                    console.dir(ThisEvent.data);
 
-                    ThisEvent.infoboxtext += "This is the event box created in js/event.js";
+                    ThisEvent.infoboxtext += '   <p>' + "\n";
+                    ThisEvent.infoboxtext += '                   <B>Project: </B> ' + ThisEvent.data[ 'Project description' ] +  "<br>\n";
+                    ThisEvent.infoboxtext += '                   <B>Organization: </B>' + ThisEvent.data[ 'Organization name' ] + ' <span style="color:gray">(' + ThisEvent.data[ 'Which best describes your type of organization?' ] + ') </style> ' + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <B>Location: </B>' + ThisEvent.data[ 'Address of the project' ] + "<br>\n";
+                    ThisEvent.infoboxtext += '        </p>' + "\n";
 
 					ThisEvent.infoboxtext += '</div>';
 					ThisEvent.infobox.setContent(ThisEvent.infoboxtext);

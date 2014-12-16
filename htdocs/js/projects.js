@@ -32,6 +32,11 @@ var Projects = (function($) {
 		
 		this.getEvents = function(columns,rows,Map)
 		{
+            var pin_counts = {};
+            pin_counts[ 'Capacity Building' ] = 0;
+            pin_counts[ 'Environmental and Public Health' ] = 0;
+            pin_counts[ 'Arts and Culture' ] = 0;
+            var total_pin_count = 0;
 			// Copy the flu shot data to the Event object
 			for (var i in rows)
 			{
@@ -49,12 +54,28 @@ var Projects = (function($) {
 
                     // Create the Google LatLng object
                     this.Events[i].latlng = new google.maps.LatLng(lla[0],lla[1]);
+
+                    var organization_type = $.trim(this.Events[i].data[ 'Project type' ]);
+                    console.log( organization_type );
                     // Create the markers for each event
-                    var icon = 'img/red.png';
-    //				if($.trim(this.Events[i].data.cost.toLowerCase()) === 'free')
-    //				{
-    //					icon = 'img/blue.png';
-    //				}
+
+                    var icon = '';
+                    if ( organization_type == 'Capacity Building') {
+                        icon = 'img/6F4682.png';
+                        pin_counts[ organization_type ]++;
+                    } else if ( organization_type == 'Environmental and Public Health') {
+                        icon = 'img/4951FF.png';
+                        pin_counts[ organization_type ]++;
+                    } else if ( organization_type == 'Arts and Culture') {
+                        icon = 'img/FFC355.png';
+                        pin_counts[ organization_type ]++;
+                    } else {
+                        icon = 'img/blue.png';
+                    }
+
+                    total_pin_count++;
+
+
                     this.Events[i].marker = new google.maps.Marker({
                         position: this.Events[i].latlng,
                         map: Map.Map,
@@ -65,6 +86,35 @@ var Projects = (function($) {
                     // Make the info box
     				this.Events[i].infobox = new InfoBox(infoboxoptions);
 
+                  var p_description = rows[i][9];
+
+                  var accordion = '';
+                  accordion += '           <div class="panel panel-default">' + "\n";
+                  accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
+                  accordion += '                <h4 class="panel-title">' + "\n";
+                  accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
+                  accordion += '                    ' + p_description + "\n";
+                  accordion += '                  </a>' + "\n";
+                  accordion += '                </h4>' + "\n";
+                  accordion += '              </div>' + "\n";
+                  accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
+                  accordion += '                <div class="panel-body">' + "\n";
+                  accordion += '' + "\n";
+                  accordion += '        <dl>' + "\n";
+                  accordion += '                   <dt>Organization: </dt><dd>' + this.Events[i].data[ 'Organization name' ] + '<span style="color:gray">(' + this.Events[i].data[ 'Which best describes your type of organization?' ] + ')</style></dd>' + "\n";
+                  accordion += '                   <dt>Location: </dt><dd>' + this.Events[i].data[ 'Address of the project' ] + '</dd>' + "\n";
+                  accordion += '        </dl>' + "\n";
+                  accordion += '        <br>' + "\n";
+                  accordion += '        <br>' + "\n";
+                  accordion += '                  <p><button type="button" class="btn btn-default">Show on map</button></p>' + "\n";
+                  accordion += '                </div>' + "\n";
+                  accordion += '              </div>' + "\n";
+                  accordion += '            </div>' + "\n";
+
+
+                  $('#accordion').append(accordion);
+
+
                 }
 			}
 			for(var i in this.Events)
@@ -73,6 +123,12 @@ var Projects = (function($) {
 				google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map,this.Events[i]));
 
 			}
+
+            $('#cnt-all').html( total_pin_count );
+            $('#cnt-capacity-building').html( pin_counts[ 'Capacity Building' ] );
+            $('#cnt-environmental').html( pin_counts[ 'Environmental and Public Health' ] );
+            $('#cnt-arts-and-culture').html( pin_counts[ 'Arts and Culture' ] );
+            console.dir(pin_counts);
 		};
 		
 		/**
@@ -109,7 +165,7 @@ var Projects = (function($) {
 								}
 							}
 							var maskedAddress = addarray.join(' ');
-							_gaq.push(['_trackEvent', 'Find Me', 'Address', maskedAddress]);
+							//_gaq.push(['_trackEvent', 'Find Me', 'Address', maskedAddress]);
 						}
 						else
 						{
