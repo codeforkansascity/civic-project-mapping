@@ -1,4 +1,54 @@
 .container {
 	float: left;
-	displa: inline;
+	display: inline;
 }
+
+
+#all {
+	background-color: #e5e5e5;
+	border-radius: 5px;
+}
+
+#capacity-building {
+	background-color: #822E43;
+	border-radius: 5px;
+}
+
+#housing {
+	background-color: #B137E8;
+	border-radius: 5px;
+}
+
+#environmental {
+	background-color: #4951FF;
+	border-radius: 5px;
+}
+
+#public-safety{
+	background-color: #37BCE8;
+	border-radius: 5px;
+}
+
+#education {
+	background-color: #1C8F51;
+	border-radius: 5px;
+}
+
+#arts-and-culture {
+	background-color: #FFC355;
+	border-radius: 5px;
+}
+
+#other {
+	background-color: #E86632;
+	border-radius: 5px;
+}
+
+li a {
+	color: #eee;
+}
+
+#all a {
+	color: #333;
+}
+
