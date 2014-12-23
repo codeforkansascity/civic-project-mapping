@@ -117,6 +117,14 @@
 
       <script type="text/javascript">
           google.maps = google.maps || {};
+
+          project_type_info = [];
+          project_type_info[ "Environmental and Public Health" ]    = { id: "environmental",     color: "#4951FF", pin_url: "img/4951FF.png", count: 0};
+          project_type_info[ "Arts and Culture" ]                   = { id: "arts-and-culture",  color: "#FFC355", pin_url: "img/FFC355.png", count: 0};
+          project_type_info[ "Capacity Building" ]                  = { id: "capacity-building", color: "#6F4682", pin_url: "img/6F4682.png", count: 0};
+
+
+
       (function($,TkMap,Projects,FusionTable){
           /**
            * @classDescription - Default settings for this application
