@@ -72,14 +72,14 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav nav-pills" role="tablist">
-                    <li role="presentation" id="all"><a href="#">All <span id="cnt-all" class="badge">0</span></a></li>
-                    <li role="presentation" id="capacity-building"><a href="#">Capacity Building <span id="cnt-capacity-building" class="badge">0</span></a></li>
-                    <li role="presentation" id="housing"><a href="#">Housing and Physical Development <span class="badge">0</span></a></li>
-                    <li role="presentation" id="environmental"><a href="#">Environmental and Public Health <span id="cnt-environmental" class="badge">0</span></a></li>
-                    <li role="presentation" id="public-safety"><a href="#">Public Safety & Crime <span class="badge">0</span></a></li>
-                    <li role="presentation" id="education"><a href="#">Education <span class="badge">0</span></a></li>
-                    <li role="presentation" id="arts-and-culture"><a href="#">Arts and Culture <span id="cnt-arts-and-culture" class="badge">0</span></a></li>
-                    <li role="presentation" id="other"><a href="#">Other <span class="badge">0</span></a></li>
+                    <li role="presentation" id="all" class="proj-type"><a href="#">All <span id="cnt-all" class="badge">0</span></a></li>
+                    <li role="presentation" id="capacity-building" class="proj-type"><a href="#">Capacity Building <span id="cnt-capacity-building" class="badge">0</span></a></li>
+                    <li role="presentation" id="housing" class="proj-type"><a href="#">Housing and Physical Development <span class="badge">0</span></a></li>
+                    <li role="presentation" id="environmental" class="proj-type"><a href="#">Environmental and Public Health <span id="cnt-environmental" class="badge">0</span></a></li>
+                    <li role="presentation" id="public-safety" class="proj-type"><a href="#">Public Safety & Crime <span class="badge">0</span></a></li>
+                    <li role="presentation" id="education" class="proj-type"><a href="#">Education <span class="badge">0</span></a></li>
+                    <li role="presentation" id="arts-and-culture" class="proj-type"><a href="#">Arts and Culture <span id="cnt-arts-and-culture" class="badge">0</span></a></li>
+                    <li role="presentation" id="other" class="proj-type"><a href="#">Other <span class="badge">0</span></a></li>
                 </ul>
             </div>
         </div>
@@ -234,13 +234,24 @@
                   EventsFT.rows = ftdata.rows;
                   Proj.getEvents(EventsFT.columns,EventsFT.rows,Map);
                   // Highlight all today's and upcoming events.
-                  Proj.setMarkersByDay('all');
+                  Proj.setMarkersByProjectType( 'all' );
               })
               .fail(function(){
                   alert('Oh, no! We are having trouble getting the information we need from storage.');
               });
 
+              $('.proj-type').click(function(){
 
+                  var clicked_id = this.id;
+
+                  // Change buttons
+                  $('.proj-type').removeClass('active');
+                  $('#' + clicked_id).addClass('active');
+
+                  // Selected today's events
+                  Proj.setMarkersByProjectType( clicked_id );
+
+              }); // END Day dropup listener
 
 
 
