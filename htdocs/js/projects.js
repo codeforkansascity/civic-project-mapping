@@ -14,22 +14,6 @@ var Projects = (function($) {
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
 		
-		this.setIcal = function(Event)
-		{
-			return function(){
-				$('#ical-'+Event.data.id).icalendar({
-					start: new Date(Date._parse(Event.data.begin_date+' '+Event.data.begin_time)),
-					end: new Date(Date._parse(Event.data.begin_date+' '+Event.data.end_time)),
-					title: 'Flu Shot',
-					summary: 'Get a Flu Shot',
-					description: "Please remember to bring your immunization/shot records with you.",
-					location: Event.data.facility_name+' - '+Event.data.street1+' - '+Event.data.city+' '+Event.data.state+' '+Event.data.postal_code,
-					iconSize: 16,
-					sites: ['google']
-				});
-			};
-		};
-		
 		this.getEvents = function(columns,rows,Map)
 		{
             var pin_counts = {};
