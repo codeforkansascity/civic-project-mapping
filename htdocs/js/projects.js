@@ -14,7 +14,7 @@ var Projects = (function($) {
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
 		
-		this.getEvents = function(columns,rows,Map)
+		this.getEvents = function( columns, rows, Map, Default )
 		{
             var pin_counts = {};
             pin_counts[ 'Capacity Building' ] = 0;
@@ -34,10 +34,18 @@ var Projects = (function($) {
                 var ll = this.Events[i].data['Location'];
                 var lla = ll.split(',');
 
+
                 if ( lla.length == 2 ) {
 
+                    var Lat = null;
+                    var Lng = null;
+
                     // Create the Google LatLng object
-                    this.Events[i].latlng = new google.maps.LatLng(lla[0],lla[1]);
+
+                    Lat = lla[0];
+                    Lng = lla[1];
+
+                    this.Events[i].latlng = new google.maps.LatLng(Lat,Lng);
 
                     var project_type = $.trim(this.Events[i].data[ 'Project type' ]);
                     console.log( project_type );
@@ -62,6 +70,14 @@ var Projects = (function($) {
                             shadow:'img/shadow.png',
                             clickable:true
                         });
+
+                        this.Events[i].panel = {
+                            Lat: Lat,
+                            Lng: Lng,
+                            map: Map.Map
+                        };
+
+
                         // Make the info box
                         this.Events[i].infobox = new InfoBox(infoboxoptions);
 
@@ -86,7 +102,7 @@ var Projects = (function($) {
                         accordion += '        </dl>' + "\n";
                         accordion += '        <br>' + "\n";
                         accordion += '        <br>' + "\n";
-                        accordion += '                  <p><button type="button" class="btn btn-default">Show on map</button></p>' + "\n";
+                        accordion += '                  <p><button id="show-on-map-' + i + '" type="button" class="btn btn-default">Show on map</button></p>' + "\n";
                         accordion += '                </div>' + "\n";
                         accordion += '              </div>' + "\n";
                         accordion += '            </div>' + "\n";
@@ -105,6 +121,8 @@ var Projects = (function($) {
 				// Listen for marker clicks
 				google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map,this.Events[i]));
 
+                $('#show-on-map-' + i).on( "click", null, {  map: Map.Map, default: Default, panel: this.Events[i].panel }, this.centerPin );
+
 			}
 
             $('#cnt-all').html( total_pin_count );
@@ -113,6 +131,15 @@ var Projects = (function($) {
             $('#cnt-arts-and-culture').html( pin_counts[ 'Arts and Culture' ] );
             console.dir(pin_counts);
 		};
+
+        this.centerPin = function ( e ) {
+            var Latlng = new google.maps.LatLng(
+                e.data.panel.Lat,
+                e.data.panel.Lng
+            );
+            e.data.map.setCenter(Latlng);
+            e.data.map.setZoom(e.data.default.zoomaddress);
+        }
 		
 		/**
 		 * Set the address for a latlng

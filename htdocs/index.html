@@ -232,7 +232,7 @@
                           console.dir(ftdata);
                   EventsFT.columns = ftdata.columns;
                   EventsFT.rows = ftdata.rows;
-                  Proj.getEvents(EventsFT.columns,EventsFT.rows,Map);
+                  Proj.getEvents(EventsFT.columns,EventsFT.rows,Map,Default);
                   // Highlight all today's and upcoming events.
                   Proj.setMarkersByProjectType( 'all' );
               })
