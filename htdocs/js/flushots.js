@@ -14,22 +14,6 @@ var Flushots = (function($) {
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
 		
-		this.setIcal = function(Event)
-		{
-			return function(){
-				$('#ical-'+Event.data.id).icalendar({
-					start: new Date(Date._parse(Event.data.begin_date+' '+Event.data.begin_time)),
-					end: new Date(Date._parse(Event.data.begin_date+' '+Event.data.end_time)),
-					title: 'Flu Shot',
-					summary: 'Get a Flu Shot',
-					description: "Please remember to bring your immunization/shot records with you.",
-					location: Event.data.facility_name+' - '+Event.data.street1+' - '+Event.data.city+' '+Event.data.state+' '+Event.data.postal_code,
-					iconSize: 16,
-					sites: ['google']
-				});
-			};
-		};
-		
 		this.getEvents = function(columns,rows,Map)
 		{
 			// Copy the flu shot data to the Event object
@@ -63,11 +47,7 @@ var Flushots = (function($) {
 			{
 				// Listen for marker clicks
 				google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map,this.Events[i]));
-				// If it is a one-day event, add the ical link.
-				if(this.Events[i].data.begin_date === this.Events[i].data.end_date)
-				{
-					google.maps.event.addListener(this.Events[i].infobox, 'domready', this.setIcal(this.Events[i]));
-				}
+
 			}
 		};
 		

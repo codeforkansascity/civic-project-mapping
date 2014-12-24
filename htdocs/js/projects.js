@@ -14,23 +14,7 @@ var Projects = (function($) {
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
 		
-		this.setIcal = function(Event)
-		{
-			return function(){
-				$('#ical-'+Event.data.id).icalendar({
-					start: new Date(Date._parse(Event.data.begin_date+' '+Event.data.begin_time)),
-					end: new Date(Date._parse(Event.data.begin_date+' '+Event.data.end_time)),
-					title: 'Flu Shot',
-					summary: 'Get a Flu Shot',
-					description: "Please remember to bring your immunization/shot records with you.",
-					location: Event.data.facility_name+' - '+Event.data.street1+' - '+Event.data.city+' '+Event.data.state+' '+Event.data.postal_code,
-					iconSize: 16,
-					sites: ['google']
-				});
-			};
-		};
-		
-		this.getEvents = function(columns,rows,Map)
+		this.getEvents = function( columns, rows, Map, Default )
 		{
             var pin_counts = {};
             pin_counts[ 'Capacity Building' ] = 0;
@@ -50,69 +34,84 @@ var Projects = (function($) {
                 var ll = this.Events[i].data['Location'];
                 var lla = ll.split(',');
 
+
                 if ( lla.length == 2 ) {
 
-                    // Create the Google LatLng object
-                    this.Events[i].latlng = new google.maps.LatLng(lla[0],lla[1]);
+                    var Lat = null;
+                    var Lng = null;
 
-                    var organization_type = $.trim(this.Events[i].data[ 'Project type' ]);
-                    console.log( organization_type );
+                    // Create the Google LatLng object
+
+                    Lat = lla[0];
+                    Lng = lla[1];
+
+                    this.Events[i].latlng = new google.maps.LatLng(Lat,Lng);
+
+                    var project_type = $.trim(this.Events[i].data[ 'Project type' ]);
+                    console.log( project_type );
                     // Create the markers for each event
 
                     var icon = '';
-                    if ( organization_type == 'Capacity Building') {
-                        icon = 'img/6F4682.png';
-                        pin_counts[ organization_type ]++;
-                    } else if ( organization_type == 'Environmental and Public Health') {
-                        icon = 'img/4951FF.png';
-                        pin_counts[ organization_type ]++;
-                    } else if ( organization_type == 'Arts and Culture') {
-                        icon = 'img/FFC355.png';
-                        pin_counts[ organization_type ]++;
-                    } else {
-                        icon = 'img/blue.png';
+                    var panel_class = '';
+
+                    if ( typeof project_type_info[ project_type ] !== undefined ) {
+
+                        icon = project_type_info[ project_type ].pin_url;
+                        pin_counts[ project_type ]++;
+
+                        panel_class = project_type_info[ project_type ].id + '-panel';
+                        total_pin_count++;
+
+
+                        this.Events[i].marker = new google.maps.Marker({
+                            position: this.Events[i].latlng,
+                            map: Map.Map,
+                            icon:icon,
+                            shadow:'img/shadow.png',
+                            clickable:true
+                        });
+
+                        this.Events[i].panel = {
+                            Lat: Lat,
+                            Lng: Lng,
+                            map: Map.Map
+                        };
+
+
+                        // Make the info box
+                        this.Events[i].infobox = new InfoBox(infoboxoptions);
+
+                        var p_description = rows[i][9];
+
+                        var accordion = '';
+                        accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
+                        accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
+                        accordion += '                <h4 class="panel-title">' + "\n";
+                        accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
+                        accordion += '                    ' + p_description + "\n";
+                        accordion += '                  </a>' + "\n";
+                        accordion += '                </h4>' + "\n";
+                        accordion += '              </div>' + "\n";
+                        accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
+                        accordion += '                <div class="panel-body">' + "\n";
+                        accordion += '' + "\n";
+                        accordion += '        <dl>' + "\n";
+                        accordion += '                   <dt>Organization: </dt><dd>' + this.Events[i].data[ 'Organization name' ] + '<span style="color:gray">(' + this.Events[i].data[ 'Which best describes your type of organization?' ] + ')</style></dd>' + "\n";
+                        accordion += '                   <dt>Location: </dt><dd>' + this.Events[i].data[ 'Address of the project' ] + '</dd>' + "\n";
+                        accordion += '                   <dt>Project Type: </dt><dd>' + this.Events[i].data[ 'Project type' ] + '</dd>' + "\n";
+                        accordion += '        </dl>' + "\n";
+                        accordion += '        <br>' + "\n";
+                        accordion += '        <br>' + "\n";
+                        accordion += '                  <p><button id="show-on-map-' + i + '" type="button" class="btn btn-default">Show on map</button></p>' + "\n";
+                        accordion += '                </div>' + "\n";
+                        accordion += '              </div>' + "\n";
+                        accordion += '            </div>' + "\n";
+
+
+                        $('#accordion').append(accordion);
                     }
 
-                    total_pin_count++;
 
-
-                    this.Events[i].marker = new google.maps.Marker({
-                        position: this.Events[i].latlng,
-                        map: Map.Map,
-                        icon:icon,
-                        shadow:'img/shadow.png',
-                        clickable:true
-                    });
-                    // Make the info box
-    				this.Events[i].infobox = new InfoBox(infoboxoptions);
-
-                  var p_description = rows[i][9];
-
-                  var accordion = '';
-                  accordion += '           <div class="panel panel-default">' + "\n";
-                  accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
-                  accordion += '                <h4 class="panel-title">' + "\n";
-                  accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
-                  accordion += '                    ' + p_description + "\n";
-                  accordion += '                  </a>' + "\n";
-                  accordion += '                </h4>' + "\n";
-                  accordion += '              </div>' + "\n";
-                  accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
-                  accordion += '                <div class="panel-body">' + "\n";
-                  accordion += '' + "\n";
-                  accordion += '        <dl>' + "\n";
-                  accordion += '                   <dt>Organization: </dt><dd>' + this.Events[i].data[ 'Organization name' ] + '<span style="color:gray">(' + this.Events[i].data[ 'Which best describes your type of organization?' ] + ')</style></dd>' + "\n";
-                  accordion += '                   <dt>Location: </dt><dd>' + this.Events[i].data[ 'Address of the project' ] + '</dd>' + "\n";
-                  accordion += '        </dl>' + "\n";
-                  accordion += '        <br>' + "\n";
-                  accordion += '        <br>' + "\n";
-                  accordion += '                  <p><button type="button" class="btn btn-default">Show on map</button></p>' + "\n";
-                  accordion += '                </div>' + "\n";
-                  accordion += '              </div>' + "\n";
-                  accordion += '            </div>' + "\n";
-
-
-                  $('#accordion').append(accordion);
 
 
                 }
@@ -122,6 +121,8 @@ var Projects = (function($) {
 				// Listen for marker clicks
 				google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map,this.Events[i]));
 
+                $('#show-on-map-' + i).on( "click", null, {  map: Map.Map, default: Default, panel: this.Events[i].panel }, this.centerPin );
+
 			}
 
             $('#cnt-all').html( total_pin_count );
@@ -130,6 +131,15 @@ var Projects = (function($) {
             $('#cnt-arts-and-culture').html( pin_counts[ 'Arts and Culture' ] );
             console.dir(pin_counts);
 		};
+
+        this.centerPin = function ( e ) {
+            var Latlng = new google.maps.LatLng(
+                e.data.panel.Lat,
+                e.data.panel.Lng
+            );
+            e.data.map.setCenter(Latlng);
+            e.data.map.setZoom(e.data.default.zoomaddress);
+        }
 		
 		/**
 		 * Set the address for a latlng
@@ -294,104 +304,29 @@ var Projects = (function($) {
 			});
 		};
 		
-		this.setMarkersByDay = function(day)
+		this.setMarkersByProjectType = function( project_type_to_display )
 		{
-/*			for(var i in this.Events)
+            if ( project_type_to_display == 'all' ) {
+                $('.panel-default').css("display", "block");
+            } else {
+                $('.panel-default').css("display", "none");
+                $('.' + project_type_to_display + '-panel').css("display", "block");
+            }
+
+			for(var i in this.Events)
 			{
-				// Let's see if 'day' is in the day of week list for this event.
-				var dayArray = this.Events[i].data.recurrence_days.split(',');
-				var onDay = false;
-				for(var j in dayArray)
-				{
-					if (
-						$.trim(day.toLowerCase()) === 'all'
-						||
-						(
-							// If 'today'
-							$.trim(day.toLowerCase()) === 'today'
-							&& Date.getDayNumberFromName(this.now.toString('dddd')) === Date.getDayNumberFromName($.trim(dayArray[j]))
-						)
-						||
-						(
-							// If a day of the week
-							Date.getDayNumberFromName(day) === Date.getDayNumberFromName($.trim(dayArray[j]))
-						)
-					)
-					{
-						onDay = true;
-					}
-				}
-				// If event is after begin date and before end date, and is in the list of days of the week...
-				if (
-					// If 'day' is in the recurrence days list.
-					onDay === true
-					&& (
-						// When 'day is a day of week, don't worry if event has not begun. 
-						// We are looking for today as well as future events.
-						$.trim(day.toLowerCase()) !== 'today'
-						// Make sure today is on of after event start date.
-						|| parseInt(this.now.toString('yyyyMMdd'),10) >= parseInt(Date.parse(this.Events[i].data.begin_date).toString('yyyyMMdd'),10)
-					)
-					// If today is before or on event end date
-					&& parseInt(this.now.toString('yyyyMMdd'),10) <= parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10)
-				)
-				{
-					// See if it is a free event
-					if($.trim(this.Events[i].data.cost.toLowerCase()) === 'free')
-					{
-						this.Events[i].marker.setIcon('img/blue.png');
-					}
-					else
-					{
-						// Hand over some dead presidents.
-						this.Events[i].marker.setIcon('img/red.png');
-					}
-				}
-				else if
-				(
-					$.trim(day.toLowerCase()) === 'seven'
-					&& onDay === false
-					// If today is before or on event end date
-					&& (
-						(
-							// Event end date is on or after today & event end date is before or is 7 days from now
-							parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10) >= parseInt(Date.today().toString('yyyyMMdd'),10)
-							&& parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10) <= parseInt(Date.today().add({days:6}).toString('yyyyMMdd'),10)
-						)
-						||
-						(
-							// 
-							(
-								// Event begin date is before or on today & event end date is after or on today
-								parseInt(Date.parse(this.Events[i].data.begin_date).toString('yyyyMMdd'),10) <= parseInt(Date.today().toString('yyyyMMdd'),10)
-								&& parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10) >= parseInt(Date.today().toString('yyyyMMdd'),10)
-							)
-							||
-							(
-								// event begin date is on or before 7 days from now & event end date is on or after today
-								parseInt(Date.parse(this.Events[i].data.begin_date).toString('yyyyMMdd'),10) <= parseInt(Date.today().add({days:6}).toString('yyyyMMdd'),10)
-								&& parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10)  >= parseInt(Date.today().add({days:6}).toString('yyyyMMdd'),10)
-							)
-						)
-					)
-				)
-				{
-					// See if it is a free event
-					if($.trim(this.Events[i].data.cost.toLowerCase()) === 'free')
-					{
-						this.Events[i].marker.setIcon('img/blue.png');
-					}
-					else
-					{
-						// Hand over some dead presidents.
-						this.Events[i].marker.setIcon('img/red.png');
-					}
-				}
-				else
-				{
+
+                var ptype = this.Events[i].data[ 'Project type' ];
+
+                if ( project_type_to_display == 'all'
+                || ( typeof project_type_info[ (ptype) ] !== 'undefined' && project_type_info[ (ptype) ].id == project_type_to_display )) {
+                    this.Events[i].marker.setIcon( project_type_info[ (ptype) ].pin_url );
+                } else {
 					this.Events[i].marker.setIcon('img/grey-transparent.png');
 				}
-			}*/
+
+
+			}
 		};
 	};
 	return constructor;
