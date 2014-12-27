@@ -20,7 +20,7 @@ Create Fusion table
 * Add "Location" Column, type location
 * Get ID of Fusion table 
   File -> About this table
-  id  1MfAjP3KeJ8Zh27vzPNXuVmr9pXb4Cqch1bqY4pq9
+  id  1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh
 
 
 Add script to spread sheet
@@ -32,9 +32,13 @@ Start Goolge Apps Script Project
 Tell Script where table is, the address column in the spread sheet, and where to put the location in the Fusion table.
    File -> Project Properties -> Script properties
    Add
-     docid  and the id of the table
-     addressColumn  Address column in the spread sheet  "Address of the project"
+     docid  and the id of the table  "1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh"
+     addressColumn  Address column in the spread sheet  "Project Location"
      latlngColumn  to put in the Fustion table "Location"
+     streetAddressColumn     Address of the project
+     cityColumn              City project is in
+     stateColumn             State project is in
+
 Replace the script with "script for Google forms.txt" from  https://github.com/lclontz/google_forms_to_fusion_tables/
 
 Enable the Spread Sheet script update the Fusion table
@@ -42,10 +46,7 @@ Enable the Spread Sheet script update the Fusion table
 In script window
    Resources -> Advanced Google services
    Turn on Fusion table API
-   Click on the Developer Console link
-        * Make sure Fusion table API is on
-In google developer consols
-        * Go to Google Developers Console https://console.developers.google.com/project
+   Click on the Developer Console link         <-- Need to do this through this path, to avoid auth error on SQL
         * Make sure Fusion table API is on
 
 
@@ -69,6 +70,11 @@ Problems
 ========
 View logs
 
+If you get 
+
+   "Problem running SQK: SELECT .... Exception: Access Not Configured. The API is not enabled for your project, or there is a per-IP or per-Referer restriction configured on your API key and the request does not match these restrictions. Please use the Google Developers Console to update your configuration.
+
+Then you have not enabled Fusion Table API in the Developers Console, od this through the step above in the Script Resources ....
 
 
 * Share the fusion table to the world view only
@@ -118,7 +124,9 @@ See https://developers.google.com/fusiontables/docs/v1/getting_started
 
 * You should be able to run a query against it
 
-     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1KxVV0wQXhxhMScSDuqr-0Ebf0YEt4m4xzVplKd4&key=your API key
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh&key=AIzaSyAeXVoM70qQo03RkeF3KTfRUSPAd2KuHaA
+
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh&key=your API key
                                                                         \ from the url of your fustion table   /
                                                                           or file -> about-> id
                                                                           they also refer to this as the table id

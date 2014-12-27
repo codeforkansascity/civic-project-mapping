@@ -7,6 +7,9 @@ var DOCID;
 var ADDRESS_COLUMN;
 var LOCATION_COLUMN;
 var TIME_ZONE;
+var STREET_ADDRESS_COLUMN;
+var CITY_COLUMN;
+var STATE_COLUMN;
 
 /**
  * Do-nothing method to trigger the authorization dialog if not already done.
@@ -29,6 +32,24 @@ function sync() {
   var columns = spreadsheetValues[0];
   var spreadsheetMap = mapRowsByRowId(columns,
       spreadsheetValues.slice(1, spreadsheetValues.length));
+  
+  var x = 0;
+  for (var rowId in spreadsheetMap) {
+    var spreadsheetRows = spreadsheetMap[rowId];
+    for (var x in spreadsheetRows) {
+      var spreadsheetRow = spreadsheetRows[ x ];
+      /*
+      if ( spreadsheetRow[ CITY_COLUMN ].length == 0 ) {
+      spreadsheetRow[ CITY_COLUMN ] = 'Kansas City';
+      }
+      
+      if (spreadsheetRow[ STATE_COLUMN ].length == 0 ) {
+      spreadsheetRow[ STATE_COLUMN ] = 'MO';
+      }
+      */
+      spreadsheetRow[ ADDRESS_COLUMN ] = spreadsheetRow[ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetRow[ CITY_COLUMN ] + ', ' + spreadsheetRow[ STATE_COLUMN ];
+    }
+  }
 
   // Get the columns in the spreadsheet and escape any single quotes
   var escapedColumns = [];
@@ -157,6 +178,15 @@ function init() {
   
   LOCATION_COLUMN = docProperties.getProperty('latlngColumn');
   Logger.log ('latlngColumn is ' + LOCATION_COLUMN);
+              
+  STREET_ADDRESS_COLUMN = docProperties.getProperty('streetAddressColumn');  
+  Logger.log ('streetstreetAddressColumnAddress is ' + STREET_ADDRESS_COLUMN);
+              
+  CITY_COLUMN = docProperties.getProperty('cityColumn');
+  Logger.log ('cityColumn is ' + CITY_COLUMN);
+              
+  STATE_COLUMN = docProperties.getProperty('stateColumn');
+  Logger.log ('stateColumn is ' + STATE_COLUMN);
               
   if (ADDRESS_COLUMN && !LOCATION_COLUMN) {
     throw('Since you added an ADDRESS_COLUMN project property, ' +
