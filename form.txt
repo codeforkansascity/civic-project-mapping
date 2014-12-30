@@ -213,9 +213,24 @@ function init() {
 function createRecord(columnValues) {
   Logger.log('Column values are ' + columnValues);
   
+  
+  /*
+  var ADDRESS_COLUMN;
+
+  var STREET_ADDRESS_COLUMN;
+  var CITY_COLUMN;
+  var STATE_COLUMN;
+  var ZIP_COLUMN;
+  */
   // Create lists of the column names and values to create the INSERT Statement.
   var columns = [];
   var values = [];
+
+  var full_address = '';
+  var street_address = '';
+  var city = '';
+  var state = '';
+  var zip = '';
   
   var originalAddress = '';
   
@@ -225,33 +240,43 @@ function createRecord(columnValues) {
     // add it and the value to the lists.
     if (column != 'spreadsheetRowNum') {
 
-  // Here is the second of two modifications to make the Address and Location work -- lc
+      // Here is the second of two modifications to make the Address and Location work -- lc
       
       originalAddress = columnValues[column];
       
       if (column == ADDRESS_COLUMN) {
+        
+        full_address = street_address + ', ' + city + ', ' + state + ' ' + zip;
+        
+        Logger.log('full_address is ' + full_address);
+        
+        columnValues[column] = full_address;
+        
         geoCodedAddress = processSpreadsheetValue(column, columnValues[column])
         values.push(geoCodedAddress);
-      Logger.log('geoCodedAddress is ' + geoCodedAddress);
-      
-      values.push(originalAddress);
-      Logger.log('originalAddress is ' + originalAddress);
-      
-      column = escapeQuotes(column);
-      columns.push(LOCATION_COLUMN);
-      columns.push(ADDRESS_COLUMN)
+        Logger.log('geoCodedAddress is ' + geoCodedAddress);
         
+        values.push(originalAddress);
+        Logger.log('originalAddress is ' + originalAddress);
+        
+        column = escapeQuotes(column);
+        columns.push(LOCATION_COLUMN);
+        columns.push(ADDRESS_COLUMN)
+        
+      } else if (column == STREET_ADDRESS_COLUMN) {
+        street_address = columnValues[column];
+      } else if (column == CITY_COLUMN) {
+        city = columnValues[column];
+      } else if (column == STATE_COLUMN) {
+        state = columnValues[column];
+      } else if (column == ZIP_COLUMN) {
+        zip = columnValues[column];
       } else if (column == 'Timestamp') {
         columns.push('Timestamp');
         values.push(columnValues[column]);
-      } 
-      
-       else {columns.push(column);
+      } else {columns.push(column);
         values.push(columnValues[column]);
-                    }
-      
-      
-      
+      }
     }
   }
 
