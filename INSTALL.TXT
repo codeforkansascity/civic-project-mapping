@@ -1,26 +1,63 @@
+you might want to join the FT google group - they handle some pretty advanced questions from programmers
+
+To view this discussion on the web visit https://groups.google.com/d/msgid/fusion-tables-users-group/657aea5c-7dfc-4b2f-b087-7c4953a58b29%40googlegroups.com.
+
+
+
+
+START
+=====
+http://blog.chrislkeller.com/automating-crowdsourced-maps-with-apps-scripts/
+
+
 This documents how we setup a Google Form that updates a Google Fusion Table and connected it to the application in Kansas City.
 
 https://www.youtube.com/watch?v=sxR4ZETbK3U&noredirect=1
 
-Create From
-===========
+Create From if it does not exists
+=================================
 
-Location Field: Text, users will be able to enter addresses in the same formats that google maps use.  i.g. 31st and Troost Kansas City mo.
+Add Location Fields 
+   Street Address of the Project, Text, Required.   Users will be able to enter addresses in the same formats that google maps use.  i.g. 31st and Troost 
+   City, Text, Required
+   State, Text, Required
+   Zip, Text
 
-Confirmation page: "Your response has been recorded.  Please enter your project only once.  It make take a few moments to appear on the map."
 
-Make the form save to the same table.
+Confirmation page: 
+    "Your response has been recorded.  Please enter your project only once.  It make take a few moments to appear on the map."
 
-Enter a entry so, the spread sheet should now have a header row, and the data you entered.
+
+Verify that the From saves to the same spreadsheet each time.
+=============================================================
+
+Set responses to be recorded in a single spreadsheet.
+    Responses -> Change Responses Destination
+    New Spread Sheet
+    UN-CHECK "Always create a new spreadsheet"
+    Create
+
+Add 'Project Location' to Spread Sheet
+======================================
+
+From the Form goto live view to create an entry
+
+Add "Project Location" field, this will be used to build the "Location" field in the Fusion Table.
+
+Clear out the spreadsheet if you do not want this data.
+
 
 
 Create Fusion table
 ================================
-* Import from Google Spread sheets, using your resoponse table
+From the Google Drive
+* Create -> Fusion Table
+* Import from Google Spread sheets, using your responses table
 * Add "Location" Column, type location
+* Share "Anyone with a link"
 * Get ID of Fusion table 
   File -> About this table
-  id  1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh
+  id  1rXbk3pOv7w5w9O_L7J6XqR0MLwDev_lXPvSrDBW_
 
 
 Add script to spread sheet
@@ -32,12 +69,13 @@ Start Goolge Apps Script Project
 Tell Script where table is, the address column in the spread sheet, and where to put the location in the Fusion table.
    File -> Project Properties -> Script properties
    Add
-     docid  and the id of the table  "1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh"
+     docid  and the id of the table  "1rXbk3pOv7w5w9O_L7J6XqR0MLwDev_lXPvSrDBW_"
      addressColumn  Address column in the spread sheet  "Project Location"
      latlngColumn  to put in the Fustion table "Location"
-     streetAddressColumn     Address of the project
-     cityColumn              City project is in
-     stateColumn             State project is in
+     streetAddressColumn     Street Address of the Project
+     cityColumn              City
+     stateColumn             State
+     zipColumn               Zip
 
 Replace the script with "script for Google forms.txt" from  https://github.com/lclontz/google_forms_to_fusion_tables/
 
@@ -124,9 +162,9 @@ See https://developers.google.com/fusiontables/docs/v1/getting_started
 
 * You should be able to run a query against it
 
-     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh&key=AIzaSyAeXVoM70qQo03RkeF3KTfRUSPAd2KuHaA
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1rXbk3pOv7w5w9O_L7J6XqR0MLwDev_lXPvSrDBW_&key=AIzaSyAeXVoM70qQo03RkeF3KTfRUSPAd2KuHaA
 
-     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh&key=your API key
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1rXbk3pOv7w5w9O_L7J6XqR0MLwDev_lXPvSrDBW_&key=your API key
                                                                         \ from the url of your fustion table   /
                                                                           or file -> about-> id
                                                                           they also refer to this as the table id
