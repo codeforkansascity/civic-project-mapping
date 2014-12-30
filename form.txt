@@ -10,6 +10,7 @@ var TIME_ZONE;
 var STREET_ADDRESS_COLUMN;
 var CITY_COLUMN;
 var STATE_COLUMN;
+var ZIP_COLUMN;
 
 /**
  * Do-nothing method to trigger the authorization dialog if not already done.
@@ -47,7 +48,7 @@ function sync() {
       spreadsheetRow[ STATE_COLUMN ] = 'MO';
       }
       */
-      spreadsheetRow[ ADDRESS_COLUMN ] = spreadsheetRow[ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetRow[ CITY_COLUMN ] + ', ' + spreadsheetRow[ STATE_COLUMN ];
+      spreadsheetRow[ ADDRESS_COLUMN ] = spreadsheetRow[ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetRow[ CITY_COLUMN ] + ', ' + spreadsheetRow[ STATE_COLUMN ] + ' ' + spreadsheetRow[ ZIP_COLUMN ];
     }
   }
 
@@ -187,6 +188,9 @@ function init() {
               
   STATE_COLUMN = docProperties.getProperty('stateColumn');
   Logger.log ('stateColumn is ' + STATE_COLUMN);
+              
+  ZIP_COLUMN = docProperties.getProperty('zipColumn');
+  Logger.log ('zipColumn is ' + ZIP_COLUMN);
               
   if (ADDRESS_COLUMN && !LOCATION_COLUMN) {
     throw('Since you added an ADDRESS_COLUMN project property, ' +
