@@ -266,16 +266,25 @@ function createRecord(columnValues) {
         
       } else if (column == STREET_ADDRESS_COLUMN) {
         street_address = columnValues[column];
+        columns.push(column);
+        values.push(columnValues[column]);
       } else if (column == CITY_COLUMN) {
         city = columnValues[column];
+        columns.push(column);
+        values.push(columnValues[column]);
       } else if (column == STATE_COLUMN) {
         state = columnValues[column];
+        columns.push(column);
+        values.push(columnValues[column]);
       } else if (column == ZIP_COLUMN) {
         zip = columnValues[column];
+        columns.push(column);
+        values.push(columnValues[column]);
       } else if (column == 'Timestamp') {
         columns.push('Timestamp');
         values.push(columnValues[column]);
-      } else {columns.push(column);
+      } else {
+        columns.push(column);
         values.push(columnValues[column]);
       }
     }
