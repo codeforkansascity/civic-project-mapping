@@ -194,6 +194,9 @@ function init() {
   }
   TIME_ZONE = Session.getScriptTimeZone();
   var sheet = SpreadsheetApp.getActiveSheet();
+  
+  // See if rowid is the label for the last column
+  //   if not add it.
   var lastColumn = sheet.getLastColumn();
   var lastHeaderValue = sheet.getRange(1, lastColumn).getValue();
   if (lastHeaderValue != 'rowid') {
@@ -211,7 +214,7 @@ function createRecord(columnValues) {
   
   
   /*
-  var ADDRESS_COLUMN;
+  var ADDRESS_COLUMN;         // Project Location
 
   var STREET_ADDRESS_COLUMN;
   var CITY_COLUMN;
