@@ -35,21 +35,10 @@ function sync() {
       spreadsheetValues.slice(1, spreadsheetValues.length));
   
   var x = 0;
+  // Build the ADDRESS_COLUMN from street address, city, state, zip
   for (var rowId in spreadsheetMap) {
-    var spreadsheetRows = spreadsheetMap[rowId];
-    for (var x in spreadsheetRows) {
-      var spreadsheetRow = spreadsheetRows[ x ];
-      /*
-      if ( spreadsheetRow[ CITY_COLUMN ].length == 0 ) {
-      spreadsheetRow[ CITY_COLUMN ] = 'Kansas City';
-      }
-      
-      if (spreadsheetRow[ STATE_COLUMN ].length == 0 ) {
-      spreadsheetRow[ STATE_COLUMN ] = 'MO';
-      }
-      */
-      spreadsheetRow[ ADDRESS_COLUMN ] = spreadsheetRow[ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetRow[ CITY_COLUMN ] + ', ' + spreadsheetRow[ STATE_COLUMN ] + ' ' + spreadsheetRow[ ZIP_COLUMN ];
-    }
+      var full_address = spreadsheetMap[rowId][ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetMap[rowId][ CITY_COLUMN ] + ', ' + spreadsheetMap[rowId][ STATE_COLUMN ] + ' ' + spreadsheetMap[rowId][ ZIP_COLUMN ];
+      spreadsheetMap[rowId][ ADDRESS_COLUMN ] = full_address;   
   }
 
   // Get the columns in the spreadsheet and escape any single quotes
