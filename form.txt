@@ -5,7 +5,7 @@
 
 var DOCID;
 var ADDRESS_COLUMN;
-var LOCATION_COLUMN;
+var LAT_LNG_COLUMN;
 var TIME_ZONE;
 var STREET_ADDRESS_COLUMN;
 var CITY_COLUMN;
@@ -173,8 +173,8 @@ function init() {
   ADDRESS_COLUMN = docProperties.getProperty('addressColumn');
   Logger.log('Address Column is ' + ADDRESS_COLUMN);
   
-  LOCATION_COLUMN = docProperties.getProperty('latlngColumn');
-  Logger.log ('latlngColumn is ' + LOCATION_COLUMN);
+  LAT_LNG_COLUMN = docProperties.getProperty('latlngColumn');
+  Logger.log ('latlngColumn is ' + LAT_LNG_COLUMN);
               
   STREET_ADDRESS_COLUMN = docProperties.getProperty('streetAddressColumn');  
   Logger.log ('streetstreetAddressColumnAddress is ' + STREET_ADDRESS_COLUMN);
@@ -188,7 +188,7 @@ function init() {
   ZIP_COLUMN = docProperties.getProperty('zipColumn');
   Logger.log ('zipColumn is ' + ZIP_COLUMN);
               
-  if (ADDRESS_COLUMN && !LOCATION_COLUMN) {
+  if (ADDRESS_COLUMN && !LAT_LNG_COLUMN) {
     throw('Since you added an ADDRESS_COLUMN project property, ' +
         'you also need to add a latlngColumn property');
   }
@@ -261,7 +261,7 @@ function createRecord(columnValues) {
         Logger.log('createRecord: originalAddress is ' + originalAddress);
         
         column = escapeQuotes(column);
-        columns.push(LOCATION_COLUMN);
+        columns.push(LAT_LNG_COLUMN);
         columns.push(ADDRESS_COLUMN)
         
       } else if (column == STREET_ADDRESS_COLUMN) {
