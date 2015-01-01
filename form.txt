@@ -120,6 +120,8 @@ function sync() {
  * @param {Object} e The form object.
  */
 function onFormSubmit(e) {
+
+  Logger.log('onFormSubmit A');
   if (!e) {
     // Don't try to do anything when run directly from the script editor
     return;
@@ -128,9 +130,12 @@ function onFormSubmit(e) {
   var sheet = SpreadsheetApp.getActiveSheet();
   var row = sheet.getLastRow();
 
+
   // Check to make sure the rowid column is there.
   init();
-
+  
+  Logger.log('onFormSubmit B ');
+  
   // The values entered into the form, mapped by question.
   var formValues = e.namedValues;
   
@@ -138,6 +143,8 @@ function onFormSubmit(e) {
 
   // Insert the data into the Fusion Table.
   var rowId = createRecord(formValues);
+  
+  Logger.log('onFormSubmit rowId='+rowId);
   if (!rowId) {
     rowId = -1;
   }
@@ -200,7 +207,7 @@ function init() {
  * @return {?string} the rowid if successful, otherwise null.
  */
 function createRecord(columnValues) {
-  Logger.log('Column values are ' + columnValues);
+  Logger.log('createRecord: Column values are ' + columnValues);
   
   
   /*
@@ -224,6 +231,8 @@ function createRecord(columnValues) {
   var originalAddress = '';
   
   for (var column in columnValues) {
+  
+    Logger.log('createRecord: for columnValues column=' + column );
     
     // If the column is not the spreadsheetRowNum,
     // add it and the value to the lists.
@@ -243,10 +252,10 @@ function createRecord(columnValues) {
         
         geoCodedAddress = processSpreadsheetValue(column, columnValues[column])
         values.push(geoCodedAddress);
-        Logger.log('geoCodedAddress is ' + geoCodedAddress);
+        Logger.log('createRecord: geoCodedAddress is ' + geoCodedAddress);
         
         values.push(originalAddress);
-        Logger.log('originalAddress is ' + originalAddress);
+        Logger.log('createRecord: originalAddress is ' + originalAddress);
         
         column = escapeQuotes(column);
         columns.push(LOCATION_COLUMN);
