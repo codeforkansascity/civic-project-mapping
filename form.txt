@@ -90,7 +90,7 @@ function sync() {
         query.push(" WHERE rowid = '");
         query.push(rowId);
         query.push("'");
-        runSqlWithRetry(query.join(''));
+        runSqlWithRetry(query.join(''),tableRow);
         waitBetweenCalls();
       }
 
@@ -106,7 +106,7 @@ function sync() {
   // These rows were given a rowid of -1 or have a blank rowid.
   var failedInserts = spreadsheetMap[-1];
   for (var i = 0; failedInserts && i < failedInserts.length; i++) {
-    var rowId = createRecord(failedInserts[i]);
+    var rowId = createRecord(failedInserts[i], failedInserts[i].spreadsheetRowNum);
     if (!rowId) {
       rowId = -1;
     }
@@ -230,7 +230,9 @@ function createRecord(columnValues, row) {
 
     // If the column is not the spreadsheetRowNum,
     // add it and the value to the lists.
-    if (column != 'spreadsheetRowNum') {
+    if (!(
+      column == 'spreadsheetRowNum'
+    || column == ADDRESS_COLUMN)) {
 
       if (column == STREET_ADDRESS_COLUMN) {
 
@@ -323,7 +325,8 @@ function insertRowId(rowId, row) {
 function insertAddress(full_address, row) {
   var sheet = SpreadsheetApp.getActiveSheet();
   var lastColumn = sheet.getLastColumn();
-  lastCell = sheet.getRange(row, lastColumn - 1);
+  lastColumn--;
+  lastCell = sheet.getRange(row, lastColumn);
   lastCell.setValue(full_address);
 }
 
@@ -390,6 +393,7 @@ var TOO_MANY_REQUESTS = 'The sync script has exceeded rate limits';
  * query was successful. Returns null if not.
  */
 function runSqlWithRetry(sql) {
+  Logger.log('runSqlWithRetry sql=|' + sql + '|');
   try {
     return runSql(sql);
   } catch (e) {
@@ -486,4 +490,5 @@ function escapeQuotes(value) {
   }
   return value.replace(/\\/g, '\\\\').replace(/'/g, "\\\'");
 }
+
 
