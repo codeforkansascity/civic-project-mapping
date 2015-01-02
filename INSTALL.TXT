@@ -37,12 +37,13 @@ Set responses to be recorded in a single spreadsheet.
     UN-CHECK "Always create a new spreadsheet"
     Create
 
-Add 'Project Location' to Spread Sheet
+Add 'FullAddress and 'Location' columns to Spread Sheet
 ======================================
 
 From the Form goto live view to create an entry
 
-Add "Project Location" field, this will be used to build the "Location" field in the Fusion Table.
+Add "FullAddress" field, this will be used to build the "Location" field in the Fusion Table.
+Add "Location" field
 
 Clear out the spreadsheet if you do not want this data.
 

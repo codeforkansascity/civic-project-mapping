@@ -3,6 +3,14 @@
  * Google Forms responses with a Fusion Table.
  */
 
+/**
+ * Spread sheet requirements
+ * last three columns are the following
+ *    ADDRESS_COLUMN
+ *    LAT_LNG_COLUMN
+ *    DOCID
+ */
+
 var DOCID;
 var ADDRESS_COLUMN;
 var LAT_LNG_COLUMN;
@@ -11,6 +19,7 @@ var STREET_ADDRESS_COLUMN;
 var CITY_COLUMN;
 var STATE_COLUMN;
 var ZIP_COLUMN;
+var UPDATE_FUSION_TABLE = false;
 
 /**
  * Do-nothing method to trigger the authorization dialog if not already done.
@@ -39,6 +48,17 @@ function sync() {
   for (var rowId in spreadsheetMap) {
       var full_address = spreadsheetMap[rowId][ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetMap[rowId][ CITY_COLUMN ] + ', ' + spreadsheetMap[rowId][ STATE_COLUMN ] + ' ' + spreadsheetMap[rowId][ ZIP_COLUMN ];
       spreadsheetMap[rowId][ ADDRESS_COLUMN ] = full_address;
+    
+      insertAddress(full_address, spreadsheetMap[rowId]);
+
+      geoCodedAddress = geocode(full_address);
+
+
+
+
+      spreadsheetMap[rowId][ LAT_LNG_COLUMN ] = geoCodedAddress;
+      insertLatLng(geoCodedAddress, spreadsheetMap[rowId]);
+      
   }
 
   // Get the columns in the spreadsheet and escape any single quotes
@@ -81,7 +101,7 @@ function sync() {
       }
 
       // If there are updates, send the UPDATE query.
-      if (updates.length) {
+      if ( UPDATE_FUSION_TABLE && updates.length ) {
         var query = [];
         query.push('UPDATE ');
         query.push(DOCID);
@@ -94,7 +114,7 @@ function sync() {
         waitBetweenCalls();
       }
 
-    } else {
+    } else if (UPDATE_FUSION_TABLE) {
       // If the row doesn't exist in the spreadsheet, delete it from the table
       runSqlWithRetry('DELETE FROM ' + DOCID + " WHERE rowid = '" +
           rowId + "'");
@@ -102,16 +122,18 @@ function sync() {
     }
   }
 
-  // Insert all the data into the Fusion Table that failed to insert.
-  // These rows were given a rowid of -1 or have a blank rowid.
-  var failedInserts = spreadsheetMap[-1];
-  for (var i = 0; failedInserts && i < failedInserts.length; i++) {
-    var rowId = createRecord(failedInserts[i], failedInserts[i].spreadsheetRowNum);
-    if (!rowId) {
-      rowId = -1;
+  if ( UPDATE_FUSION_TABLE ) {
+    // Insert all the data into the Fusion Table that failed to insert.
+    // These rows were given a rowid of -1 or have a blank rowid.
+    var failedInserts = spreadsheetMap[-1];
+    for (var i = 0; failedInserts && i < failedInserts.length; i++) {
+      var rowId = createRecord(failedInserts[i], failedInserts[i].spreadsheetRowNum);
+      if (!rowId) {
+        rowId = -1;
+      }
+      insertRowId(rowId, failedInserts[i].spreadsheetRowNum);
+      waitBetweenCalls();
     }
-    insertRowId(rowId, failedInserts[i].spreadsheetRowNum);
-    waitBetweenCalls();
   }
 }
 
@@ -232,7 +254,8 @@ function createRecord(columnValues, row) {
     // add it and the value to the lists.
     if (!(
       column == 'spreadsheetRowNum'
-    || column == ADDRESS_COLUMN)) {
+    || column == ADDRESS_COLUMN
+    || column == LAT_LNG_COLUMN)) {
 
       if (column == STREET_ADDRESS_COLUMN) {
 
@@ -282,6 +305,9 @@ function createRecord(columnValues, row) {
   values.push(full_address);
 
   geoCodedAddress = geocode(full_address);
+  
+  insertLatLng(geoCodedAddress, row);
+  
   columns.push(LAT_LNG_COLUMN);
   values.push(geoCodedAddress);
 
@@ -326,8 +352,22 @@ function insertAddress(full_address, row) {
   var sheet = SpreadsheetApp.getActiveSheet();
   var lastColumn = sheet.getLastColumn();
   lastColumn--;
+  lastColumn--;
   lastCell = sheet.getRange(row, lastColumn);
   lastCell.setValue(full_address);
+}
+
+/**
+ * Adds the LatLng ie Location  in the spreadsheet.
+ * @param {string} gecoded.
+ * @param {number} row The row number to enter the rowid in.
+ */
+function insertLatLng(lat_lng, row) {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var lastColumn = sheet.getLastColumn();
+  lastColumn--;
+  lastCell = sheet.getRange(row, lastColumn);
+  lastCell.setValue(lat_lng);
 }
 
 /**
