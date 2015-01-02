@@ -33,12 +33,12 @@ function sync() {
   var columns = spreadsheetValues[0];
   var spreadsheetMap = mapRowsByRowId(columns,
       spreadsheetValues.slice(1, spreadsheetValues.length));
-  
+
   var x = 0;
   // Build the ADDRESS_COLUMN from street address, city, state, zip
   for (var rowId in spreadsheetMap) {
       var full_address = spreadsheetMap[rowId][ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetMap[rowId][ CITY_COLUMN ] + ', ' + spreadsheetMap[rowId][ STATE_COLUMN ] + ' ' + spreadsheetMap[rowId][ ZIP_COLUMN ];
-      spreadsheetMap[rowId][ ADDRESS_COLUMN ] = full_address;   
+      spreadsheetMap[rowId][ ADDRESS_COLUMN ] = full_address;
   }
 
   // Get the columns in the spreadsheet and escape any single quotes
@@ -133,17 +133,17 @@ function onFormSubmit(e) {
 
   // Check to make sure the rowid column is there.
   init();
-  
+
   Logger.log('onFormSubmit B ');
-  
+
   // The values entered into the form, mapped by question.
   var formValues = e.namedValues;
-  
+
   Logger.log('Form values are ' + formValues);
 
   // Insert the data into the Fusion Table.
-  var rowId = createRecord(formValues);
-  
+  var rowId = createRecord(formValues, row);
+
   Logger.log('onFormSubmit rowId='+rowId);
   if (!rowId) {
     rowId = -1;
@@ -160,41 +160,43 @@ function init() {
 
 // Update for deprecated ScriptProperties API call
 
-  var docProperties = PropertiesService.getScriptProperties();  
+  var docProperties = PropertiesService.getScriptProperties();
   DOCID = docProperties.getProperty('docid');
-  
+
   Logger.log(DOCID)
-  
+
   // Here is the first of two modifications to make the Address and Location work -- lc
-  
+
   if (!DOCID) {
     throw 'The script is missing the required docid Project Property';
   }
-  ADDRESS_COLUMN = docProperties.getProperty('addressColumn');
-  Logger.log('Address Column is ' + ADDRESS_COLUMN);
-  
-  LAT_LNG_COLUMN = docProperties.getProperty('latlngColumn');
-  Logger.log ('latlngColumn is ' + LAT_LNG_COLUMN);
-              
-  STREET_ADDRESS_COLUMN = docProperties.getProperty('streetAddressColumn');  
-  Logger.log ('streetstreetAddressColumnAddress is ' + STREET_ADDRESS_COLUMN);
-              
+
+
+  STREET_ADDRESS_COLUMN = docProperties.getProperty('streetAddressColumn');
+  Logger.log ('streetAddressColumn is ' + STREET_ADDRESS_COLUMN);
+
   CITY_COLUMN = docProperties.getProperty('cityColumn');
   Logger.log ('cityColumn is ' + CITY_COLUMN);
-              
+
   STATE_COLUMN = docProperties.getProperty('stateColumn');
   Logger.log ('stateColumn is ' + STATE_COLUMN);
-              
+
   ZIP_COLUMN = docProperties.getProperty('zipColumn');
   Logger.log ('zipColumn is ' + ZIP_COLUMN);
-              
+
+  ADDRESS_COLUMN = docProperties.getProperty('addressColumn');
+  Logger.log('Address Column is ' + ADDRESS_COLUMN);
+
+  LAT_LNG_COLUMN = docProperties.getProperty('latlngColumn');
+  Logger.log ('latlngColumn is ' + LAT_LNG_COLUMN);
+
   if (ADDRESS_COLUMN && !LAT_LNG_COLUMN) {
     throw('Since you added an ADDRESS_COLUMN project property, ' +
         'you also need to add a latlngColumn property');
   }
   TIME_ZONE = Session.getScriptTimeZone();
   var sheet = SpreadsheetApp.getActiveSheet();
-  
+
   // See if rowid is the label for the last column
   //   if not add it.
   var lastColumn = sheet.getLastColumn();
@@ -209,18 +211,9 @@ function init() {
  * @param {Object} dictionary of columns mapped to values.
  * @return {?string} the rowid if successful, otherwise null.
  */
-function createRecord(columnValues) {
+function createRecord(columnValues, row) {
   Logger.log('createRecord: Column values are ' + columnValues);
-  
-  
-  /*
-  var ADDRESS_COLUMN;         // Project Location
 
-  var STREET_ADDRESS_COLUMN;
-  var CITY_COLUMN;
-  var STATE_COLUMN;
-  var ZIP_COLUMN;
-  */
   // Create lists of the column names and values to create the INSERT Statement.
   var columns = [];
   var values = [];
@@ -230,65 +223,68 @@ function createRecord(columnValues) {
   var city = '';
   var state = '';
   var zip = '';
-  
-  var originalAddress = '';
-  
+
   for (var column in columnValues) {
-  
+
     Logger.log('createRecord: for columnValues column=' + column );
-    
+
     // If the column is not the spreadsheetRowNum,
     // add it and the value to the lists.
     if (column != 'spreadsheetRowNum') {
 
-      // Here is the second of two modifications to make the Address and Location work -- lc
-      
-      originalAddress = columnValues[column];
-      
-      if (column == ADDRESS_COLUMN) {
-        
-        full_address = street_address + ', ' + city + ', ' + state + ' ' + zip;
-        
-        Logger.log('full_address is ' + full_address);
-        
-        columnValues[column] = full_address;
-        
-        geoCodedAddress = processSpreadsheetValue(column, columnValues[column])
-        values.push(geoCodedAddress);
-        Logger.log('createRecord: geoCodedAddress is ' + geoCodedAddress);
-        
-        values.push(originalAddress);
-        Logger.log('createRecord: originalAddress is ' + originalAddress);
-        
-        column = escapeQuotes(column);
-        columns.push(LAT_LNG_COLUMN);
-        columns.push(ADDRESS_COLUMN)
-        
-      } else if (column == STREET_ADDRESS_COLUMN) {
+      if (column == STREET_ADDRESS_COLUMN) {
+
         street_address = columnValues[column];
         columns.push(column);
         values.push(columnValues[column]);
+
       } else if (column == CITY_COLUMN) {
+
         city = columnValues[column];
         columns.push(column);
         values.push(columnValues[column]);
+
       } else if (column == STATE_COLUMN) {
+
         state = columnValues[column];
         columns.push(column);
         values.push(columnValues[column]);
+
       } else if (column == ZIP_COLUMN) {
+
         zip = columnValues[column];
         columns.push(column);
         values.push(columnValues[column]);
+
       } else if (column == 'Timestamp') {
+
         columns.push('Timestamp');
         values.push(columnValues[column]);
+
       } else {
         columns.push(column);
         values.push(columnValues[column]);
       }
     }
   }
+
+  // Now build the full address and then geocode it
+
+  full_address = street_address + ', ' + city + ', ' + state + ' ' + zip;
+
+  insertAddress(full_address, row);
+
+  Logger.log('full_address is ' + full_address);
+
+  columns.push(ADDRESS_COLUMN);
+  values.push(full_address);
+
+  geoCodedAddress = geocode(full_address);
+  columns.push(LAT_LNG_COLUMN);
+  values.push(geoCodedAddress);
+
+  Logger.log('createRecord: geoCodedAddress is ' + geoCodedAddress);
+
 
   var query = [];
   query.push('INSERT INTO ');
@@ -317,6 +313,18 @@ function insertRowId(rowId, row) {
   var lastColumn = sheet.getLastColumn();
   lastCell = sheet.getRange(row, lastColumn);
   lastCell.setValue(rowId);
+}
+
+/**
+ * Adds the full address  in the spreadsheet.
+ * @param {string} full address.
+ * @param {number} row The row number to enter the rowid in.
+ */
+function insertAddress(full_address, row) {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var lastColumn = sheet.getLastColumn();
+  lastCell = sheet.getRange(row, lastColumn - 1);
+  lastCell.setValue(full_address);
 }
 
 /**
@@ -361,13 +369,10 @@ function geocode(address) {
  * @return {string} The converted or escaped value.
  */
 function processSpreadsheetValue(column, value) {
-  
+
   Logger.log('In processSpreadSheetValue. Column is ' + column + ' and ADDRESS_COLUMN is ' + ADDRESS_COLUMN);
   Logger.log('In pSSV. Value is ' + value);
-  
-  if (column === ADDRESS_COLUMN) {
-    return geocode(value);
-  }
+
   if (column === 'Timestamp') {
     // Ensure this is a format Fusion Tables understands
     return Utilities.formatDate(new Date(value), TIME_ZONE,
