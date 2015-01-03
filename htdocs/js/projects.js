@@ -14,8 +14,10 @@ var Projects = (function($) {
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
 		
-		this.getEvents = function( columns, rows, Map, Default )
+		this.getEvents = function( rows, Map, Default )
 		{
+
+            console.dir(rows);
             var pin_counts = {};
             pin_counts[ 'Capacity Building' ] = 0;
             pin_counts[ 'Environmental and Public Health' ] = 0;
@@ -25,10 +27,11 @@ var Projects = (function($) {
 			for (var i in rows)
 			{
 				this.Events[i] = new Event();
-				for(var j in columns)
+				for(var colname in rows[ i ])
 				{
-					var colname = columns[j];
-					this.Events[i].data[colname] = rows[i][j];
+                       console.log( colname + '=' + rows[ i ][ colname ]);
+					    this.Events[ i ].data[ colname ] = rows[ i ][ colname ];
+
 				}
 
                 var ll = this.Events[i].data['Location'];
@@ -81,7 +84,7 @@ var Projects = (function($) {
                         // Make the info box
                         this.Events[i].infobox = new InfoBox(infoboxoptions);
 
-                        var p_description = rows[i][9];
+                        var p_description = this.Events[i].data[ 'Organization name' ]
 
                         var accordion = '';
                         accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
