@@ -19,6 +19,8 @@ var STREET_ADDRESS_COLUMN;
 var CITY_COLUMN;
 var STATE_COLUMN;
 var ZIP_COLUMN;
+
+
 var UPDATE_FUSION_TABLE = false;
 
 /**
@@ -30,6 +32,72 @@ function checkAuthorization() {
 /**
  * Syncs the Fusion Table to the form data. Run this every hour or so.
  */
+function updateLocation() {
+  init();
+
+  // Get the data in the spreadsheet and convert it to a dictionary.
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var lastRow = sheet.getLastRow();
+  var lastColumn = sheet.getLastColumn();
+  var spreadsheetData = sheet.getRange(1, 1, lastRow, lastColumn);
+  var spreadsheetValues = spreadsheetData.getValues();
+  var columns = spreadsheetValues[0];
+
+  var x = 0;
+
+  // Build the ADDRESS_COLUMN from street address, city, state, zi
+
+  for (var row_offset in spreadsheetValues) {
+
+    if ( row_offset == 0 ) continue;
+
+    var row = spreadsheetValues[ row_offset ];
+
+    var full_address = '';
+    var street_address = '';
+    var city = '';
+    var state = '';
+    var zip = '';
+    var geoCodedAddress = '';
+
+    Logger.log('  ');
+    Logger.log('row_offset=' + row_offset);
+
+    for (var col in row) {
+
+      if (columns[ col ] == STREET_ADDRESS_COLUMN) {
+
+        street_address = row[ col ];
+
+      } else if (columns[ col ] == CITY_COLUMN) {
+
+        city = row[ col ];
+
+      } else if (columns[ col ] == STATE_COLUMN) {
+
+        state = row[ col ];
+
+      } else if (columns[ col ] == ZIP_COLUMN) {
+
+        zip = row[ col ];
+
+      }
+    }
+
+    full_address = street_address + ', ' + city + ', ' + state + ' ' + zip;
+    geoCodedAddress = geocode(full_address);
+
+    var saveRow = parseInt( row_offset ) + 1;    // getRange() uses a index, and we have a offset
+    var saveCol = parseInt( lastColumn );
+
+    saveCol = saveCol - 1;                                      // Save in next to last column
+    sheet.getRange(saveRow,saveCol).setValue(geoCodedAddress);
+    saveCol = saveCol - 1;                                      // Save in third to last column
+    sheet.getRange(saveRow,saveCol).setValue(full_address);
+  }
+
+}
+
 function sync() {
   init();
 
@@ -44,21 +112,20 @@ function sync() {
       spreadsheetValues.slice(1, spreadsheetValues.length));
 
   var x = 0;
+
+
   // Build the ADDRESS_COLUMN from street address, city, state, zip
   for (var rowId in spreadsheetMap) {
       var full_address = spreadsheetMap[rowId][ STREET_ADDRESS_COLUMN ] + ', ' + spreadsheetMap[rowId][ CITY_COLUMN ] + ', ' + spreadsheetMap[rowId][ STATE_COLUMN ] + ' ' + spreadsheetMap[rowId][ ZIP_COLUMN ];
       spreadsheetMap[rowId][ ADDRESS_COLUMN ] = full_address;
-    
+
       insertAddress(full_address, spreadsheetMap[rowId]);
 
       geoCodedAddress = geocode(full_address);
 
-
-
-
       spreadsheetMap[rowId][ LAT_LNG_COLUMN ] = geoCodedAddress;
       insertLatLng(geoCodedAddress, spreadsheetMap[rowId]);
-      
+
   }
 
   // Get the columns in the spreadsheet and escape any single quotes
@@ -305,9 +372,9 @@ function createRecord(columnValues, row) {
   values.push(full_address);
 
   geoCodedAddress = geocode(full_address);
-  
+
   insertLatLng(geoCodedAddress, row);
-  
+
   columns.push(LAT_LNG_COLUMN);
   values.push(geoCodedAddress);
 
@@ -530,5 +597,4 @@ function escapeQuotes(value) {
   }
   return value.replace(/\\/g, '\\\\').replace(/'/g, "\\\'");
 }
-
 
