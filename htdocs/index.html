@@ -71,14 +71,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills" role="tablist">
-                    <li role="presentation" id="all" class="proj-type"><a href="#">All <span id="cnt-all" class="badge">0</span></a></li>
-                    <li role="presentation" id="capacity-building" class="proj-type"><a href="#">Capacity Building <span id="cnt-capacity-building" class="badge">0</span></a></li>
-                    <li role="presentation" id="housing" class="proj-type"><a href="#">Housing and Physical Development <span class="badge">0</span></a></li>
-                    <li role="presentation" id="environmental" class="proj-type"><a href="#">Environmental and Public Health <span id="cnt-environmental" class="badge">0</span></a></li>
-                    <li role="presentation" id="public-safety" class="proj-type"><a href="#">Public Safety & Crime <span class="badge">0</span></a></li>
-                    <li role="presentation" id="education" class="proj-type"><a href="#">Education <span class="badge">0</span></a></li>
-                    <li role="presentation" id="arts-and-culture" class="proj-type"><a href="#">Arts and Culture <span id="cnt-arts-and-culture" class="badge">0</span></a></li>
+                <ul id='project-type-filter-buttons' class="nav nav-pills" role="tablist">
                 </ul>
             </div>
         </div>
@@ -119,13 +112,14 @@
           google.maps = google.maps || {};
 
           project_type_info = [];
+          project_type_info[ "All" ]                                = { id: "all",               color: "#e5e5e5", pin_url: "",               count: 0};
           project_type_info[ "Capacity Building" ]                  = { id: "capacity-building", color: "#6F4682", pin_url: "img/6F4682.png", count: 0};
-          project_type_info[ "Housing and Physical Development" ]   = { id: "housing",           color: "#CA7FEC", pin_url: "img/6F4682.png", count: 0};
-          project_type_info[ "Environmental and Public Health" ]    = { id: "environmental",     color: "#4951FF", pin_url: "img/6F4682.png", count: 0};
-          project_type_info[ "Public Safety & Crime" ]              = { id: "public-safety",     color: "#37BCE8", pin_url: "img/6F4682.png", count: 0};
-          project_type_info[ "Education" ]                          = { id: "education",         color: "#EC9A7A", pin_url: "img/4951FF.png", count: 0};
+          project_type_info[ "Housing and Physical Development" ]   = { id: "housing",           color: "#CA7FEC", pin_url: "img/CA7FEC.png", count: 0};
+          project_type_info[ "Environmental and Public Health" ]    = { id: "environmental",     color: "#4951FF", pin_url: "img/4951FF.png", count: 0};
+          project_type_info[ "Public Safety & Crime" ]              = { id: "public-safety",     color: "#37BCE8", pin_url: "img/37BCE8.png", count: 0};
+          project_type_info[ "Education" ]                          = { id: "education",         color: "#EC9A7A", pin_url: "img/EC9A7A.png", count: 0};
           project_type_info[ "Arts and Culture" ]                   = { id: "arts-and-culture",  color: "#FFC355", pin_url: "img/FFC355.png", count: 0};
-
+          project_type_info[ "Other" ]                              = { id: "other",             color: "#4E9F79", pin_url: "img/4E9F79.png", count: 0};
 
 
       (function($,TkMap,Projects,FusionTable){
@@ -183,9 +177,6 @@
            */
           $(function(){
 
-
-
-
               var Map = new TkMap({
                   domid:Default.domid,
                   init:true,
@@ -231,7 +222,32 @@
 
                       Tabletop.init( { key: '1fIzzhhNSSLM106S3kVhUIBbYiHvdYHn5V6H55yKFonA',
                           callback: function(data, tabletop) {
+
+                              for ( var project_type in project_type_info ) {
+                                  var project = project_type_info [ project_type ];
+                                  var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
+                                  $("#project-type-filter-buttons").append( li );
+
+                              }
+
                               Proj.getEvents(data,Map,Default);
+
+                              for ( var project_type in project_type_info ) {
+                                  var project = project_type_info [ project_type ];
+                                  $('#cnt-' + project.id).html( project.count );
+                              }
+
+                              $('.proj-type').on('click', function(){
+
+                                   var clicked_id = this.id;
+
+                                   // Change buttons
+                                   $('.proj-type').removeClass('active');
+                                   $('#' + clicked_id).addClass('active');
+
+                                   // Selected today's events
+                                   Proj.setMarkersByProjectType( clicked_id );
+                              }); // END Day dropup listener
                           },
                           orderby: 'Organization name',
                           simpleSheet: true} );
@@ -253,18 +269,7 @@
                   alert('Oh, no! We are having trouble getting the information we need from storage.');
               });
 */
-              $('.proj-type').click(function(){
 
-                  var clicked_id = this.id;
-
-                  // Change buttons
-                  $('.proj-type').removeClass('active');
-                  $('#' + clicked_id).addClass('active');
-
-                  // Selected today's events
-                  Proj.setMarkersByProjectType( clicked_id );
-
-              }); // END Day dropup listener
 
 
 
