@@ -98,15 +98,9 @@
       <script src="index_files/bootstrap.js"></script>
       <script src="js/tkmap.4.0.0.js"></script>
       <script src="js/projects.js"></script>
-      <script src="js/fusiontable.js"></script>
-    <script src="js/event.js"></script>
-    <script src="js/tabletop.js"></script>
-
-        <script src="js/infobox.js"></script>
-
-
-
-
+      <script src="js/event.js"></script>
+      <script src="js/tabletop.js"></script>
+      <script src="js/infobox.js"></script>
 
       <script type="text/javascript">
           google.maps = google.maps || {};
@@ -122,7 +116,7 @@
           project_type_info[ "Other" ]                              = { id: "other",             color: "#4E9F79", pin_url: "img/4E9F79.png", count: 0};
 
 
-      (function($,TkMap,Projects,FusionTable){
+      (function($,TkMap,Projects){
           /**
            * @classDescription - Default settings for this application
            * @class - Default
@@ -132,12 +126,10 @@
               city:'Kansas City',
               // DOM ID of where the Google Map is to be rendered
               domid:'map-canvas',
-              // Google Fusion Tables SQL-like query string for flu shot location data
-              eventquery:"SELECT * FROM 1pFEwKaMIEAlJaX9G9GVkufF-0OXxyIdbmygf-BNh ORDER BY 'Project description' ",
-              // Google Fusion Tables URI
-              fturl:'https://www.googleapis.com/fusiontables/v1/query',
               // Google maps API key
               googlemapsapikey:'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
+              // Spread Sheet key
+              spread_sheet_key:'1fIzzhhNSSLM106S3kVhUIBbYiHvdYHn5V6H55yKFonA',
 
               infoboxoptions:{
                   disableAutoPan: false,
@@ -216,65 +208,40 @@
                * Load the projects data
                */
 
-              // Get the flu shot event data from the Google Fusion Table
-              var EventsFT = new FusionTable(Default.fturl,Default.eventquery,Default.googlemapsapikey);
+              Tabletop.init( { key: Default.spread_sheet_key,
+                  callback: function(data, tabletop) {
 
+                      for ( var project_type in project_type_info ) {
+                          var project = project_type_info [ project_type ];
+                          var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
+                          $("#project-type-filter-buttons").append( li );
+                      }
 
-                      Tabletop.init( { key: '1fIzzhhNSSLM106S3kVhUIBbYiHvdYHn5V6H55yKFonA',
-                          callback: function(data, tabletop) {
+                      Proj.getEvents(data,Map,Default);
 
-                              for ( var project_type in project_type_info ) {
-                                  var project = project_type_info [ project_type ];
-                                  var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
-                                  $("#project-type-filter-buttons").append( li );
+                      for ( var project_type in project_type_info ) {
+                          var project = project_type_info [ project_type ];
+                          $('#cnt-' + project.id).html( project.count );
+                      }
 
-                              }
+                      $('.proj-type').on('click', function(){
 
-                              Proj.getEvents(data,Map,Default);
+                           var clicked_id = this.id;
 
-                              for ( var project_type in project_type_info ) {
-                                  var project = project_type_info [ project_type ];
-                                  $('#cnt-' + project.id).html( project.count );
-                              }
+                           // Change buttons
+                           $('.proj-type').removeClass('active');
+                           $('#' + clicked_id).addClass('active');
 
-                              $('.proj-type').on('click', function(){
-
-                                   var clicked_id = this.id;
-
-                                   // Change buttons
-                                   $('.proj-type').removeClass('active');
-                                   $('#' + clicked_id).addClass('active');
-
-                                   // Selected today's events
-                                   Proj.setMarkersByProjectType( clicked_id );
-                              }); // END Day dropup listener
-                          },
-                          orderby: 'Organization name',
-                          simpleSheet: true} );
-
-/*
-              $.getJSON(myurl, {
-                  dataType: 'jsonp',
-                  timeout: 5000
-              })
-              .done(function (ftdata) {
-                          console.dir(ftdata);
-                  EventsFT.columns = ftdata.columns;
-                  EventsFT.rows = ftdata.rows;
-                  Proj.getEvents(EventsFT.columns,EventsFT.rows,Map,Default);
-                  // Highlight all today's and upcoming events.
-                  Proj.setMarkersByProjectType( 'all' );
-              })
-              .fail(function(){
-                  alert('Oh, no! We are having trouble getting the information we need from storage.');
-              });
-*/
-
-
-
+                           // Selected today's events
+                           Proj.setMarkersByProjectType( clicked_id );
+                      }); // END Day dropup listener
+                  },
+                  orderby: 'Organization name',
+                  simpleSheet: true}
+              );
 
           }); // END jQuery on document ready
-      })(jQuery,TkMap,Projects,FusionTable);
+      })(jQuery,TkMap,Projects);
 
 
     </script>

@@ -18,7 +18,7 @@ var Projects = (function($) {
 		{
 
             var total_pin_count = 0;
-			// Copy the flu shot data to the Event object
+			// Copy the Project data to the Event object
 			for (var i in rows)
 			{
 				this.Events[i] = new Event();
