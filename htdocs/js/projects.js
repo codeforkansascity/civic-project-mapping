@@ -6,39 +6,27 @@ var Projects = (function($) {
 	var constructor = function(infoboxoptions){
 		this.AddressMarker = null;
 		
-		// Now
-		this.now = Date.parse('now');
-		
 		this.Events = [];
 		
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
-		
+
 		this.getEvents = function( rows, Map, Default )
 		{
-
-            console.dir(rows);
-            var pin_counts = {};
-            pin_counts[ 'Capacity Building' ] = 0;
-            pin_counts[ 'Environmental and Public Health' ] = 0;
-            pin_counts[ 'Arts and Culture' ] = 0;
-            var total_pin_count = 0;
-			// Copy the flu shot data to the Event object
+			// Copy the Project data to the Event object
 			for (var i in rows)
 			{
 				this.Events[i] = new Event();
 				for(var colname in rows[ i ])
 				{
-                       console.log( colname + '=' + rows[ i ][ colname ]);
 					    this.Events[ i ].data[ colname ] = rows[ i ][ colname ];
-
 				}
 
                 var ll = this.Events[i].data['Location'];
                 var lla = ll.split(',');
 
-
-                if ( lla.length == 2 ) {
+                if (lla.length != 2) {
+                } else {
 
                     var Lat = null;
                     var Lng = null;
@@ -48,93 +36,128 @@ var Projects = (function($) {
                     Lat = lla[0];
                     Lng = lla[1];
 
-                    this.Events[i].latlng = new google.maps.LatLng(Lat,Lng);
+                    this.Events[i].latlng = new google.maps.LatLng(Lat, Lng);
 
                     var project_type = $.trim(this.Events[i].data[ 'Project type' ]);
-                    console.log( project_type );
+
                     // Create the markers for each event
 
                     var icon = '';
                     var panel_class = '';
 
-                    if ( typeof project_type_info[ project_type ] !== undefined ) {
-
-                        icon = project_type_info[ project_type ].pin_url;
-                        pin_counts[ project_type ]++;
-
-                        panel_class = project_type_info[ project_type ].id + '-panel';
-                        total_pin_count++;
-
-
-                        this.Events[i].marker = new google.maps.Marker({
-                            position: this.Events[i].latlng,
-                            map: Map.Map,
-                            icon:icon,
-                            shadow:'img/shadow.png',
-                            clickable:true
-                        });
-
-                        this.Events[i].panel = {
-                            Lat: Lat,
-                            Lng: Lng,
-                            map: Map.Map
-                        };
-
-
-                        // Make the info box
-                        this.Events[i].infobox = new InfoBox(infoboxoptions);
-
-                        var p_description = this.Events[i].data[ 'Organization name' ]
-
-                        var accordion = '';
-                        accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
-                        accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
-                        accordion += '                <h4 class="panel-title">' + "\n";
-                        accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
-                        accordion += '                    ' + p_description + "\n";
-                        accordion += '                  </a>' + "\n";
-                        accordion += '                </h4>' + "\n";
-                        accordion += '              </div>' + "\n";
-                        accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
-                        accordion += '                <div class="panel-body">' + "\n";
-                        accordion += '' + "\n";
-                        accordion += '        <dl>' + "\n";
-                        accordion += '                   <dt>Organization: </dt><dd>' + this.Events[i].data[ 'Organization name' ] + '<span style="color:gray">(' + this.Events[i].data[ 'Which best describes your type of organization?' ] + ')</style></dd>' + "\n";
-                        accordion += '                   <dt>Location: </dt><dd>' + this.Events[i].data[ 'Address of the project' ] + '</dd>' + "\n";
-                        accordion += '                   <dt>Project Type: </dt><dd>' + this.Events[i].data[ 'Project type' ] + '</dd>' + "\n";
-                        accordion += '        </dl>' + "\n";
-                        accordion += '        <br>' + "\n";
-                        accordion += '        <br>' + "\n";
-                        accordion += '                  <p><button id="show-on-map-' + i + '" type="button" class="btn btn-default">Show on map</button></p>' + "\n";
-                        accordion += '                </div>' + "\n";
-                        accordion += '              </div>' + "\n";
-                        accordion += '            </div>' + "\n";
-
-
-                        $('#accordion').append(accordion);
+                    if (!(project_type in project_type_info)) {
+                        project_type = 'Other';
                     }
 
+                    icon = project_type_info[ project_type ].pin_url;
+
+                    project_type_info[ project_type ].count++;
+                    project_type_info[ 'All' ].count++;
+
+                    panel_class = project_type_info[ project_type ].id + '-panel';
+
+                    this.Events[i].marker = new google.maps.Marker({
+                        position: this.Events[i].latlng,
+                        map: Map.Map,
+                        icon: icon,
+                        shadow: 'img/shadow.png',
+                        clickable: true
+                    });
+
+                    this.Events[i].panel = {
+                        Lat: Lat,
+                        Lng: Lng,
+                        map: Map.Map
+                    };
+
+                    // Make the info box
+                    this.Events[i].infobox = new InfoBox(infoboxoptions);
+
+                    var data = this.Events[i].data;
+                    var organization_name = data[ 'Organization name' ];
+
+                    var accordion = '';
+                    accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
+                    accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
+                    accordion += '                <h4 class="panel-title">' + "\n";
+                    accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
+                    accordion += '                    ' + organization_name + "\n";
+                    accordion += '                  </a>' + "\n";
+                    accordion += '                </h4>' + "\n";
+                    accordion += '              </div>' + "\n";
+                    accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
+                    accordion += '                <div class="panel-body">' + "\n";
+                    accordion +=  this.displayIt( 'Organization Type:', data[ 'Which best describes your type of organization?' ] );
+                    accordion +=  this.displayIt( 'Organization website or Facebook page:', data[ 'Organization website or Facebook page' ] );
+                    accordion +=  this.displayIt( 'Contact:', data[ 'Name of contact person' ] );
+                    accordion +=  this.displayIt( 'Phone:', data[ 'Phone number' ] );
+                    accordion +=  this.displayIt( 'Email:', data[ 'Email address' ] );
 
 
+                    accordion += '                <p><b>Project Type: </b>' + data[ 'Project type' ] + '</p>' + "\n";
+                    accordion += '                <p>' + data[ 'Project description' ] + "\n";
+                    accordion += '                <br />' + data[ 'How often does this project occur?' ] + "\n";
+                    accordion += '                <br />' + data[ 'What is the start date of your project?' ] + ' through ' + data[ 'What is the finish date (or anticipated finish date)?' ] + "\n";
+                    accordion +=  this.displayIt( 'Website:', data[ 'Project website' ] );
+                    accordion +=  this.displayIt( 'Partners:', data[ 'Who are the partners you are working with?' ] );
+                    accordion +=  this.displayIt( 'Focus:', data[ 'Is the project area-wide or located at one site?' ] );
+                    accordion +=  this.displayIt( 'Neighborhoods/Cities:', data[ 'For area-wide projects, list the neighborhoods/cities this project occurs.' ] );
+                    accordion +=  this.displayIt( 'Project Boundaries:', data[ 'Does this project have more specific boundaries?' ] );
+                    accordion +=  this.displayIt( 'Neighborhood Assoc. Support:', data[ 'Does the project have the support of the neighborhood association?' ] );
+                    accordion +=  this.displayIt( 'Needs:', data[ 'The project is in need of' ] );
+                    accordion +=  this.displayIt( 'Will Help:', data[ 'We are happy to talk to others about our project and experience' ] );
 
+                    accordion +=  this.displayIt( 'Website:', data[ 'Project' ] );
+
+                    accordion += '' + "\n";
+                    accordion += '        <br>' + "\n";
+                    accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a></p>' + "\n";
+                    accordion += '                </div>' + "\n";
+                    accordion += '              </div>' + "\n";
+                    accordion += '            </div>' + "\n";
+
+                    $('#accordion').append(accordion);
                 }
 			}
 			for(var i in this.Events)
 			{
 				// Listen for marker clicks
 				google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map,this.Events[i]));
-
                 $('#show-on-map-' + i).on( "click", null, {  map: Map.Map, default: Default, panel: this.Events[i].panel }, this.centerPin );
 
 			}
 
-            $('#cnt-all').html( total_pin_count );
-            $('#cnt-capacity-building').html( pin_counts[ 'Capacity Building' ] );
-            $('#cnt-environmental').html( pin_counts[ 'Environmental and Public Health' ] );
-            $('#cnt-arts-and-culture').html( pin_counts[ 'Arts and Culture' ] );
-            console.dir(pin_counts);
 		};
 
+        this.displayIt = function( label, value ) {
+            if ( value ) {
+                return '                <p><b>' + label  +'</b> ' + value + '</p>' + "\n";
+            } else {
+                return '';
+            }
+        }
+
+        /**
+         * PROJECT FILTER functions
+         */
+        this.displayProjectTypeFilters = function( ) {
+            for ( var project_type in project_type_info ) {
+                var project = project_type_info [ project_type ];
+                var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
+                $("#project-type-filter-buttons").append( li );
+            }
+        }
+
+        this.displayProjectTypeCounts = function ( ) {
+            for ( var project_type in project_type_info ) {
+                var project = project_type_info [ project_type ];
+                $('#cnt-' + project.id).html( project.count );
+            }
+        }
+
+        /**
+         * MAP functions
+         */
         this.centerPin = function ( e ) {
             var Latlng = new google.maps.LatLng(
                 e.data.panel.Lat,
@@ -194,7 +217,7 @@ var Projects = (function($) {
 		};
 		
 		// Put a Pan/Zoom control on the map
-		this.setFindMeControl = function(controlDiv,Map,Flu,Default)
+		this.setFindMeControl = function(controlDiv,Map,Project,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control
@@ -238,9 +261,9 @@ var Projects = (function($) {
 							Map.Map.setCenter(Latlng);
 							Map.Map.setZoom(Default.zoomaddress);
 							// Make a map marker if none exists yet
-							if(Flu.AddressMarker === null)
+							if(Project.AddressMarker === null)
 							{
-								Flu.AddressMarker = new google.maps.Marker({
+								Project.AddressMarker = new google.maps.Marker({
 									position:Latlng,
 									map: Map.Map,
 									icon:Default.iconlocation,
@@ -250,14 +273,14 @@ var Projects = (function($) {
 							else
 							{
 								// Move the marker to the new location
-								Flu.AddressMarker.setPosition(Latlng);
+								Project.AddressMarker.setPosition(Latlng);
 								// If the marker is hidden, unhide it
-								if(Flu.AddressMarker.getMap() === null)
+								if(Project.AddressMarker.getMap() === null)
 								{
-									Flu.AddressMarker.setMap(Map.Map);
+									Project.AddressMarker.setMap(Map.Map);
 								}
 							}
-							Flu.codeLatLng(Latlng);
+							Project.codeLatLng(Latlng);
 						},
 						// Failure
 						function()
@@ -273,7 +296,7 @@ var Projects = (function($) {
 			});
 		};
 		
-		this.setMapLegend = function(controlDiv,Map,Flu,Default)
+		this.setMapLegend = function(controlDiv,Map,Project,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control
