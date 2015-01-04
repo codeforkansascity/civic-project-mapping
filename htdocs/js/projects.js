@@ -6,25 +6,19 @@ var Projects = (function($) {
 	var constructor = function(infoboxoptions){
 		this.AddressMarker = null;
 		
-		// Now
-		this.now = Date.parse('now');
-		
 		this.Events = [];
 		
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
-		
+
 		this.getEvents = function( rows, Map, Default )
 		{
-
-            var total_pin_count = 0;
 			// Copy the Project data to the Event object
 			for (var i in rows)
 			{
 				this.Events[i] = new Event();
 				for(var colname in rows[ i ])
 				{
-                        // console.log( colname + '=' + rows[ i ][ colname ]);
 					    this.Events[ i ].data[ colname ] = rows[ i ][ colname ];
 				}
 
@@ -60,7 +54,6 @@ var Projects = (function($) {
                     project_type_info[ 'All' ].count++;
 
                     panel_class = project_type_info[ project_type ].id + '-panel';
-                    total_pin_count++;
 
                     this.Events[i].marker = new google.maps.Marker({
                         position:   this.Events[i].latlng,
@@ -116,9 +109,29 @@ var Projects = (function($) {
 
 			}
 
-
 		};
 
+        /**
+         * PROJECT FILTER functions
+         */
+        this.displayProjectTypeFilters = function( ) {
+            for ( var project_type in project_type_info ) {
+                var project = project_type_info [ project_type ];
+                var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
+                $("#project-type-filter-buttons").append( li );
+            }
+        }
+
+        this.displayProjectTypeCounts = function ( ) {
+            for ( var project_type in project_type_info ) {
+                var project = project_type_info [ project_type ];
+                $('#cnt-' + project.id).html( project.count );
+            }
+        }
+
+        /**
+         * MAP functions
+         */
         this.centerPin = function ( e ) {
             var Latlng = new google.maps.LatLng(
                 e.data.panel.Lat,
@@ -178,7 +191,7 @@ var Projects = (function($) {
 		};
 		
 		// Put a Pan/Zoom control on the map
-		this.setFindMeControl = function(controlDiv,Map,Flu,Default)
+		this.setFindMeControl = function(controlDiv,Map,Project,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control
@@ -222,9 +235,9 @@ var Projects = (function($) {
 							Map.Map.setCenter(Latlng);
 							Map.Map.setZoom(Default.zoomaddress);
 							// Make a map marker if none exists yet
-							if(Flu.AddressMarker === null)
+							if(Project.AddressMarker === null)
 							{
-								Flu.AddressMarker = new google.maps.Marker({
+								Project.AddressMarker = new google.maps.Marker({
 									position:Latlng,
 									map: Map.Map,
 									icon:Default.iconlocation,
@@ -234,14 +247,14 @@ var Projects = (function($) {
 							else
 							{
 								// Move the marker to the new location
-								Flu.AddressMarker.setPosition(Latlng);
+								Project.AddressMarker.setPosition(Latlng);
 								// If the marker is hidden, unhide it
-								if(Flu.AddressMarker.getMap() === null)
+								if(Project.AddressMarker.getMap() === null)
 								{
-									Flu.AddressMarker.setMap(Map.Map);
+									Project.AddressMarker.setMap(Map.Map);
 								}
 							}
-							Flu.codeLatLng(Latlng);
+							Project.codeLatLng(Latlng);
 						},
 						// Failure
 						function()
@@ -257,7 +270,7 @@ var Projects = (function($) {
 			});
 		};
 		
-		this.setMapLegend = function(controlDiv,Map,Flu,Default)
+		this.setMapLegend = function(controlDiv,Map,Project,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control

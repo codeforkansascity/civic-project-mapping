@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-    <title>Creative Capital Project Mapping</title>
+    <title>Community Capital Project Mapping</title>
 
     <!-- Bootstrap core CSS -->
     <link href="index_files/bootstrap.css" rel="stylesheet">
@@ -211,18 +211,9 @@
               Tabletop.init( { key: Default.spread_sheet_key,
                   callback: function(data, tabletop) {
 
-                      for ( var project_type in project_type_info ) {
-                          var project = project_type_info [ project_type ];
-                          var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
-                          $("#project-type-filter-buttons").append( li );
-                      }
-
+                      Proj.displayProjectTypeFilters();
                       Proj.getEvents(data,Map,Default);
-
-                      for ( var project_type in project_type_info ) {
-                          var project = project_type_info [ project_type ];
-                          $('#cnt-' + project.id).html( project.count );
-                      }
+                      Proj.displayProjectTypeCounts();
 
                       $('.proj-type').on('click', function(){
 
@@ -234,7 +225,7 @@
 
                            // Selected today's events
                            Proj.setMarkersByProjectType( clicked_id );
-                      }); // END Day dropup listener
+                      });
                   },
                   orderby: 'Organization name',
                   simpleSheet: true}
