@@ -361,7 +361,10 @@ var Projects = (function($) {
                 var ptype = this.Events[i].data[ '3. Project type' ];
 
                 if ( project_type_to_display == 'all'
-                || ( typeof project_type_info[ (ptype) ] !== 'undefined' && project_type_info[ (ptype) ].id == project_type_to_display )) {
+                || ( (typeof project_type_info[ (ptype) ] !== 'undefined') && (project_type_info[ (ptype) ].id == project_type_to_display ))) {
+                    if ((typeof project_type_info[ (ptype) ] === 'undefined')) {
+                        ptype = 'Other';
+                    }
                     this.Events[i].marker.setIcon( project_type_info[ (ptype) ].pin_url );
                 } else {
 					this.Events[i].marker.setIcon('img/grey-transparent.png');
