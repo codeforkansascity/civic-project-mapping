@@ -30,7 +30,7 @@
     <![endif]-->
 
     <style type="text/css">
-      #map-canvas { height: 900px; margin: 0; padding: 0;}
+
 
       dt, dd { float: left }
       dt { clear:both }
@@ -176,6 +176,12 @@
                   styles:Default.styles,
                   zoom:Default.zoom
               }); // END Map object constructor
+
+              $(window).resize(function () {                                // RESIZE Map div when window size changes
+                  var h = $(window).height(),                               // Solves the 100% height turning to 0px
+                          offsetTop = 200; // Calculate the top offset      // https://github.com/twbs/bootstrap/issues/2475
+                  $('#map-canvas').css('height', (h - offsetTop));
+              }).resize();
 
               /**
                * The Project application object
