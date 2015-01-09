@@ -13,6 +13,22 @@ var Projects = (function($) {
 
 		this.getEvents = function( rows, Map, Default )
 		{
+
+            for (var  i in rows ) {
+                rows[ i ]['name'] = rows[ i ] ['1. Project Title/Name'];
+            }
+            rows.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1;
+                }
+                // a must be equal to b
+                return 0;
+            });
+            console.dir( rows );
+
 			// Copy the Project data to the Event object
 			for (var i in rows)
 			{
@@ -38,7 +54,7 @@ var Projects = (function($) {
 
                     this.Events[i].latlng = new google.maps.LatLng(Lat, Lng);
 
-                    var project_type = $.trim(this.Events[i].data[ 'Project type' ]);
+                    var project_type = $.trim(this.Events[i].data[ '3. Project type' ]);
 
                     // Create the markers for each event
 
@@ -74,38 +90,38 @@ var Projects = (function($) {
                     this.Events[i].infobox = new InfoBox(infoboxoptions);
 
                     var data = this.Events[i].data;
-                    var organization_name = data[ 'Organization name' ];
+                    var project_name = data[ '1. Project Title/Name' ];
 
                     var accordion = '';
                     accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
                     accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
                     accordion += '                <h4 class="panel-title">' + "\n";
                     accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
-                    accordion += '                    ' + organization_name + "\n";
+                    accordion += '                    ' + project_name + "\n";
                     accordion += '                  </a>' + "\n";
                     accordion += '                </h4>' + "\n";
                     accordion += '              </div>' + "\n";
                     accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
                     accordion += '                <div class="panel-body">' + "\n";
-                    accordion +=  this.displayIt( 'Organization Type:', data[ 'Which best describes your type of organization?' ] );
-                    accordion +=  this.displayIt( 'Organization website or Facebook page:', data[ 'Organization website or Facebook page' ] );
-                    accordion +=  this.displayIt( 'Contact:', data[ 'Name of contact person' ] );
-                    accordion +=  this.displayIt( 'Phone:', data[ 'Phone number' ] );
-                    accordion +=  this.displayIt( 'Email:', data[ 'Email address' ] );
+                    accordion +=  this.displayIt( 'Organization Type:', data[ '21. Which best describes your type of organization?' ] );
+                    accordion +=  this.displayIt( 'Organization website or Facebook page:', data[ '17. Organization website or Facebook page' ] );
+                    accordion +=  this.displayIt( 'Contact:', data[ '18. Name of lead contact person for project' ] );
+                    accordion +=  this.displayIt( 'Phone:', data[ '19. Phone number of the project\'s contact person' ] );
+                    accordion +=  this.displayIt( 'Email:', data[ '20. Email address of the project\'s contact person' ] );
 
 
-                    accordion += '                <p><b>Project Type: </b>' + data[ 'Project type' ] + '</p>' + "\n";
-                    accordion += '                <p>' + data[ 'Project description' ] + "\n";
+                    accordion += '                <p><b>Project Type: </b>' + data[ '3. Project type' ] + '</p>' + "\n";
+                    accordion += '                <p>' + data[ '2. Project description' ] + "\n";
                     accordion += '                <br />' + data[ 'How often does this project occur?' ] + "\n";
-                    accordion += '                <br />' + data[ 'What is the start date of your project?' ] + ' through ' + data[ 'What is the finish date (or anticipated finish date)?' ] + "\n";
+                    accordion += '                <br />' + data[ '5. What is the start date of your project?' ] + ' through ' + data[ '6. What is the finish date (or anticipated finish date)?' ] + "\n";
                     accordion +=  this.displayIt( 'Website:', data[ 'Project website' ] );
-                    accordion +=  this.displayIt( 'Partners:', data[ 'Who are the partners you are working with?' ] );
-                    accordion +=  this.displayIt( 'Focus:', data[ 'Is the project area-wide or located at one site?' ] );
-                    accordion +=  this.displayIt( 'Neighborhoods/Cities:', data[ 'For area-wide projects, list the neighborhoods/cities this project occurs.' ] );
-                    accordion +=  this.displayIt( 'Project Boundaries:', data[ 'Does this project have more specific boundaries?' ] );
-                    accordion +=  this.displayIt( 'Neighborhood Assoc. Support:', data[ 'Does the project have the support of the neighborhood association?' ] );
-                    accordion +=  this.displayIt( 'Needs:', data[ 'The project is in need of' ] );
-                    accordion +=  this.displayIt( 'Will Help:', data[ 'We are happy to talk to others about our project and experience' ] );
+                    accordion +=  this.displayIt( 'Partners:', data[ '7. Who are your project partners?' ] );
+                    accordion +=  this.displayIt( 'Focus:', data[ '8. Is the project area-wide or located at one site?' ] );
+                    accordion +=  this.displayIt( 'Neighborhoods/Cities:', data[ '9. For area-wide projects, list the neighborhoods/cities this project occurs.' ] );
+                    accordion +=  this.displayIt( 'Project Boundaries:', data[ '10. For area-wide projects, does this project have more specific boundaries?' ] );
+                    accordion +=  this.displayIt( 'Neighborhood Assoc. Support:', data[ '11. Does the project have the support of the neighborhood association?' ] );
+                    accordion +=  this.displayIt( 'Needs:', data[ '22. The project is in need of:' ] );
+                    accordion +=  this.displayIt( 'Will Help:', data[ '23. We are happy to talk to others about our project and experience!' ] );
 
                     accordion +=  this.displayIt( 'Website:', data[ 'Project' ] );
 
@@ -342,7 +358,7 @@ var Projects = (function($) {
 			for(var i in this.Events)
 			{
 
-                var ptype = this.Events[i].data[ 'Project type' ];
+                var ptype = this.Events[i].data[ '3. Project type' ];
 
                 if ( project_type_to_display == 'all'
                 || ( typeof project_type_info[ (ptype) ] !== 'undefined' && project_type_info[ (ptype) ].id == project_type_to_display )) {
