@@ -52,7 +52,42 @@
     color: #337ab7;
 }
 
-#all a {
-	color: #333;
+
+.panel-title-capacity-building {
+    background-color: #6F4682 !important;
+    color: white !important;
 }
+
+.panel-title-housing {
+    background-color: #CA7FEC !important;
+    color: white !important;
+}
+
+.panel-title-environmental {
+    background-color: #4951FF  !important;
+    color: white !important;
+}
+
+.panel-title-public-safety{
+    background-color: #37BCE8 !important;
+    color: white !important;
+}
+
+.panel-title-education {
+    background-color: #EC9A7A !important;
+    color: white !important;
+}
+
+.panel-title-arts-and-culture {
+    background-color: #FFC355 !important;
+    color: white !important;
+}
+
+.panel-title-other {
+    background-color: #4E9F79 !important;
+    color: white !important;
+}
+
+
+
 

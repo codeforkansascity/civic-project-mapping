@@ -42,6 +42,7 @@ Add 'FullAddress and 'Location' columns to Spread Sheet
 
 From the Form goto live view to create an entry
 
+Add "DisplayOnMap" field, this will be used control what are displayed.
 Add "FullAddress" field, this will be used to build the "Location" field in the Fusion Table.
 Add "Location" field
 
@@ -70,13 +71,14 @@ Start Goolge Apps Script Project
 Tell Script where table is, the address column in the spread sheet, and where to put the location in the Fusion table.
    File -> Project Properties -> Script properties
    Add
-     docid  and the id of the table  "1kVpCuPV0SEyHISJKnVfMwGWQrqSaDTAddwHEiljU"
+     docid  and the id of the table  "11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU"
      addressColumn  Address column in the spread sheet  "FullAddress"
      latlngColumn  to put in the Fustion table "Location"
-     streetAddressColumn     Street Address of the Project
-     cityColumn              City
-     stateColumn             State
-     zipColumn               Zip
+     streetAddressColumn     12. Street address of the project
+     cityColumn              13. City
+     stateColumn             14. State
+     zipColumn               15. Zip
+     displayOnMap	     DisplayOnMap
 
 Replace the script with "script for Google forms.txt" from  https://github.com/lclontz/google_forms_to_fusion_tables/
 
@@ -88,6 +90,11 @@ In script window
    Click on the Developer Console link         <-- Need to do this through this path, to avoid auth error on SQL
         * Make sure Fusion table API is on
 
+Publish to the web
+==================
+
+File -> Publish -> Publish
+entire document
 
 Check authorization
 ===================
@@ -163,9 +170,9 @@ See https://developers.google.com/fusiontables/docs/v1/getting_started
 
 * You should be able to run a query against it
 
-     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1kVpCuPV0SEyHISJKnVfMwGWQrqSaDTAddwHEiljU&key=AIzaSyAeXVoM70qQo03RkeF3KTfRUSPAd2KuHaA
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU&key=AIzaSyAeXVoM70qQo03RkeF3KTfRUSPAd2KuHaA
 
-     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1kVpCuPV0SEyHISJKnVfMwGWQrqSaDTAddwHEiljU&key=your API key
+     https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU&key=your API key
                                                                         \ from the url of your fustion table   /
                                                                           or file -> about-> id
                                                                           they also refer to this as the table id
