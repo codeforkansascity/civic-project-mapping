@@ -92,9 +92,17 @@ var Projects = (function($) {
                     var data = this.Events[i].data;
                     var project_name = data[ '1. Project Title/Name' ];
 
+                    //
+                    ptype = data[ '21. Which best describes your type of organization?' ];
+                    if ((typeof project_type_info[ (ptype) ] === 'undefined')) {
+                        ptype = 'Other';
+                    }
+
+                    var title_class = 'panel-title-' + project_type_info[ ptype ].id;
+
                     var accordion = '';
                     accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
-                    accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
+                    accordion += '              <div class="panel-heading ' + title_class + '" role="tab" id="heading' + i + '">' + "\n";
                     accordion += '                <h4 class="panel-title">' + "\n";
                     accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
                     accordion += '                    ' + project_name + "\n";
