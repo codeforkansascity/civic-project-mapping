@@ -3,8 +3,6 @@ you might want to join the FT google group - they handle some pretty advanced qu
 To view this discussion on the web visit https://groups.google.com/d/msgid/fusion-tables-users-group/657aea5c-7dfc-4b2f-b087-7c4953a58b29%40googlegroups.com.
 
 
-
-
 START
 =====
 http://blog.chrislkeller.com/automating-crowdsourced-maps-with-apps-scripts/
