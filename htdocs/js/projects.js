@@ -93,7 +93,7 @@ var Projects = (function($) {
                     var project_name = data[ '1. Project Title/Name' ];
 
                     //
-                    ptype = data[ '21. Which best describes your type of organization?' ];
+                    ptype = data[ '3. Project type' ];
                     if ((typeof project_type_info[ (ptype) ] === 'undefined')) {
                         ptype = 'Other';
                     }
