@@ -89,5 +89,11 @@
 }
 
 
+.panel-title > a {
+    font-size: 20px;
+}
 
-
+.nav-pills > li > a {
+    font-size: 24px;
+    font-weight: bold;
+}
