@@ -89,11 +89,36 @@
 }
 
 
-.panel-title > a {
-    font-size: 20px;
+/* NavBar - Logo */
+
+.navbar-default .navbar-brand {
+    font-size: 42px;
 }
+
+/* NabBar - tag line */
+.navbar-nav > li > a {
+    font-size: 26px;
+}
+
+/* Filter buttons */
 
 .nav-pills > li > a {
     font-size: 24px;
     font-weight: bold;
 }
+
+/* Accordian parts */
+
+.panel-title > a {
+    font-size: 20px;
+}
+
+
+.our-menu {
+    margin-bottom: 26px;
+}
+
+.panel-body > p {
+    font-size: 18px;
+}
+
