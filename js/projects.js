@@ -95,8 +95,6 @@ var Projects = (function ($) {
 
                     var title_class = 'panel-title-' + project_type_info[ptype].id;
 
-console.log(data);
-
                     var accordion = '';
                     accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
                     accordion += '              <div class="panel-heading ' + title_class + '" role="tab" id="heading' + i + '">' + "\n";
@@ -136,7 +134,9 @@ console.log(data);
 
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
-                    accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a></p>' + "\n";
+                    accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
+                    accordion += '                      <a  style="float: right;" href="mailto:communitykcinfo@gmail.com?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
+                    accordion += '                </p>' + "\n";
                     accordion += '                </div>' + "\n";
                     accordion += '              </div>' + "\n";
                     accordion += '            </div>' + "\n";
