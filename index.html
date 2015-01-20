@@ -59,14 +59,14 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="about.html">connecting projects, people, and resources</a>
+                    <li><a class="tag_line" href="about.html">connecting projects, people, and resources</a>
                     </li>
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li>Phone
+                <ul class="nav navbar-nav navbar-right social">
+                    <li>816.502.9584&nbsp;&nbsp;
                     </li>
-                    <li>Email
+                    <li><a class="organization_email" href="mailto:communitykcinfo@gmail.com">communitykcinfo@gmail.com</a>
                     </li>
                 </ul>
             </div>
@@ -99,13 +99,13 @@
         </div>
     </div>
     <!-- /container -->
-
+   <!--
     <footer class="footer">
         <div class="container">
             This is the footer.
         </div>
     </footer>
-
+    -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -192,11 +192,11 @@
                     boxStyle: {
                         background: "url('img/tipbox.gif') no-repeat",
                         opacity: 0.92,
-                        width: "240px",
-                        height: "240px"
+                        width: "370px",
+                        height: "370px"
                     },
                     closeBoxMargin: "11px 4px 4px 4px",
-                    closeBoxURL: "img/close_x.png",
+                    closeBoxURL: "img/close-button.png",
                     infoBoxClearance: new google.maps.Size(25, 60),
                     visible: false,
                     pane: "floatPane",
@@ -274,7 +274,13 @@
                     key: Default.spread_sheet_key,
                     callback: function (data, tabletop) {
 
+                        for ( i in data ) {
+                            if ( data[i]['DisplayOnMap'] == 'no' ) {
+                                data.splice( i, 1 );
+                            }
+                        }
                         Proj.displayProjectTypeFilters();
+
                         Proj.getEvents(data, Map, Default);
                         Proj.displayProjectTypeCounts();
 

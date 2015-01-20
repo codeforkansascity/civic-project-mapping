@@ -19,13 +19,13 @@ var Event = (function ($) {
                 if (ThisEvent.infobox != null && ThisEvent.infobox.visible) {
                     ThisEvent.infobox.close(Map, ThisEvent.marker);
                 } else {
-                    ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#ddd; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif">';
+                    ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#fff; color: black; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 20px;">';
 
                     ThisEvent.infoboxtext += '   <p>' + "\n";
                     ThisEvent.infoboxtext += '                   <B>Project: </B> ' + ThisEvent.data['1. Project Title/Name'] + "<br>\n";
                     ThisEvent.infoboxtext += '                   ' + ThisEvent.data['2. Project description'].substring(0, 100) + "<br>\n";
                     ThisEvent.infoboxtext += '                   <B>Type: </B>' + ThisEvent.data['3. Project type'] + ' <span style="color:gray">(' + ThisEvent.data['Which best describes your type of organization?'] + ') </style> ' + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <B>Organization: </B>' + ThisEvent.data['16. Organization name'] + ' <span style="color:gray">(' + ThisEvent.data['Which best describes your type of organization?'] + ') </style> ' + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <B>Organization: </B>' + ThisEvent.data['17. Organization name'] + ' <span style="color:gray">(' + ThisEvent.data['Which best describes your type of organization?'] + ') </style> ' + "<br>\n";
                     ThisEvent.infoboxtext += '                   <B>Location: </B>' + ThisEvent.data['FullAddress'] + "<br>\n";
                     ThisEvent.infoboxtext += '        </p>' + "\n";
 

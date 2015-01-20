@@ -5,7 +5,7 @@
 
 
 #all {
-	background-color: #e5e5e5;
+	background-color: darkgray;
 	border-radius: 5px;
 }
 
@@ -88,11 +88,21 @@
     color: white !important;
 }
 
+/* ========================================= */
+/* Make more readable on overhead            */
+/* ========================================= */
 
 /* NavBar - Logo */
 
 .navbar-default .navbar-brand {
     font-size: 42px;
+    font-weight: bolder;
+    color: black;
+}
+
+.tag_line {
+    font-weight: bold;
+    color: black;
 }
 
 /* NabBar - tag line */
@@ -121,4 +131,25 @@
 .panel-body > p {
     font-size: 18px;
 }
+
+.social {
+    box-sizing: border-box;
+    color: #777;
+    font-size: 20px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    line-height: 20px;
+    margin-right: 20px;
+}
+
+.navbar-nav > li > a.organization_email {
+    box-sizing: border-box;
+    color: #777;
+    font-size: 20px;
+    line-height: 10px;
+    margin-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
 
