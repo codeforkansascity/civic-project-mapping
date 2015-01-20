@@ -125,3 +125,24 @@
     font-size: 18px;
 }
 
+.social {
+    box-sizing: border-box;
+    color: #777;
+    font-size: 20px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    line-height: 20px;
+    margin-right: 20px;
+}
+
+.navbar-nav > li > a.organization_email {
+    box-sizing: border-box;
+    color: #777;
+    font-size: 20px;
+    line-height: 10px;
+    margin-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+
