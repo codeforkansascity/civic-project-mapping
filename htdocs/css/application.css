@@ -96,6 +96,13 @@
 
 .navbar-default .navbar-brand {
     font-size: 42px;
+    font-weight: bolder;
+    color: black;
+}
+
+.tag_line {
+    font-weight: bold;
+    color: black;
 }
 
 /* NabBar - tag line */
