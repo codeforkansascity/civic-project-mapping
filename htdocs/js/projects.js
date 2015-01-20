@@ -107,10 +107,10 @@ var Projects = (function ($) {
                     accordion += '              </div>' + "\n";
                     accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
                     accordion += '                <div class="panel-body">' + "\n";
-                    accordion += this.displayIt('Organization Type:', data['21. Which best describes your type of organization?']);
-                    accordion += this.displayIt('Organization website or Facebook page:', data['17. Organization website or Facebook page']);
-                    accordion += this.displayIt('Contact:', data['18. Name of lead contact person for project']);
-                    accordion += this.displayIt('Phone:', data['19. Phone number of the project\'s contact person']);
+                    accordion += this.displayIt('Organization Type:', data['21. Which best describes your organization?']);
+                    accordion += this.displayIt('Organization website or Facebook page:', data['4. Project website or Facebook page']);
+                    accordion += this.displayIt('Contact:', data['19. Name of lead contact person for project']);
+                    accordion += this.displayIt('Phone:', data['20. Phone number of the project\'s contact person']);
                     accordion += this.displayIt('Email:', data['20. Email address of the project\'s contact person']);
 
 
@@ -118,16 +118,14 @@ var Projects = (function ($) {
                     accordion += '                <p>' + data['2. Project description'] + "\n";
                     accordion += '                <br />' + data['How often does this project occur?'] + "\n";
                     accordion += '                <br />' + data['5. What is the start date of your project?'] + ' through ' + data['6. What is the finish date (or anticipated finish date)?'] + "\n";
-                    accordion += this.displayIt('Website:', data['Project website']);
-                    accordion += this.displayIt('Partners:', data['7. Who are your project partners?']);
-                    accordion += this.displayIt('Focus:', data['8. Is the project area-wide or located at one site?']);
-                    accordion += this.displayIt('Neighborhoods/Cities:', data['9. For area-wide projects, list the neighborhoods/cities this project occurs.']);
-                    accordion += this.displayIt('Project Boundaries:', data['10. For area-wide projects, does this project have more specific boundaries?']);
-                    accordion += this.displayIt('Neighborhood Assoc. Support:', data['11. Does the project have the support of the neighborhood association?']);
+                    accordion += this.displayIt('Website:', data['4. Project website or Facebook page']);
+                    accordion += this.displayIt('Partners:', data['8. Who are your project partners?']);
+                    accordion += this.displayIt('Focus:', data['9. Is the project area-wide or located at one site?']);
+                    accordion += this.displayIt('Neighborhoods/Cities:', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
+                    accordion += this.displayIt('Project Boundaries:', data['11. For area-wide projects, does this project have more specific boundaries?']);
+                    accordion += this.displayIt('Neighborhood Assoc. Support:', data['12. Does the project have the support of the neighborhood association?']);
                     accordion += this.displayIt('Needs:', data['22. The project is in need of:']);
                     accordion += this.displayIt('Will Help:', data['23. We are happy to talk to others about our project and experience!']);
-
-                    accordion += this.displayIt('Website:', data['Project']);
 
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
@@ -344,7 +342,7 @@ var Projects = (function ($) {
 
                 var ptype = this.Events[i].data['3. Project type'];
 
-                if (project_type_to_display == 'all' || ((typeof project_type_info[(ptype)] !== 'undefined') && (project_type_info[(ptype)].id == project_type_to_display))) {
+                if ( project_type_to_display == 'all' || ((typeof project_type_info[(ptype)] !== 'undefined') && (project_type_info[(ptype)].id == project_type_to_display))) {
                     if ((typeof project_type_info[(ptype)] === 'undefined')) {
                         ptype = 'Other';
                     }
