@@ -24,9 +24,15 @@ var Event = (function ($) {
                     ThisEvent.infoboxtext += '   <p>' + "\n";
                     ThisEvent.infoboxtext += '                   <B>Project: </B> ' + ThisEvent.data['1. Project Title/Name'] + "<br>\n";
                     ThisEvent.infoboxtext += '                   ' + ThisEvent.data['2. Project description'].substring(0, 100) + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <B>Type: </B>' + ThisEvent.data['3. Project type'] + ' <span style="color:gray">(' + ThisEvent.data['Which best describes your type of organization?'] + ') </style> ' + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <B>Organization: </B>' + ThisEvent.data['17. Organization name'] + ' <span style="color:gray">(' + ThisEvent.data['Which best describes your type of organization?'] + ') </style> ' + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <B>Location: </B>' + ThisEvent.data['FullAddress'] + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <B>Type: </B>' + ThisEvent.data['3. Project type'] + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <B>Organization: </B>' + ThisEvent.data['17. Organization name'] + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <B>Location: </B>';
+                    if (ThisEvent.data['11. For area-wide projects, does this project have more specific boundaries?'].length != 0 ) {
+                        ThisEvent.infoboxtext += ThisEvent.data['11. For area-wide projects, does this project have more specific boundaries?'] + "<br>\n";
+                    } else {
+                        ThisEvent.infoboxtext += ThisEvent.data['FullAddress'] + "<br>\n";
+                    }
+
                     ThisEvent.infoboxtext += '        </p>' + "\n";
 
                     ThisEvent.infoboxtext += '</div>';
