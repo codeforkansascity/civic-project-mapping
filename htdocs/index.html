@@ -274,7 +274,13 @@
                     key: Default.spread_sheet_key,
                     callback: function (data, tabletop) {
 
+                        for ( i in data ) {
+                            if ( data[i]['DisplayOnMap'] == 'no' ) {
+                                data.splice( i, 1 );
+                            }
+                        }
                         Proj.displayProjectTypeFilters();
+
                         Proj.getEvents(data, Map, Default);
                         Proj.displayProjectTypeCounts();
 
