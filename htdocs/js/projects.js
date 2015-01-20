@@ -26,7 +26,6 @@ var Projects = (function ($) {
                 // a must be equal to b
                 return 0;
             });
-            console.dir(rows);
 
             // Copy the Project data to the Event object
             for (var i in rows) {
