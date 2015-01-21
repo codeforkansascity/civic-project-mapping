@@ -94,11 +94,20 @@
 
 /* NavBar - Logo */
 
-.navbar-default .navbar-brand {
+
+#header-community {
     font-size: 42px;
     font-weight: bolder;
     color: black;
+
 }
+#header-kc {
+    font-size: 42px;
+    font-weight: normal;
+    color: black;
+}
+
+
 
 .tag_line {
     font-weight: bold;
