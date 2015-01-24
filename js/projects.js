@@ -110,7 +110,7 @@ var Projects = (function($) {
 
                     accordion += '                <br />' + data['5. What is the start date of your project?'] + ' through ' + data['6. What is the finish date (or anticipated finish date)?'] + "\n";
 
-                    accordion += '                <p><b>Project Type: </b>' + data['3. Project type'] + '</p>' + "\n";
+                    accordion += '                <p><span style="color: grey;">Project Type: </span>' + data['3. Project type'] + '</p>' + "\n";
 
                     accordion += this.displayIt('', data['4. Project website or Facebook page ']);
                     accordion += this.displayIt('Phase:', data['7. What phase of the project are you in?']);
