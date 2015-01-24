@@ -275,7 +275,7 @@
                     callback: function (data, tabletop) {
 
                         for ( i in data ) {
-                            if ( data[i]['DisplayOnMap'] == 'no' ) {
+                            if ( data[i]['DisplayOnMap'].toLowerCase() == 'no' ) {
                                 data.splice( i, 1 );
                             }
                         }
