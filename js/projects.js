@@ -116,7 +116,12 @@ var Projects = (function($) {
                     accordion += this.displayIt('Phase:', data['7. What phase of the project are you in?']);
                     accordion += this.displayIt('Partners:', data['8. Who are your project partners?']);
                     accordion += this.displayIt('Neighborhood(s):', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
-                    accordion += this.displayIt('Boundaries:', data['11. For area-wide projects, does this project have more specific boundaries?']);
+
+                    var project_boundaries = data['11. For area-wide projects, does this project have more specific boundaries?'];
+                    if ( project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
+                        accordion += this.displayIt('Boundaries:', project_boundaries);
+                    }
+
                     accordion += this.displayIt('Address:', data['FullAddress']);
                     accordion += this.displayIt('Neighborhood Assoc Support:', data['12. Does the project have the support of the neighborhood association?']);
 
