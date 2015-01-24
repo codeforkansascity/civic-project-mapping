@@ -150,13 +150,14 @@ var Projects = (function($) {
             }
             for (var i in this.Events) {
                 // Listen for marker clicks
-                google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i]));
-                $('#show-on-map-' + i).on("click", null, {
-                    map: Map.Map,
-                    default: Default,
-                    panel: this.Events[i].panel
-                }, this.centerPin);
-
+                if ( this.Events[i].marker ) {              // We create events with out lat and lng and marker so we need to handle it here
+                    google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i]));
+                    $('#show-on-map-' + i).on("click", null, {
+                        map: Map.Map,
+                        default: Default,
+                        panel: this.Events[i].panel
+                    }, this.centerPin);
+                }
             }
 
         };
