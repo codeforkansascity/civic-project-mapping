@@ -2,8 +2,8 @@
  * @classDestription - Placeholder for Projects application variables and functions.
  * @class - Projects
  */
-var Projects = (function ($) {
-    var constructor = function (infoboxoptions) {
+var Projects = (function($) {
+    var constructor = function(infoboxoptions) {
         this.AddressMarker = null;
 
         this.Events = [];
@@ -11,12 +11,12 @@ var Projects = (function ($) {
         // Can we geolocate?
         this.geolocate = navigator.geolocation;
 
-        this.getEvents = function (rows, Map, Default) {
+        this.getEvents = function(rows, Map, Default) {
 
             for (var i in rows) {
                 rows[i]['name'] = rows[i]['1. Project Title/Name'];
             }
-            rows.sort(function (a, b) {
+            rows.sort(function(a, b) {
                 if (a.name > b.name) {
                     return 1;
                 }
@@ -112,7 +112,7 @@ var Projects = (function ($) {
 
                     accordion += '                <p><b>Project Type: </b>' + data['3. Project type'] + '</p>' + "\n";
 
-                    accordion += this.displayIt('Web:', data['4. Project website or Facebook page ']);
+                    accordion += this.displayIt('', data['4. Project website or Facebook page ']);
                     accordion += this.displayIt('Phase:', data['7. What phase of the project are you in?']);
                     accordion += this.displayIt('Partners:', data['8. Who are your project partners?']);
                     accordion += this.displayIt('Location Type:', data['9. Is the project area-wide or located at one site?']);
@@ -122,7 +122,7 @@ var Projects = (function ($) {
                     accordion += this.displayIt('Neighborhood Assoc Support:', data['12. Does the project have the support of the neighborhood association?']);
 
                     accordion += this.displayIt('Organization name:', data['17. Organization name']);
-                    accordion += this.displayIt('Web:', data['18. Organization website or Facebook page']);
+                    accordion += this.displayIt('', data['18. Organization website or Facebook page']);
                     accordion += this.displayIt('Contact:', data['19. Name of lead contact person for project']);
                     accordion += this.displayIt('Phone:', data['20. Phone number of the project\'s contact person']);
                     accordion += this.displayIt('Email:', data['20. Email address of the project\'s contact person']);
@@ -157,18 +157,27 @@ var Projects = (function ($) {
 
         };
 
-        this.displayIt = function (label, value) {
-            if (value) {
-                return '                <p><b>' + label + '</b> ' + value + '</p>' + "\n";
+        this.displayIt = function(label, value) {
+            if (label) {
+                if (value) {
+                    return '                <p><span style="color: grey">' + label + '</span> ' + value + '</p>' + "\n";
+                } else {
+                    return '';
+                }
             } else {
-                return '';
+                if (value) {
+                    return '                <p>' + value + '</p>' + "\n";
+                } else {
+                    return '';
+                }
             }
+
         }
 
         /**
          * PROJECT FILTER functions
          */
-        this.displayProjectTypeFilters = function () {
+        this.displayProjectTypeFilters = function() {
             for (var project_type in project_type_info) {
                 var project = project_type_info[project_type];
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
@@ -176,7 +185,7 @@ var Projects = (function ($) {
             }
         }
 
-        this.displayProjectTypeCounts = function () {
+        this.displayProjectTypeCounts = function() {
             for (var project_type in project_type_info) {
                 var project = project_type_info[project_type];
                 $('#cnt-' + project.id).html(project.count);
@@ -186,7 +195,7 @@ var Projects = (function ($) {
         /**
          * MAP functions
          */
-        this.centerPin = function (e) {
+        this.centerPin = function(e) {
             var Latlng = new google.maps.LatLng(
                 e.data.panel.Lat,
                 e.data.panel.Lng
@@ -198,12 +207,12 @@ var Projects = (function ($) {
         /**
          * Set the address for a latlng
          */
-        this.codeLatLng = function (Latlng) {
+        this.codeLatLng = function(Latlng) {
             var Geocoder = new google.maps.Geocoder();
             Geocoder.geocode({
                     'latLng': Latlng
                 },
-                function (Results, Status) {
+                function(Results, Status) {
                     if (Status == google.maps.GeocoderStatus.OK) {
                         if (Results[0]) {
                             var formattedAddress = Results[0].formatted_address.split(',');
@@ -234,7 +243,7 @@ var Projects = (function ($) {
         };
 
         // Put a Pan/Zoom control on the map
-        this.setFindMeControl = function (controlDiv, Map, Project, Default) {
+        this.setFindMeControl = function(controlDiv, Map, Project, Default) {
             // Set CSS styles for the DIV containing the control
             // Setting padding to 5 px will offset the control
             // from the edge of the map.
@@ -262,11 +271,11 @@ var Projects = (function ($) {
             controlText.innerHTML = 'Find Me';
             controlUI.appendChild(controlText);
             // Setup the click event listeners.
-            google.maps.event.addDomListener(controlUI, 'click', function () {
+            google.maps.event.addDomListener(controlUI, 'click', function() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         // Success
-                        function (position) {
+                        function(position) {
                             //_gaq.push(['_trackEvent', 'GPS', 'Success']);
                             var Latlng = new google.maps.LatLng(
                                 position.coords.latitude,
@@ -293,7 +302,7 @@ var Projects = (function ($) {
                             Project.codeLatLng(Latlng);
                         },
                         // Failure
-                        function () {
+                        function() {
                             alert('We\'re sorry. We could not find you. Please type in an address.');
                         }, {
                             timeout: 5000,
@@ -304,7 +313,7 @@ var Projects = (function ($) {
             });
         };
 
-        this.setMapLegend = function (controlDiv, Map, Project, Default) {
+        this.setMapLegend = function(controlDiv, Map, Project, Default) {
             // Set CSS styles for the DIV containing the control
             // Setting padding to 5 px will offset the control
             // from the edge of the map.
@@ -332,12 +341,12 @@ var Projects = (function ($) {
             controlText.innerHTML = '<div>Free<img src="img/blue.png" /></div>';
             controlUI.appendChild(controlText);
             // Setup the click event listeners.
-            google.maps.event.addDomListener(controlUI, 'click', function () {
+            google.maps.event.addDomListener(controlUI, 'click', function() {
                 Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].clear();
             });
         };
 
-        this.setMarkersByProjectType = function (project_type_to_display) {
+        this.setMarkersByProjectType = function(project_type_to_display) {
             if (project_type_to_display == 'all') {
                 $('.panel-default').css("display", "block");
             } else {
@@ -349,7 +358,7 @@ var Projects = (function ($) {
 
                 var ptype = this.Events[i].data['3. Project type'];
 
-                if ( project_type_to_display == 'all' || ((typeof project_type_info[(ptype)] !== 'undefined') && (project_type_info[(ptype)].id == project_type_to_display))) {
+                if (project_type_to_display == 'all' || ((typeof project_type_info[(ptype)] !== 'undefined') && (project_type_info[(ptype)].id == project_type_to_display))) {
                     if ((typeof project_type_info[(ptype)] === 'undefined')) {
                         ptype = 'Other';
                     }
