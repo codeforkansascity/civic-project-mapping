@@ -10,39 +10,104 @@
 }
 
 #capacity-building {
-	background-color: #6F4682;
-	border-radius: 5px;
+    background-color: #BBDC0A;
+    border-radius: 5px;
 }
+#capacity-building.active, #capacity-building.active > a {
+    background-color: #BBDC0A !important;
+}
+
+#capacity-building a{
+    color: black;
+}
+
 
 #housing {
-	background-color: #CA7FEC;
+	background-color: #FF675D;
 	border-radius: 5px;
 }
+
+#housing.active, #housing.active > a {
+    background-color: #FF675D !important;
+}
+
+#housing a{
+    color: black;
+}
+
 
 #environmental {
-	background-color: #4951FF;
+	background-color: #56CEE6;
 	border-radius: 5px;
 }
+
+#environmental.active, #environmental.active > a {
+    background-color: #56CEE6 !important;
+}
+
+#environmental a{
+    color: black;
+}
+
 
 #public-safety{
-	background-color: #37BCE8;
+	background-color: #EEE938;
 	border-radius: 5px;
 }
 
+#public-safety.active, #public-safety.active > a {
+    background-color: #EEE938 !important;
+}
+
+#public-safety a{
+    color: black;
+}
+
+
 #education {
-	background-color: #EC9A7A;
+	background-color: #FF9F36;
 	border-radius: 5px;
 }
+
+#education.active, #education.active > a {
+    background-color: #FF9F36 !important;
+}
+
+#education a{
+    color: black;
+}
+
 
 #arts-and-culture {
 	background-color: #FFC355;
 	border-radius: 5px;
 }
 
-#other {
-	background-color: #4E9F79;
-	border-radius: 5px;
+
+#arts-and.active, #arts-and.active > a {
+    background-color: #FFC355 !important;
 }
+
+
+#arts-and-culture a{
+    color: black;
+}
+
+
+#other {
+    background-color: #BF77CE;
+    border-radius: 5px;
+}
+
+
+#other.active, #other.active > a {
+    background-color: #BF77CE !important;
+}
+
+#other a{
+    color: black;
+}
+
 
 .nav-pills > li > a {
     color: #eee;
@@ -54,38 +119,33 @@
 
 
 .panel-title-capacity-building {
-    background-color: #6F4682 !important;
-    color: white !important;
+    background-color: #BBDC0A !important;
+    color: black !important;
 }
 
 .panel-title-housing {
-    background-color: #CA7FEC !important;
-    color: white !important;
+    background-color: #FF675D !important;
+    color: black !important;
 }
 
 .panel-title-environmental {
-    background-color: #4951FF  !important;
-    color: white !important;
+    background-color: #56CEE6  !important;
+    color: black !important;
 }
 
 .panel-title-public-safety{
-    background-color: #37BCE8 !important;
-    color: white !important;
+    background-color: #EEE938 !important;
+    color: black !important;
 }
 
 .panel-title-education {
-    background-color: #EC9A7A !important;
-    color: white !important;
-}
-
-.panel-title-arts-and-culture {
-    background-color: #FFC355 !important;
-    color: white !important;
+    background-color: #FF9F36 !important;
+    color: black !important;
 }
 
 .panel-title-other {
-    background-color: #4E9F79 !important;
-    color: white !important;
+    background-color: #BF77CE !important;
+    color: black !important;
 }
 
 /* ========================================= */
