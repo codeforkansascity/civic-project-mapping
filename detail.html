@@ -133,38 +133,38 @@
         };
         project_type_info["Capacity Building"] = {
             id: "capacity-building",
-            color: "#BBDC0A",           // rgb(187, 220, 0);
-            pin_url: "img/BBDC0A.png",
+            color: "#6F4682",
+            pin_url: "img/6F4682.png",
             count: 0
         };
         project_type_info["Economic Development and Housing"] = {
             id: "housing",
-            color: "#FF675D",           // rgb(255, 103, 93);
-            pin_url: "img/FF675D.png",
+            color: "#CA7FEC",
+            pin_url: "img/CA7FEC.png",
             count: 0
         };
         project_type_info["Environment and Energy"] = {
             id: "environmental",
-            color: "#56CEE6",           // rgb(86, 206, 230);
-            pin_url: "img/56CEE6.png",
+            color: "#4951FF",
+            pin_url: "img/4951FF.png",
             count: 0
         };
         project_type_info["Public Health and Safety"] = {
             id: "public-safety",
-            color: "#EEE938",           // rgb(238, 233, 56);
-            pin_url: "img/EEE938.png",
+            color: "#37BCE8",
+            pin_url: "img/37BCE8.png",
             count: 0
         };
         project_type_info["Education, Arts, and Culture"] = {
             id: "education",
-            color: "#FF9F36",           // rgb(255, 159, 54);
-            pin_url: "img/FF9F36.png",
+            color: "#EC9A7A",
+            pin_url: "img/EC9A7A.png",
             count: 0
         };
         project_type_info["Other"] = {
             id: "other",
-            color: "#BF77CE",          // rgb(191, 119, 206);
-            pin_url: "img/BF77CE.png",
+            color: "#4E9F79",
+            pin_url: "img/4E9F79.png",
             count: 0
         };
 
@@ -305,6 +305,24 @@
 
             }); // END jQuery on document ready
         })(jQuery, TkMap, Projects);
+
+        // The following code is from http://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-url-parameter
+        function getQueryParams(qs) {
+            qs = qs.split("+").join(" ");
+
+            var params = {}, tokens,
+                    re = /[?&]?([^=]+)=([^&]*)/g;
+
+            while (tokens = re.exec(qs)) {
+                params[decodeURIComponent(tokens[1])]
+                        = decodeURIComponent(tokens[2]);
+            }
+
+            return params;
+        }
+
+        var query = getQueryParams(document.location.search);
+        alert(decodeURIComponent(query.foo)); 
     </script>
 </body>
 
