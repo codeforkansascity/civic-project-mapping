@@ -115,7 +115,6 @@ var Projects = (function($) {
                     accordion += this.displayIt('', data['4. Project website or Facebook page ']);
                     accordion += this.displayIt('Phase:', data['7. What phase of the project are you in?']);
                     accordion += this.displayIt('Partners:', data['8. Who are your project partners?']);
-                    accordion += this.displayIt('Location Type:', data['9. Is the project area-wide or located at one site?']);
                     accordion += this.displayIt('Neighborhood(s):', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
                     accordion += this.displayIt('Boundaries:', data['11. For area-wide projects, does this project have more specific boundaries?']);
                     accordion += this.displayIt('Address:', data['FullAddress']);
