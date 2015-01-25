@@ -118,7 +118,7 @@ var Projects = (function($) {
                     accordion += this.displayIt('Neighborhood(s):', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
 
                     var project_boundaries = data['11. For area-wide projects, does this project have more specific boundaries?'];
-                    if ( project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
+                    if (project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
                         accordion += this.displayIt('Boundaries:', project_boundaries);
                     }
 
@@ -150,7 +150,7 @@ var Projects = (function($) {
             }
             for (var i in this.Events) {
                 // Listen for marker clicks
-                if ( this.Events[i].marker ) {              // We create events with out lat and lng and marker so we need to handle it here
+                if (this.Events[i].marker) { // If google map was able to create a map marker
                     google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i]));
                     $('#show-on-map-' + i).on("click", null, {
                         map: Map.Map,
@@ -352,6 +352,7 @@ var Projects = (function($) {
         };
 
         this.setMarkersByProjectType = function(project_type_to_display) {
+
             if (project_type_to_display == 'all') {
                 $('.panel-default').css("display", "block");
             } else {
@@ -362,17 +363,19 @@ var Projects = (function($) {
             for (var i in this.Events) {
 
                 var ptype = this.Events[i].data['3. Project type'];
-
-                if (project_type_to_display == 'all' || ((typeof project_type_info[(ptype)] !== 'undefined') && (project_type_info[(ptype)].id == project_type_to_display))) {
-                    if ((typeof project_type_info[(ptype)] === 'undefined')) {
-                        ptype = 'Other';
-                    }
-                    this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
-                } else {
-                    this.Events[i].marker.setIcon('img/grey-transparent.png');
+                if (!project_type_info[(ptype)]) {
+                    ptype = 'Other';
                 }
 
-
+                if (this.Events[i].marker) { // If google map was able to create a map marker
+                    if (project_type_to_display == 'all') {
+                        this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
+                    } else if (project_type_info[(ptype)].id.toString() == project_type_to_display.toString()) {
+                        this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
+                    } else {
+                        this.Events[i].marker.setIcon('img/grey-transparent.png');
+                    }
+                }
             }
         };
     };
