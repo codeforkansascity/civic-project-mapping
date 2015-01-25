@@ -270,15 +270,32 @@
                  * Load the projects data
                  */
 
+		function compareRowNumbers(a, b) {
+		    return b - a;
+		}
                 Tabletop.init({
                     key: Default.spread_sheet_key,
                     callback: function (data, tabletop) {
+			
+			var rows_to_remove = [];
 
                         for ( i in data ) {
                             if ( data[i]['DisplayOnMap'].toLowerCase() == 'no' ) {
-                                data.splice( i, 1 );
+				rows_to_remove.push( i );
                             }
                         }
+
+			rows_to_remove.sort( compareRowNumbers );
+
+
+                        for ( i in rows_to_remove ) {
+                                data.splice( rows_to_remove[i], 1 );
+                        }
+
+                        for ( i in data ) {
+                            console.log( i + ',' + data[i]['1. Project Title/Name'] + ', ' + data[i]['DisplayOnMap'] ); 
+                        }
+
                         Proj.displayProjectTypeFilters();
 
                         Proj.getEvents(data, Map, Default);
