@@ -22,11 +22,11 @@ var Event = (function ($) {
                     ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#fff; color: black; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 20px;">';
 
                     ThisEvent.infoboxtext += '   <p>' + "\n";
-                    ThisEvent.infoboxtext += '                   <B>Project: </B> ' + ThisEvent.data['1. Project Title/Name'] + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <b> ' + ThisEvent.data['1. Project Title/Name'] + "</b><br \>\n";
                     ThisEvent.infoboxtext += '                   ' + ThisEvent.data['2. Project description'].substring(0, 100) + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <B>Type: </B>' + ThisEvent.data['3. Project type'] + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <B>Organization: </B>' + ThisEvent.data['17. Organization name'] + "<br>\n";
-                    ThisEvent.infoboxtext += '                   <B>Location: </B>';
+                    ThisEvent.infoboxtext += '                   <span style="color: grey;">Type: </span>' + ThisEvent.data['3. Project type'] + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <span style="color: grey;">Organization: </span>' + ThisEvent.data['17. Organization name'] + "<br>\n";
+                    ThisEvent.infoboxtext += '                   <span style="color: grey;">Location: </span>';
                     if (ThisEvent.data['11. For area-wide projects, does this project have more specific boundaries?'].length != 0 ) {
                         ThisEvent.infoboxtext += ThisEvent.data['11. For area-wide projects, does this project have more specific boundaries?'] + "<br>\n";
                     } else {
