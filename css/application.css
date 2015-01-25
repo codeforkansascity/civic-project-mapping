@@ -10,11 +10,11 @@
 }
 
 #capacity-building {
-    background-color: #BBDC0A;
+    background-color: #5CE628;
     border-radius: 5px;
 }
 #capacity-building.active, #capacity-building.active > a {
-    background-color: #BBDC0A !important;
+    background-color: #5CE628 !important;
 }
 
 #capacity-building a{
@@ -117,29 +117,31 @@
     color: #337ab7;
 }
 
+.panel-title {
 
+}
 .panel-title-capacity-building {
-    background-color: #BBDC0A !important;
+    background-color: #98EA78 !important;
     color: black !important;
 }
 
 .panel-title-housing {
-    background-color: #FF675D !important;
+    background-color: #FD9B95 !important;
     color: black !important;
 }
 
 .panel-title-environmental {
-    background-color: #56CEE6  !important;
+    background-color: #9DD7E3  !important;
     color: black !important;
 }
 
 .panel-title-public-safety{
-    background-color: #EEE938 !important;
+    background-color: #F7F597 !important;
     color: black !important;
 }
 
 .panel-title-education {
-    background-color: #FF9F36 !important;
+    background-color: #FDB055 !important;
     color: black !important;
 }
 
