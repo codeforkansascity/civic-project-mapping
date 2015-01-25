@@ -42,7 +42,7 @@ Add 'FullAddress and 'Location' columns to Spread Sheet
 
 From the Form goto live view to create an entry
 
-Add "DisplayOnMap" field, this will be used control what are displayed.
+Add "DisplayOnMap" field, this will be used control what are displayed. If value is "no" it will not be displayed.
 Add "FullAddress" field, this will be used to build the "Location" field in the Fusion Table.
 Add "Location" field
 
