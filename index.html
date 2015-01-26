@@ -99,7 +99,7 @@
         </div>
     </div>
     <!-- /container -->
-   <!--
+    <!--
     <footer class="footer">
         <div class="container">
             This is the footer.
@@ -133,43 +133,43 @@
         };
         project_type_info["Capacity Building"] = {
             id: "capacity-building",
-            color: "#BBDC0A",           // rgb(187, 220, 0);
+            color: "#BBDC0A", // rgb(187, 220, 0);
             pin_url: "img/BBDC0A.png",
             count: 0
         };
         project_type_info["Economic Development and Housing"] = {
             id: "housing",
-            color: "#FF675D",           // rgb(255, 103, 93);
+            color: "#FF675D", // rgb(255, 103, 93);
             pin_url: "img/FF675D.png",
             count: 0
         };
         project_type_info["Environment and Energy"] = {
             id: "environmental",
-            color: "#56CEE6",           // rgb(86, 206, 230);
+            color: "#56CEE6", // rgb(86, 206, 230);
             pin_url: "img/56CEE6.png",
             count: 0
         };
         project_type_info["Public Health and Safety"] = {
             id: "public-safety",
-            color: "#EEE938",           // rgb(238, 233, 56);
+            color: "#EEE938", // rgb(238, 233, 56);
             pin_url: "img/EEE938.png",
             count: 0
         };
         project_type_info["Education, Arts, and Culture"] = {
             id: "education",
-            color: "#FF9F36",           // rgb(255, 159, 54);
+            color: "#FF9F36", // rgb(255, 159, 54);
             pin_url: "img/FF9F36.png",
             count: 0
         };
         project_type_info["Other"] = {
             id: "other",
-            color: "#BF77CE",          // rgb(191, 119, 206);
+            color: "#BF77CE", // rgb(191, 119, 206);
             pin_url: "img/BF77CE.png",
             count: 0
         };
 
 
-        (function ($, TkMap, Projects) {
+        (function($, TkMap, Projects) {
             /**
              * @classDescription - Default settings for this application
              * @class - Default
@@ -220,7 +220,7 @@
              * jQuery's 'on document ready' function
              * Run this after the DOM is fully loaded.
              */
-            $(function () {
+            $(function() {
 
                 var Map = new TkMap({
                     domid: Default.domid,
@@ -232,7 +232,7 @@
                 }); // END Map object constructor
 
                 $(window)
-                    .resize(function () { // RESIZE Map div when window size changes
+                    .resize(function() { // RESIZE Map div when window size changes
                         var h = $(window)
                             .height(), // Solves the 100% height turning to 0px
                             offsetTop = 200; // Calculate the top offset      // https://github.com/twbs/bootstrap/issues/2475
@@ -270,30 +270,30 @@
                  * Load the projects data
                  */
 
-		function compareRowNumbers(a, b) {
-		    return b - a;
-		}
+                function compareRowNumbers(a, b) {
+                    return b - a;
+                }
                 Tabletop.init({
                     key: Default.spread_sheet_key,
-                    callback: function (data, tabletop) {
-			
-			var rows_to_remove = [];
+                    callback: function(data, tabletop) {
 
-                        for ( i in data ) {
-                            if ( data[i]['DisplayOnMap'].toLowerCase() == 'no' ) {
-				rows_to_remove.push( i );
+                        var rows_to_remove = [];
+
+                        for (i in data) {
+                            if (data[i]['DisplayOnMap'].toLowerCase() == 'no') {
+                                rows_to_remove.push(i);
                             }
                         }
 
-			rows_to_remove.sort( compareRowNumbers );
+                        rows_to_remove.sort(compareRowNumbers);
 
 
-                        for ( i in rows_to_remove ) {
-                                data.splice( rows_to_remove[i], 1 );
+                        for (i in rows_to_remove) {
+                            data.splice(rows_to_remove[i], 1);
                         }
 
-                        for ( i in data ) {
-                            console.log( i + ',' + data[i]['1. Project Title/Name'] + ', ' + data[i]['DisplayOnMap'] ); 
+                        for (i in data) {
+                            console.log(i + ',' + data[i]['1. Project Title/Name'] + ', ' + data[i]['DisplayOnMap']);
                         }
 
                         Proj.displayProjectTypeFilters();
@@ -302,7 +302,7 @@
                         Proj.displayProjectTypeCounts();
 
                         $('.proj-type')
-                            .on('click', function () {
+                            .on('click', function() {
 
                                 var clicked_id = this.id;
 
