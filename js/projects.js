@@ -152,10 +152,11 @@ var Projects = (function($) {
                 // Listen for marker clicks
                 if (this.Events[i].marker) { // If google map was able to create a map marker
                     google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i]));
-                    $('#show-on-map-' + i).on("click", null, {
+                    $('#show-on-map-' + i).on("click",null, {
                         map: Map.Map,
                         default: Default,
-                        panel: this.Events[i].panel
+                        panel: this.Events[i].panel,
+                            marker: this.Events[i].marker
                     }, this.centerPin);
                 }
             }
@@ -207,6 +208,18 @@ var Projects = (function($) {
             );
             e.data.map.setCenter(Latlng);
             e.data.map.setZoom(e.data.default.zoomaddress);
+            toggleBounce(e.data.marker);
+            setTimeout(function(){ e.data.marker.setAnimation(null); }, 6000);  // 750 is one bounce
+
+
+        }
+
+        function toggleBounce (marker) {
+            if (marker.getAnimation() != null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
         }
 
         /**
