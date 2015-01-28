@@ -292,10 +292,6 @@
                             data.splice(rows_to_remove[i], 1);
                         }
 
-                        for (i in data) {
-                            console.log(i + ',' + data[i]['1. Project Title/Name'] + ', ' + data[i]['DisplayOnMap']);
-                        }
-
                         Proj.displayProjectTypeFilters();
 
                         Proj.getEvents(data, Map, Default);
