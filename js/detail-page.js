@@ -2,7 +2,7 @@
  * @classDestription - Placeholder for Projects application variables and functions.
  * @class - Projects
  */
-var Projects = (function($) {
+var DetailPage = (function($) {
     var constructor = function(infoboxoptions) {
         this.AddressMarker = null;
 
@@ -118,7 +118,7 @@ var Projects = (function($) {
                     accordion += this.displayIt('Neighborhood(s):', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
 
                     var project_boundaries = data['11. For area-wide projects, does this project have more specific boundaries?'];
-                    if (project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
+                    if ( project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
                         accordion += this.displayIt('Boundaries:', project_boundaries);
                     }
 
@@ -150,13 +150,12 @@ var Projects = (function($) {
             }
             for (var i in this.Events) {
                 // Listen for marker clicks
-                if (this.Events[i].marker) { // If google map was able to create a map marker
+                if ( this.Events[i].marker ) {              // We create events with out lat and lng and marker so we need to handle it here
                     google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i]));
-                    $('#show-on-map-' + i).on("click",null, {
+                    $('#show-on-map-' + i).on("click", null, {
                         map: Map.Map,
                         default: Default,
-                        panel: this.Events[i].panel,
-                            marker: this.Events[i].marker
+                        panel: this.Events[i].panel
                     }, this.centerPin);
                 }
             }
@@ -208,18 +207,6 @@ var Projects = (function($) {
             );
             e.data.map.setCenter(Latlng);
             e.data.map.setZoom(e.data.default.zoomaddress);
-            toggleBounce(e.data.marker);
-            setTimeout(function(){ e.data.marker.setAnimation(null); }, 6000);  // 750 is one bounce
-
-
-        }
-
-        function toggleBounce (marker) {
-            if (marker.getAnimation() != null) {
-                marker.setAnimation(null);
-            } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
         }
 
         /**
@@ -365,7 +352,6 @@ var Projects = (function($) {
         };
 
         this.setMarkersByProjectType = function(project_type_to_display) {
-
             if (project_type_to_display == 'all') {
                 $('.panel-default').css("display", "block");
             } else {
@@ -376,19 +362,17 @@ var Projects = (function($) {
             for (var i in this.Events) {
 
                 var ptype = this.Events[i].data['3. Project type'];
-                if (!project_type_info[(ptype)]) {
-                    ptype = 'Other';
+
+                if (project_type_to_display == 'all' || ((typeof project_type_info[(ptype)] !== 'undefined') && (project_type_info[(ptype)].id == project_type_to_display))) {
+                    if ((typeof project_type_info[(ptype)] === 'undefined')) {
+                        ptype = 'Other';
+                    }
+                    this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
+                } else {
+                    this.Events[i].marker.setIcon('img/grey-transparent.png');
                 }
 
-                if (this.Events[i].marker) { // If google map was able to create a map marker
-                    if (project_type_to_display == 'all') {
-                        this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
-                    } else if (project_type_info[(ptype)].id.toString() == project_type_to_display.toString()) {
-                        this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
-                    } else {
-                        this.Events[i].marker.setIcon('img/grey-transparent.png');
-                    }
-                }
+
             }
         };
     };

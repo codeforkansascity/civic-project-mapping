@@ -3,6 +3,7 @@
 
 <head>
     <title>Community KC</title>
+    <meta http-equiv="refresh" content="60">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,29 +75,13 @@
         </div>
     </nav>
 
-
-
     <div class="container-fluid">
 
-        <div class="row our-menu">
-            <div class="col-md-12">
-                <ul id='project-type-filter-buttons' class="nav nav-pills" role="tablist">
-                </ul>
+        <div class="col-md-12 ">
+            <div id="map-canvas">
             </div>
         </div>
 
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-xs-12 ">
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                </div>
-            </div>
-            <div class="col-sm-9 col-xs-12 ">
-                <div id="map-canvas">
-                </div>
-            </div>
-        </div>
     </div>
     <!-- /container -->
     <!--
@@ -120,6 +105,7 @@
     <script src="js/infobox.js"></script>
 
     <script type="text/javascript">
+
         google.maps = google.maps || {};
 
 
@@ -235,7 +221,7 @@
                     .resize(function() { // RESIZE Map div when window size changes
                         var h = $(window)
                             .height(), // Solves the 100% height turning to 0px
-                            offsetTop = 200; // Calculate the top offset      // https://github.com/twbs/bootstrap/issues/2475
+                            offsetTop = 80; // Calculate the top offset      // https://github.com/twbs/bootstrap/issues/2475
                         $('#map-canvas')
                             .css('height', (h - offsetTop));
                     })
@@ -292,10 +278,7 @@
                             data.splice(rows_to_remove[i], 1);
                         }
 
-                        Proj.displayProjectTypeFilters();
-
                         Proj.getEvents(data, Map, Default);
-                        Proj.displayProjectTypeCounts();
 
                         $('.proj-type')
                             .on('click', function() {
