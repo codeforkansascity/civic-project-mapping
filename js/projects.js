@@ -112,7 +112,7 @@ var Projects = (function($) {
 
                     accordion += '                <p><span style="color: grey;">Project Type: </span>' + data['3. Project type'] + '</p>' + "\n";
 
-                    accordion += this.displayIt('', data['4. Project website or Facebook page ']);
+                    accordion += this.displayAsLink('', data['4. Project website or Facebook page ']);
                     accordion += this.displayIt('Phase:', data['7. What phase of the project are you in?']);
                     accordion += this.displayIt('Partners:', data['8. Who are your project partners?']);
                     accordion += this.displayIt('Neighborhood(s):', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
@@ -126,7 +126,7 @@ var Projects = (function($) {
                     accordion += this.displayIt('Neighborhood Assoc Support:', data['12. Does the project have the support of the neighborhood association?']);
 
                     accordion += this.displayIt('Organization name:', data['17. Organization name']);
-                    accordion += this.displayIt('', data['18. Organization website or Facebook page']);
+                    accordion += this.displayAsLink('', data['18. Organization website or Facebook page']);
                     accordion += this.displayIt('Contact:', data['19. Name of lead contact person for project']);
                     accordion += this.displayIt('Phone:', data['20. Phone number of the project\'s contact person']);
                     accordion += this.displayIt('Email:', data['20. Email address of the project\'s contact person']);
@@ -179,6 +179,24 @@ var Projects = (function($) {
             }
 
         }
+
+        this.displayAsLink = function(label, value) {
+            if (label) {
+                if (value) {
+                    return '                <p><span style="color: grey">' + label + '</span> <a target="_blank" href="' + value + '">' + value + '</a></p>' + "\n";
+                } else {
+                    return '';
+                }
+            } else {
+                if (value) {
+                    return '                <p><a target="_blank" href="' + value + '">' + value + '</a></p>' + "\n";
+                } else {
+                    return '';
+                }
+            }
+
+        }
+
 
         /**
          * PROJECT FILTER functions
