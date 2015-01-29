@@ -29,7 +29,7 @@ var Projects = (function($) {
 
             // Copy the Project data to the Event object
             for (var i in rows) {
-                this.Events[i] = new Event();
+                this.Events[i] = new Event( );
                 for (var colname in rows[i]) {
                     this.Events[i].data[colname] = rows[i][colname];
                 }
@@ -99,7 +99,7 @@ var Projects = (function($) {
                     accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
                     accordion += '              <div class="panel-heading ' + title_class + '" role="tab" id="heading' + i + '">' + "\n";
                     accordion += '                <h4 class="panel-title">' + "\n";
-                    accordion += '                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
+                    accordion += '                  <a id="link' + i + '" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
                     accordion += '                    ' + project_name + "\n";
                     accordion += '                  </a>' + "\n";
                     accordion += '                </h4>' + "\n";
@@ -151,7 +151,7 @@ var Projects = (function($) {
             for (var i in this.Events) {
                 // Listen for marker clicks
                 if (this.Events[i].marker) { // If google map was able to create a map marker
-                    google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i]));
+                    google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i], i));
                     $('#show-on-map-' + i).on("click",null, {
                         map: Map.Map,
                         default: Default,

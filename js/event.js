@@ -14,7 +14,7 @@ var Event = (function ($) {
             .indexOf("android") > -1) || (navigator.userAgent.toLowerCase()
             .indexOf("blackberry") > -1) || navigator.userAgent.match(/iemobile/i) || navigator.userAgent.match(/Windows Phone/i)) ? true : false;
 
-        this.toggleInfoBox = function (Map, ThisEvent) {
+        this.toggleInfoBox = function (Map, ThisEvent, i) {
             return function () {
                 if (ThisEvent.infobox != null && ThisEvent.infobox.visible) {
                     ThisEvent.infobox.close(Map, ThisEvent.marker);
@@ -23,7 +23,7 @@ var Event = (function ($) {
 
                     ThisEvent.infoboxtext += '   <p>' + "\n";
                     ThisEvent.infoboxtext += '                   <b> ' + ThisEvent.data['1. Project Title/Name'] + "</b><br \>\n";
-                    ThisEvent.infoboxtext += '                   ' + ThisEvent.data['2. Project description'].substring(0, 100) + "<br>\n";
+                    ThisEvent.infoboxtext += '                   ' + ThisEvent.data['2. Project description'].substring(0, 200) + "<br>\n";
                     ThisEvent.infoboxtext += '                   <span style="color: grey;">Type: </span>' + ThisEvent.data['3. Project type'] + "<br>\n";
                     ThisEvent.infoboxtext += '                   <span style="color: grey;">Organization: </span>' + ThisEvent.data['17. Organization name'] + "<br>\n";
                     ThisEvent.infoboxtext += '                   <span style="color: grey;">Location: </span>';
@@ -35,6 +35,7 @@ var Event = (function ($) {
 
 
                     ThisEvent.infoboxtext += '        </p>' + "\n";
+                    ThisEvent.infoboxtext += '<p><a id="#more' + i + '" onClick="document.getElementById(\'link' + i + '\').click();" href="#heading' + i + '">more....</a></p>';
 
                     ThisEvent.infoboxtext += '</div>';
                     ThisEvent.infobox.setContent(ThisEvent.infoboxtext);
