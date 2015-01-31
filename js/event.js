@@ -21,8 +21,9 @@ var Event = (function ($) {
                 } else {
                     ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#fff; color: black; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 20px;">';
 
+		    var project_name = ThisEvent.data['1. Project Title/Name'];
                     ThisEvent.infoboxtext += '   <p>' + "\n";
-                    ThisEvent.infoboxtext += '                   <b> ' + ThisEvent.data['1. Project Title/Name'] + "</b><br \>\n";
+                    ThisEvent.infoboxtext += '                   <b> ' + project_name + "</b><br \>\n";
                     ThisEvent.infoboxtext += '                   ' + ThisEvent.data['2. Project description'].substring(0, 200) + "<br>\n";
                     ThisEvent.infoboxtext += '                   <span style="color: grey;">Type: </span>' + ThisEvent.data['3. Project type'] + "<br>\n";
                     ThisEvent.infoboxtext += '                   <span style="color: grey;">Organization: </span>' + ThisEvent.data['17. Organization name'] + "<br>\n";
@@ -33,14 +34,13 @@ var Event = (function ($) {
                         ThisEvent.infoboxtext += ThisEvent.data['FullAddress'] + "<br>\n";
                     }
 
-
                     ThisEvent.infoboxtext += '        </p>' + "\n";
-                    ThisEvent.infoboxtext += '<p><a id="#more' + i + '" onClick="_gaq.push([\'_trackEvent\', \'Pin\', \'More\', \'' + ThisEvent.data['3. Project type'] + '\']); document.getElementById(\'link' + i + '\').click();" href="#heading' + i + '">more....</a></p>';
+                    ThisEvent.infoboxtext += '<p><a id="#more' + i + '" onClick="_gaq.push([\'_trackEvent\', \'Pin\', \'More\', \'' + project_name + '\']); document.getElementById(\'link' + i + '\').click();" href="#heading' + i + '">more....</a></p>';
 
                     ThisEvent.infoboxtext += '</div>';
                     ThisEvent.infobox.setContent(ThisEvent.infoboxtext);
                     ThisEvent.infobox.open(Map, ThisEvent.marker);
-                    _gaq.push(['_trackEvent', 'Pin', 'Open', ThisEvent.data['3. Project type']]);
+                    _gaq.push(['_trackEvent', 'Pin', 'Open', project_name ]);
                 }
             };
         };

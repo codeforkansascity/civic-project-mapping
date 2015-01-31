@@ -8,6 +8,9 @@ var Projects = (function($) {
 
         this.Events = [];
 
+        this.funcs = [ ];
+        this.projfuncs = [ ];
+
         // Can we geolocate?
         this.geolocate = navigator.geolocation;
 
@@ -136,21 +139,32 @@ var Projects = (function($) {
 
 
 
+
+		    var ga = "_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map','" + project_name + "']);";
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
                     accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
-                    accordion += '                      <a  id="fix-map-' + i + '" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
+                    accordion += '                      <a  id="fix-map-' + i + '" onclick="' + ga + '" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
                     accordion += '                </p>' + "\n";
                     accordion += '                </div>' + "\n";
                     accordion += '              </div>' + "\n";
                     accordion += '            </div>' + "\n";
 
                     $('#accordion').append(accordion);
+		    function createfunc(project_name) {
+                        return function() { 
+	                    $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
+			};
+	            }
+
+		    this.funcs[i] = createfunc( project_name );
+	            this.funcs[i](); 
                 }
             }
+
             for (var i in this.Events) {
 
-                var project_name = this.Events[i].data['1. Project Title/Name'];
+                var project_name  = this.Events[i].data['1. Project Title/Name'];
 
                 // Listen for marker clicks
 
@@ -160,15 +174,15 @@ var Projects = (function($) {
                         map: Map.Map,
                         default: Default,
                         panel: this.Events[i].panel,
-                            marker: this.Events[i].marker
+                        marker: this.Events[i].marker,
+			projectName: project_name
                     }, this.centerPin);
 
                 }
-                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
-                $('#fix-map' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Fix-Map', project_name]);});
             }
 
         };
+
 
         this.displayIt = function(label, value) {
             if (label) {
@@ -213,7 +227,16 @@ var Projects = (function($) {
                 var project = project_type_info[project_type];
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
                 $("#project-type-filter-buttons").append(li);
-                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
+
+                    function createprojfunc(project_type) {
+                        return function() {
+                		$('#' + project.id).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
+                        };
+                    }
+            
+                    this.projfuncs[i] = createprojfunc( project_type );
+                    this.projfuncs[i]();
+
             }
         }
 
@@ -228,6 +251,9 @@ var Projects = (function($) {
          * MAP functions
          */
         this.centerPin = function(e) {
+
+            _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', e.data.projectName]);
+
             var Latlng = new google.maps.LatLng(
                 e.data.panel.Lat,
                 e.data.panel.Lng
