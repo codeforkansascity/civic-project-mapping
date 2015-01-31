@@ -163,11 +163,11 @@ var Projects = (function($) {
                         map: Map.Map,
                         default: Default,
                         panel: this.Events[i].panel,
-                            marker: this.Events[i].marker
+                        marker: this.Events[i].marker,
+			projectName: project_name
                     }, this.centerPin);
 
                 }
-                $('#show-on-map-' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', project_name]);});
                 $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
             }
 
@@ -232,6 +232,9 @@ var Projects = (function($) {
          * MAP functions
          */
         this.centerPin = function(e) {
+
+            _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', e.data.projectName]);
+
             var Latlng = new google.maps.LatLng(
                 e.data.panel.Lat,
                 e.data.panel.Lng
