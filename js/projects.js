@@ -152,7 +152,7 @@ var Projects = (function($) {
                     $('#accordion').append(accordion);
 		    function createfunc(project_name) {
                         return function() { 
-	                    $('#link' + i).on("click",function () {  alert( project_name ); _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
+	                    $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
 			};
 	            }
 
