@@ -139,7 +139,7 @@ var Projects = (function($) {
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
                     accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
-                    accordion += '                      <a  style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
+                    accordion += '                      <a  id="fix-map-' + i + '" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
                     accordion += '                </p>' + "\n";
                     accordion += '                </div>' + "\n";
                     accordion += '              </div>' + "\n";
@@ -149,16 +149,23 @@ var Projects = (function($) {
                 }
             }
             for (var i in this.Events) {
+
+                var project_name = this.Events[i].data['1. Project Title/Name'];
+
                 // Listen for marker clicks
+
                 if (this.Events[i].marker) { // If google map was able to create a map marker
                     google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i], i));
-                    $('#show-on-map-' + i).on("click",null, {
+                    $('#show-on-map-' + i).on("click", null, {
                         map: Map.Map,
                         default: Default,
                         panel: this.Events[i].panel,
                             marker: this.Events[i].marker
                     }, this.centerPin);
+
                 }
+                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
+                $('#fix-map' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Fix-Map', project_name]);});
             }
 
         };
@@ -206,6 +213,7 @@ var Projects = (function($) {
                 var project = project_type_info[project_type];
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
                 $("#project-type-filter-buttons").append(li);
+                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
             }
         }
 
