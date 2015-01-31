@@ -1,0 +1,14 @@
+
+Category,   Action,    opt_label
+i
+
+
+_gaq.push(['_trackEvent', 'Filter', 'Click', 'category-name']);
+
+_gaq.push(['_trackEvent', 'Accordion', 'Click', 'category-name']);
+_gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', 'category-name']);
+_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map', 'category-name']);
+
+_gaq.push(['_trackEvent', 'Pin', 'Open', 'category-name']);
+_gaq.push(['_trackEvent', 'Pin', 'Close', 'category-name']);
+_gaq.push(['_trackEvent', 'Pin', 'More', 'category-name']);
