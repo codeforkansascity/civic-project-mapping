@@ -35,18 +35,20 @@ var Event = (function ($) {
 
 
                     ThisEvent.infoboxtext += '        </p>' + "\n";
-                    ThisEvent.infoboxtext += '<p><a id="#more' + i + '" onClick="document.getElementById(\'link' + i + '\').click();" href="#heading' + i + '">more....</a></p>';
+                    ThisEvent.infoboxtext += '<p><a id="#more' + i + '" onClick="_gaq.push([\'_trackEvent\', \'Pin\', \'More\', \'' + ThisEvent.data['3. Project type'] + '\']); document.getElementById(\'link' + i + '\').click();" href="#heading' + i + '">more....</a></p>';
 
                     ThisEvent.infoboxtext += '</div>';
                     ThisEvent.infobox.setContent(ThisEvent.infoboxtext);
                     ThisEvent.infobox.open(Map, ThisEvent.marker);
-                    //					_gaq.push(['_trackEvent', 'Open InfoBox', 'Event', ThisEvent.data.facility_name+' | '+ThisEvent.data.street1]);
+                    _gaq.push(['_trackEvent', 'Pin', 'Open', ThisEvent.data['3. Project type']]);
                 }
             };
         };
 
         this.closeInfoBox = function (Map, Marker, InfoBox) {
             if (InfoBox.visible) {
+                _gaq.push(['_trackEvent', 'Pin', 'Close', 'category-name']);
+                console.log('cccc');
                 InfoBox.close(Map, Marker);
             }
         };
