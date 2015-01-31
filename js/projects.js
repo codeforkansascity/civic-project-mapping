@@ -153,7 +153,7 @@ var Projects = (function($) {
             var project_names = [];
             for (var i in this.Events) {
 
-                project_names[ i ]  = this.Events[i].data['1. Project Title/Name'];
+                var project_name  = this.Events[i].data['1. Project Title/Name'];
 
                 // Listen for marker clicks
 
@@ -167,11 +167,12 @@ var Projects = (function($) {
                     }, this.centerPin);
 
                 }
-                $('#show-on-map-' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', project_names[ i ]]);});
-                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_names[ i ]]);});
+                $('#show-on-map-' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', project_name]);});
+                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
             }
 
         };
+
 
         this.displayIt = function(label, value) {
             if (label) {
