@@ -8,6 +8,8 @@ var Projects = (function($) {
 
         this.Events = [];
 
+        this.funcs = [ ];
+
         // Can we geolocate?
         this.geolocate = navigator.geolocation;
 
@@ -148,9 +150,17 @@ var Projects = (function($) {
                     accordion += '            </div>' + "\n";
 
                     $('#accordion').append(accordion);
+		    function createfunc(project_name) {
+                        return function() { 
+	                    $('#link' + i).on("click",function () {  alert( project_name ); _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
+			};
+	            }
+
+		    this.funcs[i] = createfunc( project_name );
+	            this.funcs[i](); 
                 }
             }
-            var project_names = [];
+
             for (var i in this.Events) {
 
                 var project_name  = this.Events[i].data['1. Project Title/Name'];
@@ -168,7 +178,6 @@ var Projects = (function($) {
                     }, this.centerPin);
 
                 }
-                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
             }
 
         };
