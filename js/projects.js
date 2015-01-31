@@ -164,6 +164,7 @@ var Projects = (function($) {
                     }, this.centerPin);
 
                 }
+                $('#show-on-map-' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
                 $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
                 $('#fix-map' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Fix-Map', project_name]);});
             }
