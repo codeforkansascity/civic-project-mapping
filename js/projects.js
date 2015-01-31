@@ -9,6 +9,7 @@ var Projects = (function($) {
         this.Events = [];
 
         this.funcs = [ ];
+        this.projfuncs = [ ];
 
         // Can we geolocate?
         this.geolocate = navigator.geolocation;
@@ -226,7 +227,16 @@ var Projects = (function($) {
                 var project = project_type_info[project_type];
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
                 $("#project-type-filter-buttons").append(li);
-                $('#' + project.id).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
+
+                    function createprojfunc(project_type) {
+                        return function() {
+                		$('#' + project.id).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
+                        };
+                    }
+            
+                    this.projfuncs[i] = createprojfunc( project_type );
+                    this.projfuncs[i]();
+
             }
         }
 
