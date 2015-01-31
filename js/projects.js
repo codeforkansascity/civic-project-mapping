@@ -139,7 +139,7 @@ var Projects = (function($) {
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
                     accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
-                    accordion += '                      <a  id="fix-map-' + i + '" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
+                    accordion += '                      <a  id="fix-map-' + i + '" onclick="_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map', project_name]);" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
                     accordion += '                </p>' + "\n";
                     accordion += '                </div>' + "\n";
                     accordion += '              </div>' + "\n";
@@ -164,9 +164,8 @@ var Projects = (function($) {
                     }, this.centerPin);
 
                 }
-                $('#show-on-map-' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
+                $('#show-on-map-' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', project_name]);});
                 $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
-                $('#fix-map' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Fix-Map', project_name]);});
             }
 
         };
@@ -214,7 +213,7 @@ var Projects = (function($) {
                 var project = project_type_info[project_type];
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
                 $("#project-type-filter-buttons").append(li);
-                $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
+                $('#' + project.id).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
             }
         }
 
