@@ -175,7 +175,7 @@ var Projects = (function($) {
                         default: Default,
                         panel: this.Events[i].panel,
                         marker: this.Events[i].marker,
-			projectName: project_name
+			            projectName: project_name
                     }, this.centerPin);
 
                 }
