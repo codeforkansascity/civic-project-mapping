@@ -184,14 +184,13 @@
 /* Filter buttons */
 
 .nav-pills > li > a {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 18px;
 }
 
 /* Accordian parts */
 
 .panel-title > a {
-    font-size: 20px;
+    font-size: 14px; 
 }
 
 
@@ -226,6 +225,14 @@
 #accordion {
 
     overflow: scroll;
+}
+
+#the-map {
+    float: right !important;
+}
+
+#the-accordion {
+    float: left !important;
 }
 
 
