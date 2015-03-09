@@ -120,6 +120,7 @@
     <script src="js/event.js"></script>
     <script src="js/tabletop.js"></script>
     <script src="js/infobox.js"></script>
+    <script src="js/local.js"></script>
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -189,6 +190,12 @@
             pin_url: "img/FF9F36.png",
             count: 0
         };
+        project_type_info["Resource"] = {
+            id: "resource",
+            color: "#FF99FF", // rgb(191, 119, 206);
+            pin_url: "img/FF99FF.png",
+            count: 0
+        };
         project_type_info["Other"] = {
             id: "other",
             color: "#BF77CE", // rgb(191, 119, 206);
@@ -202,47 +209,7 @@
              * @classDescription - Default settings for this application
              * @class - Default
              */
-            var Default = {
-                // City
-                city: 'Kansas City',
-                // DOM ID of where the Google Map is to be rendered
-                domid: 'map-canvas',
-                // Google maps API key
-                googlemapsapikey: 'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
-                // Spread Sheet key
-                spread_sheet_key: '11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU',
-
-                infoboxoptions: {
-                    disableAutoPan: false,
-                    maxWidth: 0,
-                    pixelOffset: new google.maps.Size(-121, 0),
-                    zIndex: null,
-                    boxStyle: {
-                        background: "url('img/tipbox.gif') no-repeat",
-                        opacity: 0.92,
-                        width: "370px",
-                        height: "370px"
-                    },
-                    closeBoxMargin: "11px 4px 4px 4px",
-                    closeBoxURL: "img/close-button.png",
-                    infoBoxClearance: new google.maps.Size(25, 60),
-                    visible: false,
-                    pane: "floatPane",
-                    enableEventPropagation: false
-                },
-                // Start center latutude of the Google map
-                lat: 39.0997,
-                // Start center longitude of the Google map
-                lng: -94.5783,
-                // State
-                state: 'Missouri',
-                // Defined style types passed to TkMap
-                styles: 'grey minlabels',
-                // Initial zoom level for the Google map
-                zoom: 12,
-                // Zoom for finding address
-                zoomaddress: 16
-            };
+            var Default = local_default;
 
             /*
              * jQuery's 'on document ready' function
@@ -324,7 +291,7 @@
 
                         Proj.displayProjectTypeFilters();
 
-                        Proj.getEvents(data, Map, Default);
+                        Proj.getEvents(data, Map, project_type_info, Default);
                         Proj.displayProjectTypeCounts();
 
                         $('.proj-type')

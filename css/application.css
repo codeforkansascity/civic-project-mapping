@@ -108,46 +108,113 @@
     color: black;
 }
 
+#resource {
+    background-color: #FF99FF;
+    border-radius: 5px;
+    color: black;
+}
+
+
+#resource.active, #resource.active > a {
+    background-color: #FF99FF !important;
+}
+
+#resource a{
+    color: black;
+}
+
 
 .nav-pills > li > a {
     color: #eee;
 }
 
+
 .nav-pills > li > a:hover {
     color: #337ab7;
 }
 
+.panel-heading {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: white !important;
+}
+
+h4.panel-title {
+    clear: none;
+}
 .panel-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.panel-stripe {
+    padding: 0px;
+    margin: 0px;
+    width: 1em;
+
 
 }
 .panel-title-capacity-building {
     background-color: #98EA78 !important;
     color: black !important;
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    margin: 0px;
+
 }
 
 .panel-title-housing {
     background-color: #FD9B95 !important;
     color: black !important;
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .panel-title-environmental {
     background-color: #9DD7E3  !important;
     color: black !important;
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .panel-title-public-safety{
     background-color: #F7F597 !important;
     color: black !important;
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .panel-title-education {
     background-color: #FDB055 !important;
     color: black !important;
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.panel-title-resource {
+    background-color: #FF99FF !important;
+    color: black !important;
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .panel-title-other {
     background-color: #BF77CE !important;
     color: black !important;
+    border: solid;
+    border-width: 1px;
+    padding: 0px;
+    margin: 0px;
 }
 
 /* ========================================= */
