@@ -72,9 +72,11 @@
             </div>
             <!--/.nav-collapse -->
         </div>
+        <div class="container-fluid">
+            <p style="font-size: 20px; margin-top: 20px;">     We are still in the process of adding more community projects. Know of one that’s not included on the map? Let us know! Email us at <a class="organization_email" href="mailto:info@communitykc.org">info@communitykc.org</a>
+            </p>
+            </div>
     </nav>
-
-
 
     <div class="container-fluid">
 
@@ -88,12 +90,12 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-xs-12 ">
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+             <div id="the-map" class="col-sm-9 col-xs-12">
+                <div id="map-canvas">
                 </div>
             </div>
-            <div class="col-sm-9 col-xs-12 ">
-                <div id="map-canvas">
+            <div id="the-accordion" class="col-sm-3 col-xs-12">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 </div>
             </div>
         </div>
@@ -239,7 +241,7 @@
                 // Initial zoom level for the Google map
                 zoom: 12,
                 // Zoom for finding address
-                zoomaddress: 14
+                zoomaddress: 16
             };
 
             /*
