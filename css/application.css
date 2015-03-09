@@ -108,10 +108,26 @@
     color: black;
 }
 
+#resource {
+    background-color: #FF99FF;
+    border-radius: 5px;
+    color: black;
+}
+
+
+#resource.active, #resource.active > a {
+    background-color: #FF99FF !important;
+}
+
+#resource a{
+    color: black;
+}
+
 
 .nav-pills > li > a {
     color: #eee;
 }
+
 
 .nav-pills > li > a:hover {
     color: #337ab7;
@@ -142,6 +158,11 @@
 
 .panel-title-education {
     background-color: #FDB055 !important;
+    color: black !important;
+}
+
+.panel-title-resource {
+    background-color: #FF99FF !important;
     color: black !important;
 }
 
