@@ -32,7 +32,7 @@ var Projects = (function($) {
 
             // Copy the Project data to the Event object
             for (var i in rows) {
-                this.Events[i] = new Event( );
+                this.Events[i] = new Event();
                 for (var colname in rows[i]) {
                     this.Events[i].data[colname] = rows[i][colname];
                 }
@@ -40,7 +40,8 @@ var Projects = (function($) {
                 var ll = this.Events[i].data['Location'];
                 var lla = ll.split(',');
 
-                if (lla.length != 2) {} else {
+                if (lla.length != 2) {
+                } else {
 
                     var Lat = null;
                     var Lng = null;
@@ -138,9 +139,7 @@ var Projects = (function($) {
                     accordion += this.displayIt('Will share experience:', data['23. We are happy to talk to others about our project and experience!']);
 
 
-
-
-		    var ga = "_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map','" + project_name + "']);";
+                    var ga = "_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map','" + project_name + "']);";
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
                     accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
@@ -151,14 +150,16 @@ var Projects = (function($) {
                     accordion += '            </div>' + "\n";
 
                     $('#accordion').append(accordion);
-		    function createfunc(project_name) {
-                        return function() { 
-	                    $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
-			};
-	            }
+                    function createfunc(project_name) {
+                        return function () {
+                            $('#link' + i).on("click", function () {
+                                _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);
+                            });
+                        };
+                    }
 
-		    this.funcs[i] = createfunc( project_name );
-	            this.funcs[i](); 
+                    this.funcs[i] = createfunc(project_name);
+                    this.funcs[i]();
                 }
             }
 
