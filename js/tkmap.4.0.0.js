@@ -40,7 +40,7 @@ var TkMap = (function($){
 				mapTypeControl : false,
 				mapTypeId : google.maps.MapTypeId.ROADMAP,
 				panControl : false,
-				streetViewControl : false,
+				streetViewControl : true,
 				styles : [],
 				zoom: Zoom,
 				zoomControl : true

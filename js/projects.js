@@ -14,7 +14,7 @@ var Projects = (function($) {
         // Can we geolocate?
         this.geolocate = navigator.geolocation;
 
-        this.getEvents = function(rows, Map, Default) {
+        this.getEvents = function(rows, Map, project_type_info, Default) {
 
             for (var i in rows) {
                 rows[i]['name'] = rows[i]['1. Project Title/Name'];
@@ -32,7 +32,7 @@ var Projects = (function($) {
 
             // Copy the Project data to the Event object
             for (var i in rows) {
-                this.Events[i] = new Event( );
+                this.Events[i] = new Event();
                 for (var colname in rows[i]) {
                     this.Events[i].data[colname] = rows[i][colname];
                 }
@@ -40,7 +40,8 @@ var Projects = (function($) {
                 var ll = this.Events[i].data['Location'];
                 var lla = ll.split(',');
 
-                if (lla.length != 2) {} else {
+                if (lla.length != 2) {
+                } else {
 
                     var Lat = null;
                     var Lng = null;
@@ -50,27 +51,45 @@ var Projects = (function($) {
                     Lat = lla[0];
                     Lng = lla[1];
 
-                    this.Events[i].latlng = new google.maps.LatLng(Lat, Lng);
-
-                    var project_type = $.trim(this.Events[i].data['3. Project type']);
-
-                    // Create the markers for each event
-
                     var icon = '';
                     var panel_class = '';
 
-                    if (!(project_type in project_type_info)) {
-                        project_type = 'Other';
+                    var stripe = ['','','','','',''];
+                    var stripe_offset = 0;
+
+
+                    this.Events[i].latlng = new google.maps.LatLng(Lat, Lng);
+
+                    var project_types = $.trim(this.Events[i].data['3. Project type']);      // Start project type
+
+                    for (var project_type in project_type_info) {
+                        var project = project_type_info[project_types];
+
+                        if ( project_types.indexOf(project_type) > -1) {
+                            panel_class += project_type_info[project_type].id + '-panel ';
+                            stripe[ stripe_offset++ ] =  ' panel-strip panel-title-' + project_type_info[project_type].id.toString();
+
+                            project_type_info[project_type].count++;
+                            project_type_info['All'].count++;
+                            icon = project_type_info[project_type].pin_url;
+                        }
+
                     }
 
-                    icon = project_type_info[project_type].pin_url;
+                    console.log(rows[i]['name']);
+                    console.log(project_types);
+                    console.log(panel_class);
+                    console.log(stripe);
 
-                    project_type_info[project_type].count++;
-                    project_type_info['All'].count++;
+                    // Create the markers for each event
 
-                    panel_class = project_type_info[project_type].id + '-panel';
+                    if (stripe_offset == 0) {                                               // We did not find one.
+                        project_type_info['Other'].count++;
+                        project_type_info['All'].count++;
 
-                    this.Events[i].marker = new google.maps.Marker({
+                    }
+
+                    this.Events[i].marker = new google.maps.Marker({                        // Create map marker
                         position: this.Events[i].latlng,
                         map: Map.Map,
                         icon: icon,
@@ -96,12 +115,15 @@ var Projects = (function($) {
                         ptype = 'Other';
                     }
 
-                    var title_class = 'panel-title-' + project_type_info[ptype].id;
-
                     var accordion = '';
                     accordion += '           <div class="panel panel-default ' + panel_class + '">' + "\n";
-                    accordion += '              <div class="panel-heading ' + title_class + '" role="tab" id="heading' + i + '">' + "\n";
+                    accordion += '              <div class="panel-heading" role="tab" id="heading' + i + '">' + "\n";
+
                     accordion += '                <h4 class="panel-title">' + "\n";
+                    accordion += '                <span class="title-stripe' + stripe[0] + '">&nbsp;</span>' + "\n";
+                    accordion += '                <span class="title-stripe' + stripe[1] + '">&nbsp;</span>' + "\n";
+                    accordion += '                <span class="title-stripe' + stripe[2] + '">&nbsp;</span>' + "\n";
+                    accordion += '                <span class="title-stripe' + stripe[3] + '">&nbsp;</span>' + "\n";
                     accordion += '                  <a id="link' + i + '" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" aria-expanded="false" aria-controls="collapse' + i + '">' + "\n";
                     accordion += '                    ' + project_name + "\n";
                     accordion += '                  </a>' + "\n";
@@ -138,9 +160,7 @@ var Projects = (function($) {
                     accordion += this.displayIt('Will share experience:', data['23. We are happy to talk to others about our project and experience!']);
 
 
-
-
-		    var ga = "_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map','" + project_name + "']);";
+                    var ga = "_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map','" + project_name + "']);";
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
                     accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
@@ -151,14 +171,16 @@ var Projects = (function($) {
                     accordion += '            </div>' + "\n";
 
                     $('#accordion').append(accordion);
-		    function createfunc(project_name) {
-                        return function() { 
-	                    $('#link' + i).on("click",function () { _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);});
-			};
-	            }
+                    function createfunc(project_name) {
+                        return function () {
+                            $('#link' + i).on("click", function () {
+                                _gaq.push(['_trackEvent', 'Accordion', 'Click', project_name]);
+                            });
+                        };
+                    }
 
-		    this.funcs[i] = createfunc( project_name );
-	            this.funcs[i](); 
+                    this.funcs[i] = createfunc(project_name);
+                    this.funcs[i]();
                 }
             }
 
