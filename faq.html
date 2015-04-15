@@ -20,13 +20,14 @@
     <link rel="stylesheet" type="text/css" href="css/application.css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="index_files/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <style type="text/css">
@@ -34,9 +35,11 @@
         dd {
             float: left
         }
+
         dt {
             clear: both
         }
+
         .filter-1 {
             background-color: hsl(87, 64%, 42%);
         }
@@ -45,160 +48,306 @@
 
 <body>
 
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html"><span id="header-community">Community</span><span id="header-kc">KC</span></a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a class="tag_line" href="about.html">connecting projects, people, and resources</a>
-                    </li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right social">
-                    <li><a href="about.html">About</a>
-                    </li>
-                    <li><a href="faq.html">FAQ</a>
-                    </li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-        <div class="container-fluid">
-            <p style="font-size: 20px; margin-top: 20px;">     We are still in the process of adding more community projects. Know of one that’s not included on the map? Let us know! Email us at <a class="organization_email" href="mailto:info@communitykc.org">info@communitykc.org</a>
-            </p>
-            </div>
-    </nav>
-
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
-        <div class="row">
-             <div  class="col-sm-9 col-xs-12">
-<h1>FAQ</h1>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><span id="header-community">Community</span><span id="header-kc">KC</span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a class="tag_line" href="about.html">connecting projects, people, and resources</a>
+                </li>
+            </ul>
 
-<h2>WHO SHOULD USE THE COMMUNITYKC MAPPING TOOL?</h2>
+            <ul class="nav navbar-nav navbar-right social">
+                <li><a href="about.html">About</a>
+                </li>
+                <li><a href="faq.html">FAQ</a>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    <div class="container-fluid">
+        <p style="font-size: 20px; margin-top: 20px;"> We are still in the process of adding more community projects.
+            Know of one that’s not included on the map? Let us know! Email us at <a class="organization_email"
+                                                                                    href="mailto:info@communitykc.org">info@communitykc.org</a>
+        </p>
+    </div>
+</nav>
 
-<p>This map was created for any organization working in community and neighborhood revitalization. This includes, but is not limited to neighborhood associations, civic groups, faith-based groups, local municipalities, community improvement districts, and even funding organizations. </p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-xs-12">
+            <h1>FAQ</h1>
 
-<p>Individuals and businesses such as planners, realtors, developers, and those looking to buy a home may also be interested in using this map to find projects that are having a positive impact in the community.</p>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading headingOne" role="tab" id="headingOne">
+                        <h2 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                               aria-controls="collapseOne">
+                                WHO SHOULD USE THE COMMUNITYKC MAPPING TOOL?
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <p>This map was created for any organization working in community and neighborhood
+                                revitalization. This
+                                includes, but is not limited to neighborhood associations, civic groups, faith-based
+                                groups, local
+                                municipalities, community improvement districts, and even funding organizations. </p>
 
-<h2>WHAT IS CONSIDERED A ‘COMMUNITY PROJECT?’</h2>
+                            <p>Individuals and businesses such as planners, realtors, developers, and those looking to
+                                buy a home may
+                                also be interested in using this map to find projects that are having a positive impact
+                                in the
+                                community.</p>
+                        </div>
+                    </div>
+                </div>
 
-<p>For the purposes of the CommunityKC online map, a community project is one that builds the capacity, skills, resources, and leadership of organizations so they can better address challenges they face and effectively take advantage of opportunities and assets. </p>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h2 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                               aria-expanded="false" aria-controls="collapseTwo">
 
-<p>CommunityKC focuses more on projects with a physical location, rather than general programs or single events. We realize, though, that the line between project, program, and event can be hard to define and have kept the exact definition of ‘community project’ somewhat open so as not to exclude something that has a positive impact in the community.  We have also added a ‘Resource’ tab to capture information about valuable programs that don’t fit squarely within the definition of a community project. The project information form includes a few preliminary questions to help determine whether a project is a good fit for this map. </p>
+                                WHAT IS CONSIDERED A ‘COMMUNITY PROJECT?’
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
 
-<p>Projects that would be considered a CommunityKC community project include, but are not limited to: </p>
+                            <p>For the purposes of the CommunityKC online map, a community project is one that builds
+                                the capacity,
+                                skills, resources, and leadership of organizations so they can better address challenges
+                                they face and
+                                effectively take advantage of opportunities and assets. </p>
 
-<ul class="task-list">
-<li>An annual Night Out Against Crime event or a neighborhood homes tour </li>
-<li>Community garden </li>
-<li>Neighborhood-based minor home repair program </li>
-<li>Civic leadership development program </li>
-<li>Regular neighborhood cleanup event </li>
-<li>Neighborhood directory of residents </li>
-<li>Digital literacy projects that involve neighborhood organizations </li>
-<li>Cultural and skills trainings led by or involving a neighborhood organization </li>
-</ul>
+                            <p>CommunityKC focuses more on projects with a physical location, rather than general
+                                programs or single
+                                events. We realize, though, that the line between project, program, and event can be
+                                hard to define and
+                                have kept the exact definition of ‘community project’ somewhat open so as not to exclude
+                                something that
+                                has a positive impact in the community. We have also added a ‘Resource’ tab to capture
+                                information about
+                                valuable programs that don’t fit squarely within the definition of a community project.
+                                The project
+                                information form includes a few preliminary questions to help determine whether a
+                                project is a good fit
+                                for this map. </p>
 
-<p>Projects that would NOT be considered a CommunityKC community project include:</p>
+                            <p>Projects that would be considered a CommunityKC community project include, but are not
+                                limited to: </p>
 
-<ul class="task-list">
-<li>Events that do not occur annually or regularly </li>
-<li>Fundraising car wash or bake sale</li>
-<li>Church or faith-based event not related to building neighborhood capacity</li>
-<li>New housing or commercial development that is not led by a neighborhood organization or a development that does not have a neighborhood organization playing a major role</li>
-</ul>
+                            <ul class="task-list">
+                                <li>An annual Night Out Against Crime event or a neighborhood homes tour</li>
+                                <li>Community garden</li>
+                                <li>Neighborhood-based minor home repair program</li>
+                                <li>Civic leadership development program</li>
+                                <li>Regular neighborhood cleanup event</li>
+                                <li>Neighborhood directory of residents</li>
+                                <li>Digital literacy projects that involve neighborhood organizations</li>
+                                <li>Cultural and skills trainings led by or involving a neighborhood organization</li>
+                            </ul>
 
-<h2>HOW DO I USE THE COMMUNITYKC MAPPING TOOL?</h2>
+                            <p>Projects that would NOT be considered a CommunityKC community project include:</p>
 
-<p>The CommunityKC online map can be viewed at <a href="http://www.communitykc.org">www.communitykc.org</a>. The map uses a Google Maps platform. You can filter projects based on project type so only the projects you are interested in are visible on the map. You can also navigate to specific areas of the map to find projects there.</p>
+                            <ul class="task-list">
+                                <li>Events that do not occur annually or regularly</li>
+                                <li>Fundraising car wash or bake sale</li>
+                                <li>Church or faith-based event not related to building neighborhood capacity</li>
+                                <li>New housing or commercial development that is not led by a neighborhood organization
+                                    or a
+                                    development that does not have a neighborhood organization playing a major role
+                                </li>
+                            </ul>
 
-<p>For instructions on how to search and location projects, download the CommunityKC Guide here.</p>
+                        </div>
+                    </div>
+                </div>
 
-<p>If you have a community project you would like to include in the CommunityKC map, or need to update information on a project already that already appears on the map, please email us at <a href="mailto:info@communitykc.org">info@communitykc.org</a>.</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h2 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                               aria-expanded="false" aria-controls="collapseThree">
 
-<h2>HOW CAN THIS MAP HELP MY ORGANIZATION COLLABORATE AND WHY SHOULD WE?</h2>
+                                HOW DO I USE THE COMMUNITYKC MAPPING TOOL?
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingThree">
+                        <div class="panel-body">
 
-<p>As recognized in the Center for Nonprofit Excellence’s Collaboration Toolkit, collaborating can turn disjointed, small-scale accomplishments into large-scale community change. The CommunityKC map can help identify partners by finding similar or related projects or ones in a specific area. </p>
+                            <p>The CommunityKC online map can be viewed at <a href="http://www.communitykc.org">www.communitykc.org</a>.
+                                The map uses a Google Maps platform. You can filter projects based on project type so
+                                only the projects
+                                you are interested in are visible on the map. You can also navigate to specific areas of
+                                the map to find
+                                projects there.</p>
 
-<p>By pooling resources, contacts, volunteers, and expertise organizations are able to have a greater impact than if they worked alone. Specifically, collaborations can: </p>
+                            <p>For instructions on how to search and location projects, download the CommunityKC Guide
+                                here.</p>
 
-<ul class="task-list">
-<li>Elevate and promotes each group’s work</li>
-<li>Have a greater voice for their cause</li>
-<li>Gain more credibility and recognition </li>
-<li>Attract more in-kind and financial resources</li>
-<li>Share common costs or overhead across multiple organizations</li>
-<li>Have a greater and longer lasting impact</li>
-<li>Diminish competition for resources</li>
-<li>Share and save resources through joint programming</li>
-<li>Often be viewed by funders as a better return on investment than if organizations address a problem single-handedly </li>
-<li>Function as a central point of contact for funders, planners, developers, and investors</li>
-</ul>
+                            <p>If you have a community project you would like to include in the CommunityKC map, or need
+                                to update
+                                information on a project already that already appears on the map, please email us at <a
+                                        href="mailto:info@communitykc.org">info@communitykc.org</a>.</p>
 
-<h2>WHO DEVELOPED THE COMMUNITYKC MAPPING TOOL?</h2>
+                            <h2>HOW CAN THIS MAP HELP MY ORGANIZATION COLLABORATE AND WHY SHOULD WE?</h2>
 
-<p>Development of CommunityKC has been led by Amanda Wilson with the Community Capital Fund, community volunteer Ashley Sadowski, and Paul Barham with Kansas City Code for America Brigade.  </p>
+                            <p>As recognized in the Center for Nonprofit Excellence’s Collaboration Toolkit,
+                                collaborating can turn
+                                disjointed, small-scale accomplishments into large-scale community change. The
+                                CommunityKC map can help
+                                identify partners by finding similar or related projects or ones in a specific
+                                area. </p>
 
-<p>Many other volunteers contributed to the development of this tool through working groups and focus groups including:</p>
+                            <p>By pooling resources, contacts, volunteers, and expertise organizations are able to have
+                                a greater impact
+                                than if they worked alone. Specifically, collaborations can: </p>
 
-<ul class="task-list">
-<li>Dr. Cynthia Annett, Google Earth Outreach</li>
-<li>Iris Abramof, B&amp;A Architecture</li>
-<li>Leslie Caplan, Scarritt Renaissance Neighborhood Association and the Northeast Alliance Together</li>
-<li>Bill Drummond, Neighbors Helping Neighbors in Historic Manheim Park Neighborhood</li>
-<li>Andrea Generaux, Livable Neighborhoods</li>
-<li>Angela Gunn, Eco Abet</li>
-<li>Christina Hoxie, BNIM</li>
-<li>Lisa Hummel, DRAW Architecture</li>
-<li>Esther Kershaw, Boston Heights Neighborhood Association</li>
-<li>Susan Lackamp, Neighbors Helping Neighbors in Historic Manheim Park Neighborhood</li>
-<li>Scott Lemmon, Google Earth Outreach</li>
-<li>Carmen Lopez, KCMO CDE</li>
-<li>Margaret May, Ivanhoe Neighborhood Council</li>
-<li>Jim MacDonald, United Way of Greater Kansas City</li>
-<li>Kyle Rogler, BNIM</li>
-</ul>
+                            <ul class="task-list">
+                                <li>Elevate and promotes each group’s work</li>
+                                <li>Have a greater voice for their cause</li>
+                                <li>Gain more credibility and recognition</li>
+                                <li>Attract more in-kind and financial resources</li>
+                                <li>Share common costs or overhead across multiple organizations</li>
+                                <li>Have a greater and longer lasting impact</li>
+                                <li>Diminish competition for resources</li>
+                                <li>Share and save resources through joint programming</li>
+                                <li>Often be viewed by funders as a better return on investment than if organizations
+                                    address a problem
+                                    single-handedly
+                                </li>
+                                <li>Function as a central point of contact for funders, planners, developers, and
+                                    investors
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFour">
+                        <h2 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                               aria-expanded="false" aria-controls="collapseFour">
+                                WHO DEVELOPED THE COMMUNITYKC MAPPING TOOL?
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingFour">
+                        <div class="panel-body">
 
-<p>Others who contributed their input include Jesse Crupper, Joshua Boehm, and Tiffany Cartwright. </p>
+                            <p>Development of CommunityKC has been led by Amanda Wilson with the Community Capital Fund,
+                                community
+                                volunteer Ashley Sadowski, and Paul Barham with Kansas City Code for America
+                                Brigade. </p>
 
-<h2>WHAT ARE FUTURE PLANS FOR THE COMMUNITYKC MAPPING TOOL?</h2>
+                            <p>Many other volunteers contributed to the development of this tool through working groups
+                                and focus groups
+                                including:</p>
 
-<p>After the launch of CommunityKC at the Community Development Workshop, the development team has been hard at work ensuring project information is accurate and complete. They are also working to expand the features and capabilities of the current map including individual webpages for each project with pictures and stories of each projects.</p>
+                            <ul class="task-list">
+                                <li>Dr. Cynthia Annett, Google Earth Outreach</li>
+                                <li>Iris Abramof, B&amp;A Architecture</li>
+                                <li>Leslie Caplan, Scarritt Renaissance Neighborhood Association and the Northeast
+                                    Alliance Together
+                                </li>
+                                <li>Bill Drummond, Neighbors Helping Neighbors in Historic Manheim Park Neighborhood
+                                </li>
+                                <li>Andrea Generaux, Livable Neighborhoods</li>
+                                <li>Angela Gunn, Eco Abet</li>
+                                <li>Christina Hoxie, BNIM</li>
+                                <li>Lisa Hummel, DRAW Architecture</li>
+                                <li>Esther Kershaw, Boston Heights Neighborhood Association</li>
+                                <li>Susan Lackamp, Neighbors Helping Neighbors in Historic Manheim Park Neighborhood
+                                </li>
+                                <li>Scott Lemmon, Google Earth Outreach</li>
+                                <li>Carmen Lopez, KCMO CDE</li>
+                                <li>Margaret May, Ivanhoe Neighborhood Council</li>
+                                <li>Jim MacDonald, United Way of Greater Kansas City</li>
+                                <li>Kyle Rogler, BNIM</li>
+                            </ul>
 
-<p>The team is also exploring how this information can be integrated into the City of Kansas City, Missouri’s OpenDataKC (data.kcmo.gov) site and the Unified Government of Wyandotte County/City of Kansas City, Kansas’ website.</p>
+                            <p>Others who contributed their input include Jesse Crupper, Joshua Boehm, and Tiffany
+                                Cartwright. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFive">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                               aria-expanded="false" aria-controls="collapseFive">
 
-<p>Need help using a computer or the internet?<br>
-Training on using a computer or the internet is available through Connecting for Good at their Missouri or Kansas locations. Contact them at 816-559-7077 or visit their website at <br>
-<a href="http://www.connectingforgood.org">www.connectingforgood.org</a> for more information.</p>
-      
+                                WHAT ARE FUTURE PLANS FOR THE COMMUNITYKC MAPPING TOOL?
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingFive">
+                        <div class="panel-body">
+
+                            <p>After the launch of CommunityKC at the Community Development Workshop, the development
+                                team has been hard
+                                at work ensuring project information is accurate and complete. They are also working to
+                                expand the
+                                features and capabilities of the current map including individual webpages for each
+                                project with
+                                pictures and stories of each projects.</p>
+
+                            <p>The team is also exploring how this information can be integrated into the City of Kansas
+                                City,
+                                Missouri’s OpenDataKC (data.kcmo.gov) site and the Unified Government of Wyandotte
+                                County/City of Kansas
+                                City, Kansas’ website.</p>
+
+                            <p>Need help using a computer or the internet?<br>
+                                Training on using a computer or the internet is available through Connecting for Good at
+                                their Missouri
+                                or Kansas locations. Contact them at 816-559-7077 or visit their website at <br>
+                                <a href="http://www.connectingforgood.org">www.connectingforgood.org</a> for more
+                                information.</p>
 
 
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- /container -->
-    <!--
-    <footer class="footer">
-        <div class="container">
-            This is the footer.
-        </div>
-    </footer>
-    -->
+</div>
+<!-- /container -->
+<!--
+<footer class="footer">
+    <div class="container">
+        This is the footer.
+    </div>
+</footer>
+-->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="index_files/jquery.js"></script>
-    <script src="index_files/bootstrap.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="index_files/jquery.js"></script>
+<script src="index_files/bootstrap.js"></script>
 
 </body>
 
