@@ -21,9 +21,7 @@
     color: black;
 }
 
-.headingOne {
-    background-image:linear-gradient(to bottom, rgba(240, 255, 40, 1) 0%, rgba(240, 255, 40, 1) 100%), linear-gradient(to bottom, rgba(240, 40, 40, 1) 0%, rgba(240, 40, 40, 1) 100%);
-}
+
 #housing {
 	background-color: #FF675D;
 	border-radius: 5px;
@@ -304,4 +302,13 @@ h4.panel-title {
     float: left !important;
 }
 
+/*
+ *    FAQ
+ */
+
+.headingOne   { background-image:linear-gradient(to bottom, #5CE628 0%, #5CE628 100%), linear-gradient(to bottom, #5CE628 0%, #5CE628 100%); }
+.headingTwo   { background-image:linear-gradient(to bottom, #FF675D 0%, #FF675D 100%), linear-gradient(to bottom, #FF675D 0%, #FF675D 100%); }
+.headingThree { background-image:linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%), linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%); }
+.headingFour  { background-image:linear-gradient(to bottom, #EEE938 0%, #EEE938 100%), linear-gradient(to bottom, #EEE938 0%, #EEE938 100%); }
+.headingFive  { background-image:linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%), linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%); }
 
