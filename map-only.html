@@ -21,13 +21,15 @@
     <link rel="stylesheet" type="text/css" href="css/application.css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 9]>
+        <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
+    <![endif]-->
     <script src="index_files/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <style type="text/css">
@@ -35,9 +37,11 @@
         dd {
             float: left
         }
+
         dt {
             clear: both
         }
+
         .filter-1 {
             background-color: hsl(87, 64%, 42%);
         }
@@ -46,262 +50,263 @@
 
 <body>
 
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html"><span id="header-community">Community</span><span id="header-kc">KC</span></a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a class="tag_line" href="about.html">connecting projects, people, and resources</a>
-                    </li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right social">
-                    <li>816.502.9584&nbsp;&nbsp;
-                    </li>
-                    <li><a class="organization_email" href="mailto:info@communitykc.org">info@communitykc.org</a>
-                    </li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-    </nav>
-
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
-
-        <div class="col-md-12 ">
-            <div id="map-canvas">
-            </div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><span id="header-community">Community</span><span id="header-kc">KC</span></a>
         </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a class="tag_line" href="about.html">connecting projects, people, and resources</a>
+                </li>
+            </ul>
 
+            <ul class="nav navbar-nav navbar-right social">
+                <li>816.502.9584&nbsp;&nbsp;
+                </li>
+                <li><a class="organization_email" href="mailto:info@communitykc.org">info@communitykc.org</a>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
     </div>
-    <!-- /container -->
-    <!--
-    <footer class="footer">
-        <div class="container">
-            This is the footer.
+</nav>
+
+<div class="container-fluid">
+
+    <div class="col-md-12 ">
+        <div id="map-canvas">
         </div>
-    </footer>
-    -->
+    </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="index_files/jquery.js"></script>
-    <script src="index_files/bootstrap.js"></script>
-    <script src="js/tkmap.4.0.0.js"></script>
-    <script src="js/projects.js"></script>
-    <script src="js/event.js"></script>
-    <script src="js/tabletop.js"></script>
-    <script src="js/infobox.js"></script>
+</div>
+<!-- /container -->
+<!--
+<footer class="footer">
+    <div class="container">
+        This is the footer.
+    </div>
+</footer>
+-->
 
-    <script type="text/javascript">
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="index_files/jquery.js"></script>
+<script src="index_files/bootstrap.js"></script>
+<script src="js/tkmap.4.0.0.js"></script>
+<script src="js/projects.js"></script>
+<script src="js/event.js"></script>
+<script src="js/tabletop.js"></script>
+<script src="js/infobox.js"></script>
 
-        google.maps = google.maps || {};
+<script type="text/javascript">
 
-
-
-        project_type_info = [];
-        project_type_info["All"] = {
-            id: "all",
-            color: "e5e5e5",
-            pin_url: "",
-            count: 0
-        };
-        project_type_info["Capacity Building"] = {
-            id: "capacity-building",
-            color: "#5CE628", // rgb(187, 220, 0);
-            pin_url: "img/5CE628.png",
-            count: 0
-        };
-        project_type_info["Economic Development and Housing"] = {
-            id: "housing",
-            color: "#FF675D", // rgb(255, 103, 93);
-            pin_url: "img/FF675D.png",
-            count: 0
-        };
-        project_type_info["Environment and Energy"] = {
-            id: "environmental",
-            color: "#56CEE6", // rgb(86, 206, 230);
-            pin_url: "img/56CEE6.png",
-            count: 0
-        };
-        project_type_info["Public Health and Safety"] = {
-            id: "public-safety",
-            color: "#EEE938", // rgb(238, 233, 56);
-            pin_url: "img/EEE938.png",
-            count: 0
-        };
-        project_type_info["Education, Arts, and Culture"] = {
-            id: "education",
-            color: "#FF9F36", // rgb(255, 159, 54);
-            pin_url: "img/FF9F36.png",
-            count: 0
-        };
-        project_type_info["Other"] = {
-            id: "other",
-            color: "#BF77CE", // rgb(191, 119, 206);
-            pin_url: "img/BF77CE.png",
-            count: 0
-        };
+    google.maps = google.maps || {};
 
 
-        (function($, TkMap, Projects) {
-            /**
-             * @classDescription - Default settings for this application
-             * @class - Default
-             */
-            var Default = {
-                // City
-                city: 'Kansas City',
-                // DOM ID of where the Google Map is to be rendered
-                domid: 'map-canvas',
-                // Google maps API key
-                googlemapsapikey: 'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
-                // Spread Sheet key
-                spread_sheet_key: '11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU',
+    project_type_info = [];
+    project_type_info["All"] = {
+        id: "all",
+        color: "e5e5e5",
+        pin_url: "",
+        count: 0
+    };
+    project_type_info["Capacity Building"] = {
+        id: "capacity-building",
+        color: "#5CE628", // rgb(187, 220, 0);
+        pin_url: "img/5CE628.png",
+        count: 0
+    };
+    project_type_info["Economic Development and Housing"] = {
+        id: "housing",
+        color: "#FF675D", // rgb(255, 103, 93);
+        pin_url: "img/FF675D.png",
+        count: 0
+    };
+    project_type_info["Environment and Energy"] = {
+        id: "environmental",
+        color: "#56CEE6", // rgb(86, 206, 230);
+        pin_url: "img/56CEE6.png",
+        count: 0
+    };
+    project_type_info["Public Health and Safety"] = {
+        id: "public-safety",
+        color: "#EEE938", // rgb(238, 233, 56);
+        pin_url: "img/EEE938.png",
+        count: 0
+    };
+    project_type_info["Education, Arts, and Culture"] = {
+        id: "education",
+        color: "#FF9F36", // rgb(255, 159, 54);
+        pin_url: "img/FF9F36.png",
+        count: 0
+    };
+    project_type_info["Other"] = {
+        id: "other",
+        color: "#BF77CE", // rgb(191, 119, 206);
+        pin_url: "img/BF77CE.png",
+        count: 0
+    };
 
-                infoboxoptions: {
-                    disableAutoPan: false,
-                    maxWidth: 0,
-                    pixelOffset: new google.maps.Size(-121, 0),
-                    zIndex: null,
-                    boxStyle: {
-                        background: "url('img/tipbox.gif') no-repeat",
-                        opacity: 0.92,
-                        width: "370px",
-                        height: "370px"
-                    },
-                    closeBoxMargin: "11px 4px 4px 4px",
-                    closeBoxURL: "img/close-button.png",
-                    infoBoxClearance: new google.maps.Size(25, 60),
-                    visible: false,
-                    pane: "floatPane",
-                    enableEventPropagation: false
+
+    (function ($, TkMap, Projects) {
+        /**
+         * @classDescription - Default settings for this application
+         * @class - Default
+         */
+        var Default = {
+            // City
+            city: 'Kansas City',
+            // DOM ID of where the Google Map is to be rendered
+            domid: 'map-canvas',
+            // Google maps API key
+            googlemapsapikey: 'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
+            // Spread Sheet key
+            spread_sheet_key: '11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU',
+
+            infoboxoptions: {
+                disableAutoPan: false,
+                maxWidth: 0,
+                pixelOffset: new google.maps.Size(-121, 0),
+                zIndex: null,
+                boxStyle: {
+                    background: "url('img/tipbox.gif') no-repeat",
+                    opacity: 0.92,
+                    width: "370px",
+                    height: "370px"
                 },
-                // Start center latutude of the Google map
-                lat: 39.0997,
-                // Start center longitude of the Google map
-                lng: -94.5783,
-                // State
-                state: 'Missouri',
-                // Defined style types passed to TkMap
-                styles: 'grey minlabels',
-                // Initial zoom level for the Google map
-                zoom: 12,
-                // Zoom for finding address
-                zoomaddress: 14
-            };
+                closeBoxMargin: "11px 4px 4px 4px",
+                closeBoxURL: "img/close-button.png",
+                infoBoxClearance: new google.maps.Size(25, 60),
+                visible: false,
+                pane: "floatPane",
+                enableEventPropagation: false
+            },
+            // Start center latutude of the Google map
+            lat: 39.0997,
+            // Start center longitude of the Google map
+            lng: -94.5783,
+            // State
+            state: 'Missouri',
+            // Defined style types passed to TkMap
+            styles: 'grey minlabels',
+            // Initial zoom level for the Google map
+            zoom: 12,
+            // Zoom for finding address
+            zoomaddress: 14
+        };
 
-            /*
-             * jQuery's 'on document ready' function
-             * Run this after the DOM is fully loaded.
-             */
-            $(function() {
+        /*
+         * jQuery's 'on document ready' function
+         * Run this after the DOM is fully loaded.
+         */
+        $(function () {
 
-                var Map = new TkMap({
-                    domid: Default.domid,
-                    init: true,
-                    lat: Default.lat,
-                    lng: Default.lng,
-                    styles: Default.styles,
-                    zoom: Default.zoom
-                }); // END Map object constructor
+            var Map = new TkMap({
+                domid: Default.domid,
+                init: true,
+                lat: Default.lat,
+                lng: Default.lng,
+                styles: Default.styles,
+                zoom: Default.zoom
+            }); // END Map object constructor
 
-                $(window)
-                    .resize(function() { // RESIZE Map div when window size changes
+            $(window)
+                    .resize(function () { // RESIZE Map div when window size changes
                         var h = $(window)
-                            .height(), // Solves the 100% height turning to 0px
-                            offsetTop = 80; // Calculate the top offset      // https://github.com/twbs/bootstrap/issues/2475
+                                        .height(), // Solves the 100% height turning to 0px
+                                offsetTop = 80; // Calculate the top offset      // https://github.com/twbs/bootstrap/issues/2475
                         $('#map-canvas')
-                            .css('height', (h - offsetTop));
+                                .css('height', (h - offsetTop));
                     })
                     .resize();
 
-                /**
-                 * The Project application object
-                 */
-                var Proj = new Projects(Default.infoboxoptions);
+            /**
+             * The Project application object
+             */
+            var Proj = new Projects(Default.infoboxoptions);
 
-                /**
-                 * Put a legend up for the pins in on the right bottom of the screen
-                 */
+            /**
+             * Put a legend up for the pins in on the right bottom of the screen
+             */
 
-                // var LegendDiv = document.createElement('div');
-                // Proj.setMapLegend(LegendDiv,Map,Proj,Default);
-                // LegendDiv.index = 1;
-                // Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
+            // var LegendDiv = document.createElement('div');
+            // Proj.setMapLegend(LegendDiv,Map,Proj,Default);
+            // LegendDiv.index = 1;
+            // Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
 
-                /**
-                 * Put the Find Me button up on the upper right hand of the screen
-                 */
+            /**
+             * Put the Find Me button up on the upper right hand of the screen
+             */
 
-                if (Proj.geolocate) {
-                    var FindMeDiv = document.createElement('div');
-                    Proj.setFindMeControl(FindMeDiv, Map, Proj, Default);
-                    FindMeDiv.index = 1;
-                    Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
-                }
+            if (Proj.geolocate) {
+                var FindMeDiv = document.createElement('div');
+                Proj.setFindMeControl(FindMeDiv, Map, Proj, Default);
+                FindMeDiv.index = 1;
+                Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
+            }
 
-                /**
-                 * Load the projects data
-                 */
+            /**
+             * Load the projects data
+             */
 
-                function compareRowNumbers(a, b) {
-                    return b - a;
-                }
-                Tabletop.init({
-                    key: Default.spread_sheet_key,
-                    callback: function(data, tabletop) {
+            function compareRowNumbers(a, b) {
+                return b - a;
+            }
 
-                        var rows_to_remove = [];
+            Tabletop.init({
+                key: Default.spread_sheet_key,
+                callback: function (data, tabletop) {
 
-                        for (i in data) {
-                            if (data[i]['DisplayOnMap'].toLowerCase() == 'no') {
-                                rows_to_remove.push(i);
-                            }
+                    var rows_to_remove = [];
+
+                    for (i in data) {
+                        if (data[i]['DisplayOnMap'].toLowerCase() == 'no') {
+                            rows_to_remove.push(i);
                         }
+                    }
 
-                        rows_to_remove.sort(compareRowNumbers);
+                    rows_to_remove.sort(compareRowNumbers);
 
 
-                        for (i in rows_to_remove) {
-                            data.splice(rows_to_remove[i], 1);
-                        }
+                    for (i in rows_to_remove) {
+                        data.splice(rows_to_remove[i], 1);
+                    }
 
-                        Proj.getEvents(data, Map, Default);
+                    Proj.getEvents(data, Map, Default);
 
-                        $('.proj-type')
-                            .on('click', function() {
+                    $('.proj-type')
+                            .on('click', function () {
 
                                 var clicked_id = this.id;
 
                                 // Change buttons
                                 $('.proj-type')
-                                    .removeClass('active');
+                                        .removeClass('active');
                                 $('#' + clicked_id)
-                                    .addClass('active');
+                                        .addClass('active');
 
                                 // Selected today's events
                                 Proj.setMarkersByProjectType(clicked_id);
                             });
-                    },
-                    orderby: '3. Project type',
-                    simpleSheet: true
-                });
+                },
+                orderby: '3. Project type',
+                simpleSheet: true
+            });
 
-            }); // END jQuery on document ready
-        })(jQuery, TkMap, Projects);
-    </script>
+        }); // END jQuery on document ready
+    })(jQuery, TkMap, Projects);
+</script>
 </body>
 
 </html>
