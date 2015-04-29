@@ -147,7 +147,28 @@ var Projects = (function($) {
                         accordion += this.displayIt('Boundaries:', project_boundaries);
                     }
 
-                    accordion += this.displayIt('Address:', data['FullAddress']);
+                    var street_address = data['13. Street address of the project'];
+                    var city = data['14. City'];
+                    var state = data['15. State'];
+                    var zip = data['16. Zip'];
+                    var full_address = '';
+                    var address_sep = '';
+                    if (street_address != '' ) {
+                        full_address = street_address;
+                        address_sep = ', ';
+                        if ( city != '' ) {
+                            full_address += address_sep + city;
+                        }
+                        if ( state != '' ) {
+                            full_address += address_sep + state;
+                        }
+                        if ( zip != '' ) {
+                            full_address += address_sep + zip;
+                        }
+
+                    }
+
+                    accordion += this.displayIt('Address:', full_address);
                     accordion += this.displayIt('Neighborhood Assoc Support:', data['12. Does the project have the support of the neighborhood association?']);
 
                     accordion += this.displayIt('Organization name:', data['17. Organization name']);
