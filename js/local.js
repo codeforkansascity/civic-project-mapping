@@ -6,7 +6,7 @@ var local_default = {
     // Google maps API key
     googlemapsapikey: 'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
     // Spread Sheet key
-    spread_sheet_key: '1IFbDEk5cRKP3WuQX7gMl6XDxLYuVZ4eeq0XRluxqmEQ',   // code4kc civic-project-mapping/Information Questionaire for Project Database Responses Final
+    spread_sheet_key: '11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU', // '1IFbDEk5cRKP3WuQX7gMl6XDxLYuVZ4eeq0XRluxqmEQ',   // code4kc civic-project-mapping/Information Questionaire for Project Database Responses Final
 
     infoboxoptions: {
         disableAutoPan: false,
