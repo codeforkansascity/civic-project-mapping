@@ -6,8 +6,7 @@ var local_default = {
     // Google maps API key
     googlemapsapikey: 'AIzaSyDQNzkJUiUJBqI_pex-Xe9_1JD4sf2KZS8',
     // Spread Sheet key
-    spread_sheet_key: '11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU',  // Production
-
+    spread_sheet_key: '11HmkFMesjwdeY2gLpV-U84GIwqvxjvTGU_Jk8rnslJU', // Production
     infoboxoptions: {
         disableAutoPan: false,
         maxWidth: 0,
