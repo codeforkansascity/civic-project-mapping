@@ -245,7 +245,7 @@ h4.panel-title {
 
 /* NabBar - tag line */
 .navbar-nav > li > a {
-    font-size: 26px;
+    font-size: 18px;
 }
 
 /* Filter buttons */
@@ -253,6 +253,13 @@ h4.panel-title {
 .nav-pills > li > a {
     font-size: 18px;
 }
+
+.navbar-brand {
+    height: auto;
+}
+
+
+
 
 /* Accordian parts */
 
@@ -311,4 +318,19 @@ h4.panel-title {
 .headingThree { background-image:linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%), linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%); }
 .headingFour  { background-image:linear-gradient(to bottom, #EEE938 0%, #EEE938 100%), linear-gradient(to bottom, #EEE938 0%, #EEE938 100%); }
 .headingFive  { background-image:linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%), linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%); }
+
+.navbar-brand small {
+    display:block;
+    font-size:20px;
+    margin-top: 7px;
+    margin-left: 4px;
+}
+
+.about p, .about li {
+    font-size: 14pt;
+}
+
+.about h1 {
+    color: #0cdb09;
+}
 
