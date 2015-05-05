@@ -76,11 +76,6 @@ var Projects = (function($) {
 
                     }
 
-                    console.log(rows[i]['name']);
-                    console.log(project_types);
-                    console.log(panel_class);
-                    console.log(stripe);
-
                     // Create the markers for each event
 
                     if (stripe_offset == 0) {                                               // We did not find one.
@@ -460,6 +455,21 @@ var Projects = (function($) {
         };
 
         this.setMarkersByProjectType = function(project_type_to_display) {
+            console.log('looking for '+ project_type_to_display);
+            console.dir(project_type_info);
+            var projects_by_id = [];
+            for ( var i in project_type_info ) {
+
+                var rec = project_type_info[i];
+                rec.name = i;
+                var id = rec.id;
+                projects_by_id[ id ] = rec;
+            }
+
+            console.dir(projects_by_id);
+
+            var looking_for = projects_by_id[ project_type_to_display].name;  // translate back to name
+            var pin_url = projects_by_id[ project_type_to_display].pin_url;
 
             if (project_type_to_display == 'all') {
                 $('.panel-default').css("display", "block");
@@ -472,14 +482,16 @@ var Projects = (function($) {
 
                 var ptype = this.Events[i].data['3. Project type'];
                 if (!project_type_info[(ptype)]) {
-                    ptype = 'Other';
+       //             ptype = 'Other';
                 }
-
+                var n = ptype.indexOf(looking_for);
+                console.log(n + '  looking for '+ looking_for + '| in |' + ptype);
                 if (this.Events[i].marker) { // If google map was able to create a map marker
                     if (project_type_to_display == 'all') {
                         this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
-                    } else if (project_type_info[(ptype)].id.toString() == project_type_to_display.toString()) {
-                        this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
+                    } else if ( ptype.indexOf(looking_for) != -1 ) {
+
+                        this.Events[i].marker.setIcon( pin_url );
                     } else {
                         this.Events[i].marker.setIcon('img/grey-transparent.png');
                     }
