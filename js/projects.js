@@ -455,21 +455,8 @@ var Projects = (function($) {
         };
 
         this.setMarkersByProjectType = function(project_type_to_display) {
-            console.log('looking for '+ project_type_to_display);
-            console.dir(project_type_info);
-            var projects_by_id = [];
-            for ( var i in project_type_info ) {
 
-                var rec = project_type_info[i];
-                rec.name = i;
-                var id = rec.id;
-                projects_by_id[ id ] = rec;
-            }
 
-            console.dir(projects_by_id);
-
-            var looking_for = projects_by_id[ project_type_to_display].name;  // translate back to name
-            var pin_url = projects_by_id[ project_type_to_display].pin_url;
 
             if (project_type_to_display == 'all') {
                 $('.panel-default').css("display", "block");
@@ -478,22 +465,49 @@ var Projects = (function($) {
                 $('.' + project_type_to_display + '-panel').css("display", "block");
             }
 
-            for (var i in this.Events) {
+            if (project_type_to_display == 'all') {
 
-                var ptype = this.Events[i].data['3. Project type'];
-                if (!project_type_info[(ptype)]) {
-       //             ptype = 'Other';
+                for (var i in this.Events) {
+                    var project_types = $.trim(this.Events[i].data['3. Project type']);      // Start project type
+                    var pin_url = 'img/grey-transparent.png';
+                    for (var project_type in project_type_info) {
+                        var project = project_type_info[project_types];
+
+                        if (project_types.indexOf(project_type) > -1) {
+                            pin_url = project_type_info[project_type].pin_url;
+                        }
+
+                    }
+                    this.Events[i].marker.setIcon(pin_url);
                 }
-                var n = ptype.indexOf(looking_for);
-                console.log(n + '  looking for '+ looking_for + '| in |' + ptype);
-                if (this.Events[i].marker) { // If google map was able to create a map marker
-                    if (project_type_to_display == 'all') {
-                        this.Events[i].marker.setIcon(project_type_info[(ptype)].pin_url);
-                    } else if ( ptype.indexOf(looking_for) != -1 ) {
 
-                        this.Events[i].marker.setIcon( pin_url );
-                    } else {
-                        this.Events[i].marker.setIcon('img/grey-transparent.png');
+            } else {
+
+                var projects_by_id = [];
+                for ( var i in project_type_info ) {
+
+                    var rec = project_type_info[i];
+                    rec.name = i;
+                    var id = rec.id;
+                    projects_by_id[ id ] = rec;
+                }
+
+                var looking_for = projects_by_id[ project_type_to_display].name;  // translate back to name
+                var pin_url = projects_by_id[ project_type_to_display].pin_url;
+
+                for (var i in this.Events) {
+
+                    var ptype = this.Events[i].data['3. Project type'];
+                    if (!project_type_info[(ptype)]) {
+                        //             ptype = 'Other';
+                    }
+                    if (this.Events[i].marker) { // If google map was able to create a map marker
+                        if (ptype.indexOf(looking_for) != -1) {
+
+                            this.Events[i].marker.setIcon(pin_url);
+                        } else {
+                            this.Events[i].marker.setIcon('img/grey-transparent.png');
+                        }
                     }
                 }
             }
