@@ -482,25 +482,24 @@ var Projects = (function($) {
                 }
 
             } else {
-
-                var projects_by_id = [];
+                var looking_for = '';
+                var pin_url = 'img/grey-transparent.png';
                 for ( var i in project_type_info ) {
 
                     var rec = project_type_info[i];
-                    rec.name = i;
-                    var id = rec.id;
-                    projects_by_id[ id ] = rec;
-                }
 
-                var looking_for = projects_by_id[ project_type_to_display].name;  // translate back to name
-                var pin_url = projects_by_id[ project_type_to_display].pin_url;
+                    if ( project_type_to_display == rec.id  ) {
+
+                        looking_for = i;  // translate back to name
+                        pin_url = rec.pin_url;
+                        break;
+                    }
+                }
 
                 for (var i in this.Events) {
 
                     var ptype = this.Events[i].data['3. Project type'];
-                    if (!project_type_info[(ptype)]) {
-                        //             ptype = 'Other';
-                    }
+
                     if (this.Events[i].marker) { // If google map was able to create a map marker
                         if (ptype.indexOf(looking_for) != -1) {
 
