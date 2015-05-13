@@ -276,6 +276,11 @@ h4.panel-title {
     font-size: 18px;
 }
 
+.panel-body > ul, 
+.panel-body > li {
+    font-size: 18px;
+}
+
 .social {
     box-sizing: border-box;
     color: #777;
