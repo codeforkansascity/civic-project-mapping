@@ -127,9 +127,9 @@ var Projects = (function($) {
                     accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
                     accordion += '                <div class="panel-body">' + "\n";
                     accordion += '                <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a></p>';
-                    accordion += '                <p>' + data['2. Project description'] + "\n";
+                    accordion += '                <p>' + data['2. Project description'] + "</p>";
 
-                    accordion += '                <br />' + data['5. What is the start date of your project?'] + ' through ' + data['6. What is the finish date (or anticipated finish date)?'] + "\n";
+                    accordion += '                <p><span style="color: grey;">Time Frame: </span>' + data['5. What is the start date of your project?'] + ' through ' + data['6. What is the finish date (or anticipated finish date)?'] + "\n";
 
                     accordion += '                <p><span style="color: grey;">Project Type: </span>' + data['3. Project type'] + '</p>' + "\n";
 
