@@ -126,6 +126,7 @@ var Projects = (function($) {
                     accordion += '              </div>' + "\n";
                     accordion += '              <div id="collapse' + i + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i + '">' + "\n";
                     accordion += '                <div class="panel-body">' + "\n";
+                    accordion += '                <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a></p>';
                     accordion += '                <p>' + data['2. Project description'] + "\n";
 
                     accordion += '                <br />' + data['5. What is the start date of your project?'] + ' through ' + data['6. What is the finish date (or anticipated finish date)?'] + "\n";
@@ -179,8 +180,7 @@ var Projects = (function($) {
                     var ga = "_gaq.push(['_trackEvent', 'Accordion', 'Fix-Map','" + project_name + "']);";
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
-                    accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
-                    accordion += '                      <a  id="fix-map-' + i + '" onclick="' + ga + '" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
+                    accordion += '                <p>   <a  id="fix-map-' + i + '" onclick="' + ga + '" style="float: right;" href="mailto:info@communitykc.org?subject=Please Change ' + project_name + ' (' + i + ')">Request Change</a></p>' + "\n";
                     accordion += '                </p>' + "\n";
                     accordion += '                </div>' + "\n";
                     accordion += '              </div>' + "\n";
