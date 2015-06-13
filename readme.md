@@ -6,7 +6,10 @@ The data behind this site is a Google Fusion Table
 
 ### Problem Statement
 
-Need for a community project map: *The Community Capital Fund* and our partners have realized through our 
+Primary goal for this app -- connecting citizens (Tinder for projects).
+Details in project's wiki: https://github.com/codeforkansascity/civic-project-mapping/wiki
+
+Initial impetus for a community project map: *The Community Capital Fund* and our partners have realized through our 
 work that a map of existing community-based projects does not exist and that often, neighborhood associations 
 and organizations are not aware of projects/programs occurring near them, and often do not know of other 
 organizations doing similar work. CCF believes that neighborhoods that partner with and learn from others 
