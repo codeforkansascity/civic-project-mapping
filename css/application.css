@@ -1,110 +1,101 @@
 .container {
-	float: left;
-	display: inline;
+    float: left;
+    display: inline;
 }
 
-
 #all {
-	background-color: darkgray;
-	border-radius: 5px;
+    background-color: darkgray;
+    border-radius: 5px;
 }
 
 #capacity-building {
     background-color: #5CE628;
     border-radius: 5px;
 }
+
 #capacity-building.active, #capacity-building.active > a {
     background-color: #5CE628 !important;
 }
 
-#capacity-building a{
+#capacity-building a {
     color: black;
 }
 
-
 #housing {
-	background-color: #FF675D;
-	border-radius: 5px;
+    background-color: #FF675D;
+    border-radius: 5px;
 }
 
 #housing.active, #housing.active > a {
     background-color: #FF675D !important;
 }
 
-#housing a{
+#housing a {
     color: black;
 }
 
-
 #environmental {
-	background-color: #56CEE6;
-	border-radius: 5px;
+    background-color: #56CEE6;
+    border-radius: 5px;
 }
 
 #environmental.active, #environmental.active > a {
     background-color: #56CEE6 !important;
 }
 
-#environmental a{
+#environmental a {
     color: black;
 }
 
-
-#public-safety{
-	background-color: #EEE938;
-	border-radius: 5px;
+#public-safety {
+    background-color: #EEE938;
+    border-radius: 5px;
 }
 
 #public-safety.active, #public-safety.active > a {
     background-color: #EEE938 !important;
 }
 
-#public-safety a{
+#public-safety a {
     color: black;
 }
 
-
 #education {
-	background-color: #FF9F36;
-	border-radius: 5px;
+    background-color: #FF9F36;
+    border-radius: 5px;
 }
 
 #education.active, #education.active > a {
     background-color: #FF9F36 !important;
 }
 
-#education a{
+#education a {
     color: black;
 }
 
-
 #arts-and-culture {
-	background-color: #FFC355;
-	border-radius: 5px;
+    background-color: #FFC355;
+    border-radius: 5px;
 }
-
 
 #arts-and.active, #arts-and.active > a {
     background-color: #FFC355 !important;
 }
 
-
-#arts-and-culture a{
+#arts-and-culture a {
     color: black;
 }
-
 
 #other {
     background-color: #BF77CE;
     border-radius: 5px;
 }
 
-
 #other.active, #other.active > a {
     background-color: #BF77CE !important;
 }
 
-#other a{
+#other a {
     color: black;
 }
 
@@ -114,20 +105,17 @@
     color: black;
 }
 
-
 #resource.active, #resource.active > a {
     background-color: #FF99FF !important;
 }
 
-#resource a{
+#resource a {
     color: black;
 }
-
 
 .nav-pills > li > a {
     color: #eee;
 }
-
 
 .nav-pills > li > a:hover {
     color: #337ab7;
@@ -142,17 +130,19 @@
 h4.panel-title {
     clear: none;
 }
+
 .panel-title {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
 .panel-stripe {
     padding: 0px;
     margin: 0px;
     width: 1em;
 
-
 }
+
 .panel-title-capacity-building {
     background-color: #98EA78 !important;
     color: black !important;
@@ -173,7 +163,7 @@ h4.panel-title {
 }
 
 .panel-title-environmental {
-    background-color: #9DD7E3  !important;
+    background-color: #9DD7E3 !important;
     color: black !important;
     border: solid;
     border-width: 1px;
@@ -181,7 +171,7 @@ h4.panel-title {
     margin: 0px;
 }
 
-.panel-title-public-safety{
+.panel-title-public-safety {
     background-color: #F7F597 !important;
     color: black !important;
     border: solid;
@@ -223,20 +213,18 @@ h4.panel-title {
 
 /* NavBar - Logo */
 
-
 #header-community {
     font-size: 42px;
     font-weight: bolder;
     color: black;
 
 }
+
 #header-kc {
     font-size: 42px;
     font-weight: normal;
     color: black;
 }
-
-
 
 .tag_line {
     font-weight: bold;
@@ -258,15 +246,11 @@ h4.panel-title {
     height: auto;
 }
 
-
-
-
 /* Accordian parts */
 
 .panel-title > a {
-    font-size: 14px; 
+    font-size: 14px;
 }
-
 
 .our-menu {
     margin-bottom: 26px;
@@ -276,7 +260,7 @@ h4.panel-title {
     font-size: 18px;
 }
 
-.panel-body > ul, 
+.panel-body > ul,
 .panel-body > li {
     font-size: 18px;
 }
@@ -318,16 +302,33 @@ h4.panel-title {
  *    FAQ
  */
 
-.headingOne   { background-image:linear-gradient(to bottom, #5CE628 0%, #5CE628 100%), linear-gradient(to bottom, #5CE628 0%, #5CE628 100%); }
-.headingTwo   { background-image:linear-gradient(to bottom, #FF675D 0%, #FF675D 100%), linear-gradient(to bottom, #FF675D 0%, #FF675D 100%); }
-.headingThree { background-image:linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%), linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%); }
-.headingFour  { background-image:linear-gradient(to bottom, #EEE938 0%, #EEE938 100%), linear-gradient(to bottom, #EEE938 0%, #EEE938 100%); }
-.headingFive  { background-image:linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%), linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%); }
-.headingSix   { background-image:linear-gradient(to bottom, #BF77CE 0%, #BF77CE 100%), linear-gradient(to bottom, #BF77CE 0%, #BF77CE 100%); }
+.headingOne {
+    background-image: linear-gradient(to bottom, #5CE628 0%, #5CE628 100%), linear-gradient(to bottom, #5CE628 0%, #5CE628 100%);
+}
+
+.headingTwo {
+    background-image: linear-gradient(to bottom, #FF675D 0%, #FF675D 100%), linear-gradient(to bottom, #FF675D 0%, #FF675D 100%);
+}
+
+.headingThree {
+    background-image: linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%), linear-gradient(to bottom, #56CEE6 0%, #56CEE6 100%);
+}
+
+.headingFour {
+    background-image: linear-gradient(to bottom, #EEE938 0%, #EEE938 100%), linear-gradient(to bottom, #EEE938 0%, #EEE938 100%);
+}
+
+.headingFive {
+    background-image: linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%), linear-gradient(to bottom, #FF9F36 0%, #FF9F36 100%);
+}
+
+.headingSix {
+    background-image: linear-gradient(to bottom, #BF77CE 0%, #BF77CE 100%), linear-gradient(to bottom, #BF77CE 0%, #BF77CE 100%);
+}
 
 .navbar-brand small {
-    display:block;
-    font-size:20px;
+    display: block;
+    font-size: 20px;
     margin-top: 7px;
     margin-left: 4px;
 }

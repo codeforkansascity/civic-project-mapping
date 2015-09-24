@@ -2,8 +2,8 @@
  * @classDestription - Placeholder for Projects application variables and functions.
  * @class - Projects
  */
-var DetailPage = (function($) {
-    var constructor = function(infoboxoptions) {
+var DetailPage = (function ($) {
+    var constructor = function (infoboxoptions) {
         this.AddressMarker = null;
 
         this.Events = [];
@@ -11,12 +11,12 @@ var DetailPage = (function($) {
         // Can we geolocate?
         this.geolocate = navigator.geolocation;
 
-        this.getEvents = function(rows, Map, Default) {
+        this.getEvents = function (rows, Map, Default) {
 
             for (var i in rows) {
                 rows[i]['name'] = rows[i]['1. Project Title/Name'];
             }
-            rows.sort(function(a, b) {
+            rows.sort(function (a, b) {
                 if (a.name > b.name) {
                     return 1;
                 }
@@ -37,7 +37,8 @@ var DetailPage = (function($) {
                 var ll = this.Events[i].data['Location'];
                 var lla = ll.split(',');
 
-                if (lla.length != 2) {} else {
+                if (lla.length != 2) {
+                } else {
 
                     var Lat = null;
                     var Lng = null;
@@ -118,7 +119,7 @@ var DetailPage = (function($) {
                     accordion += this.displayIt('Neighborhood(s):', data['10. For area-wide projects, list the neighborhood(s) in which this project occurs.']);
 
                     var project_boundaries = data['11. For area-wide projects, does this project have more specific boundaries?'];
-                    if ( project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
+                    if (project_boundaries && project_boundaries.toLocaleLowerCase() != 'no') {
                         accordion += this.displayIt('Boundaries:', project_boundaries);
                     }
 
@@ -135,7 +136,6 @@ var DetailPage = (function($) {
                     accordion += this.displayIt('Will share experience:', data['23. We are happy to talk to others about our project and experience!']);
 
 
-
                     accordion += '' + "\n";
                     accordion += '        <br>' + "\n";
                     accordion += '                  <p><a id="show-on-map-' + i + '" type="button" class="btn btn-default" href="#">Show on map</a>' + "\n";
@@ -150,7 +150,7 @@ var DetailPage = (function($) {
             }
             for (var i in this.Events) {
                 // Listen for marker clicks
-                if ( this.Events[i].marker ) {              // We create events with out lat and lng and marker so we need to handle it here
+                if (this.Events[i].marker) {              // We create events with out lat and lng and marker so we need to handle it here
                     google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map, this.Events[i]));
                     $('#show-on-map-' + i).on("click", null, {
                         map: Map.Map,
@@ -162,7 +162,7 @@ var DetailPage = (function($) {
 
         };
 
-        this.displayIt = function(label, value) {
+        this.displayIt = function (label, value) {
             if (label) {
                 if (value) {
                     return '                <p><span style="color: grey">' + label + '</span> ' + value + '</p>' + "\n";
@@ -182,7 +182,7 @@ var DetailPage = (function($) {
         /**
          * PROJECT FILTER functions
          */
-        this.displayProjectTypeFilters = function() {
+        this.displayProjectTypeFilters = function () {
             for (var project_type in project_type_info) {
                 var project = project_type_info[project_type];
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
@@ -190,7 +190,7 @@ var DetailPage = (function($) {
             }
         }
 
-        this.displayProjectTypeCounts = function() {
+        this.displayProjectTypeCounts = function () {
             for (var project_type in project_type_info) {
                 var project = project_type_info[project_type];
                 $('#cnt-' + project.id).html(project.count);
@@ -200,7 +200,7 @@ var DetailPage = (function($) {
         /**
          * MAP functions
          */
-        this.centerPin = function(e) {
+        this.centerPin = function (e) {
             var Latlng = new google.maps.LatLng(
                 e.data.panel.Lat,
                 e.data.panel.Lng
@@ -212,12 +212,12 @@ var DetailPage = (function($) {
         /**
          * Set the address for a latlng
          */
-        this.codeLatLng = function(Latlng) {
+        this.codeLatLng = function (Latlng) {
             var Geocoder = new google.maps.Geocoder();
             Geocoder.geocode({
                     'latLng': Latlng
                 },
-                function(Results, Status) {
+                function (Results, Status) {
                     if (Status == google.maps.GeocoderStatus.OK) {
                         if (Results[0]) {
                             var formattedAddress = Results[0].formatted_address.split(',');
@@ -248,7 +248,7 @@ var DetailPage = (function($) {
         };
 
         // Put a Pan/Zoom control on the map
-        this.setFindMeControl = function(controlDiv, Map, Project, Default) {
+        this.setFindMeControl = function (controlDiv, Map, Project, Default) {
             // Set CSS styles for the DIV containing the control
             // Setting padding to 5 px will offset the control
             // from the edge of the map.
@@ -276,11 +276,11 @@ var DetailPage = (function($) {
             controlText.innerHTML = 'Find Me';
             controlUI.appendChild(controlText);
             // Setup the click event listeners.
-            google.maps.event.addDomListener(controlUI, 'click', function() {
+            google.maps.event.addDomListener(controlUI, 'click', function () {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         // Success
-                        function(position) {
+                        function (position) {
                             //_gaq.push(['_trackEvent', 'GPS', 'Success']);
                             var Latlng = new google.maps.LatLng(
                                 position.coords.latitude,
@@ -307,7 +307,7 @@ var DetailPage = (function($) {
                             Project.codeLatLng(Latlng);
                         },
                         // Failure
-                        function() {
+                        function () {
                             alert('We\'re sorry. We could not find you. Please type in an address.');
                         }, {
                             timeout: 5000,
@@ -318,7 +318,7 @@ var DetailPage = (function($) {
             });
         };
 
-        this.setMapLegend = function(controlDiv, Map, Project, Default) {
+        this.setMapLegend = function (controlDiv, Map, Project, Default) {
             // Set CSS styles for the DIV containing the control
             // Setting padding to 5 px will offset the control
             // from the edge of the map.
@@ -346,12 +346,12 @@ var DetailPage = (function($) {
             controlText.innerHTML = '<div>Free<img src="img/blue.png" /></div>';
             controlUI.appendChild(controlText);
             // Setup the click event listeners.
-            google.maps.event.addDomListener(controlUI, 'click', function() {
+            google.maps.event.addDomListener(controlUI, 'click', function () {
                 Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].clear();
             });
         };
 
-        this.setMarkersByProjectType = function(project_type_to_display) {
+        this.setMarkersByProjectType = function (project_type_to_display) {
             if (project_type_to_display == 'all') {
                 $('.panel-default').css("display", "block");
             } else {

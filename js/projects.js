@@ -2,24 +2,24 @@
  * @classDestription - Placeholder for Projects application variables and functions.
  * @class - Projects
  */
-var Projects = (function($) {
-    var constructor = function(infoboxoptions) {
+var Projects = (function ($) {
+    var constructor = function (infoboxoptions) {
         this.AddressMarker = null;
 
         this.Events = [];
 
-        this.funcs = [ ];
-        this.projfuncs = [ ];
+        this.funcs = [];
+        this.projfuncs = [];
 
         // Can we geolocate?
         this.geolocate = navigator.geolocation;
 
-        this.getEvents = function(rows, Map, project_type_info, Default) {
+        this.getEvents = function (rows, Map, project_type_info, Default) {
 
             for (var i in rows) {
                 rows[i]['name'] = rows[i]['1. Project Title/Name'];
             }
-            rows.sort(function(a, b) {
+            rows.sort(function (a, b) {
                 if (a.name > b.name) {
                     return 1;
                 }
@@ -54,7 +54,7 @@ var Projects = (function($) {
                     var icon = '';
                     var panel_class = '';
 
-                    var stripe = ['','','','','',''];
+                    var stripe = ['', '', '', '', '', ''];
                     var stripe_offset = 0;
 
 
@@ -65,9 +65,9 @@ var Projects = (function($) {
                     for (var project_type in project_type_info) {
                         var project = project_type_info[project_types];
 
-                        if ( project_types.indexOf(project_type) > -1) {
+                        if (project_types.indexOf(project_type) > -1) {
                             panel_class += project_type_info[project_type].id + '-panel ';
-                            stripe[ stripe_offset++ ] =  ' panel-strip panel-title-' + project_type_info[project_type].id.toString();
+                            stripe[stripe_offset++] = ' panel-strip panel-title-' + project_type_info[project_type].id.toString();
 
                             project_type_info[project_type].count++;
                             project_type_info['All'].count++;
@@ -149,16 +149,16 @@ var Projects = (function($) {
                     var zip = data['16. Zip'];
                     var full_address = '';
                     var address_sep = '';
-                    if (street_address != '' ) {
+                    if (street_address != '') {
                         full_address = street_address;
                         address_sep = ', ';
-                        if ( city != '' ) {
+                        if (city != '') {
                             full_address += address_sep + city;
                         }
-                        if ( state != '' ) {
+                        if (state != '') {
                             full_address += address_sep + state;
                         }
-                        if ( zip != '' ) {
+                        if (zip != '') {
                             full_address += address_sep + zip;
                         }
 
@@ -202,7 +202,7 @@ var Projects = (function($) {
 
             for (var i in this.Events) {
 
-                var project_name  = this.Events[i].data['1. Project Title/Name'];
+                var project_name = this.Events[i].data['1. Project Title/Name'];
 
                 // Listen for marker clicks
 
@@ -213,7 +213,7 @@ var Projects = (function($) {
                         default: Default,
                         panel: this.Events[i].panel,
                         marker: this.Events[i].marker,
-			            projectName: project_name
+                        projectName: project_name
                     }, this.centerPin);
 
                 }
@@ -222,7 +222,7 @@ var Projects = (function($) {
         };
 
 
-        this.displayIt = function(label, value) {
+        this.displayIt = function (label, value) {
             if (label) {
                 if (value) {
                     return '                <p><span style="color: grey">' + label + '</span> ' + value + '</p>' + "\n";
@@ -239,7 +239,7 @@ var Projects = (function($) {
 
         }
 
-        this.displayAsLink = function(label, value) {
+        this.displayAsLink = function (label, value) {
             if (label) {
                 if (value) {
                     return '                <p><span style="color: grey">' + label + '</span> <a target="_blank" href="' + value + '">' + value + '</a></p>' + "\n";
@@ -260,25 +260,27 @@ var Projects = (function($) {
         /**
          * PROJECT FILTER functions
          */
-        this.displayProjectTypeFilters = function() {
+        this.displayProjectTypeFilters = function () {
             for (var project_type in project_type_info) {
                 var project = project_type_info[project_type];
                 var li = '<li role="presentation" id="' + project.id + '" class="proj-type"><a href="#">' + project_type + '<span id="cnt-' + project.id + '" class="badge">' + project.count + '</span></a></li>';
                 $("#project-type-filter-buttons").append(li);
 
-                    function createprojfunc(project_type) {
-                        return function() {
-                		$('#' + project.id).on("click",function () { _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);});
-                        };
-                    }
-            
-                    this.projfuncs[i] = createprojfunc( project_type );
-                    this.projfuncs[i]();
+                function createprojfunc(project_type) {
+                    return function () {
+                        $('#' + project.id).on("click", function () {
+                            _gaq.push(['_trackEvent', 'Filter', 'Click', project_type]);
+                        });
+                    };
+                }
+
+                this.projfuncs[i] = createprojfunc(project_type);
+                this.projfuncs[i]();
 
             }
         }
 
-        this.displayProjectTypeCounts = function() {
+        this.displayProjectTypeCounts = function () {
             for (var project_type in project_type_info) {
                 var project = project_type_info[project_type];
                 $('#cnt-' + project.id).html(project.count);
@@ -288,7 +290,7 @@ var Projects = (function($) {
         /**
          * MAP functions
          */
-        this.centerPin = function(e) {
+        this.centerPin = function (e) {
 
             _gaq.push(['_trackEvent', 'Accordion', 'Show-On-Map', e.data.projectName]);
 
@@ -299,12 +301,14 @@ var Projects = (function($) {
             e.data.map.setCenter(Latlng);
             e.data.map.setZoom(e.data.default.zoomaddress);
             toggleBounce(e.data.marker);
-            setTimeout(function(){ e.data.marker.setAnimation(null); }, 6000);  // 750 is one bounce
+            setTimeout(function () {
+                e.data.marker.setAnimation(null);
+            }, 6000);  // 750 is one bounce
 
 
         }
 
-        function toggleBounce (marker) {
+        function toggleBounce(marker) {
             if (marker.getAnimation() != null) {
                 marker.setAnimation(null);
             } else {
@@ -315,12 +319,12 @@ var Projects = (function($) {
         /**
          * Set the address for a latlng
          */
-        this.codeLatLng = function(Latlng) {
+        this.codeLatLng = function (Latlng) {
             var Geocoder = new google.maps.Geocoder();
             Geocoder.geocode({
                     'latLng': Latlng
                 },
-                function(Results, Status) {
+                function (Results, Status) {
                     if (Status == google.maps.GeocoderStatus.OK) {
                         if (Results[0]) {
                             var formattedAddress = Results[0].formatted_address.split(',');
@@ -351,7 +355,7 @@ var Projects = (function($) {
         };
 
         // Put a Pan/Zoom control on the map
-        this.setFindMeControl = function(controlDiv, Map, Project, Default) {
+        this.setFindMeControl = function (controlDiv, Map, Project, Default) {
             // Set CSS styles for the DIV containing the control
             // Setting padding to 5 px will offset the control
             // from the edge of the map.
@@ -379,11 +383,11 @@ var Projects = (function($) {
             controlText.innerHTML = 'Find Me';
             controlUI.appendChild(controlText);
             // Setup the click event listeners.
-            google.maps.event.addDomListener(controlUI, 'click', function() {
+            google.maps.event.addDomListener(controlUI, 'click', function () {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         // Success
-                        function(position) {
+                        function (position) {
                             //_gaq.push(['_trackEvent', 'GPS', 'Success']);
                             var Latlng = new google.maps.LatLng(
                                 position.coords.latitude,
@@ -410,7 +414,7 @@ var Projects = (function($) {
                             Project.codeLatLng(Latlng);
                         },
                         // Failure
-                        function() {
+                        function () {
                             alert('We\'re sorry. We could not find you. Please type in an address.');
                         }, {
                             timeout: 5000,
@@ -421,7 +425,7 @@ var Projects = (function($) {
             });
         };
 
-        this.setMapLegend = function(controlDiv, Map, Project, Default) {
+        this.setMapLegend = function (controlDiv, Map, Project, Default) {
             // Set CSS styles for the DIV containing the control
             // Setting padding to 5 px will offset the control
             // from the edge of the map.
@@ -449,13 +453,12 @@ var Projects = (function($) {
             controlText.innerHTML = '<div>Free<img src="img/blue.png" /></div>';
             controlUI.appendChild(controlText);
             // Setup the click event listeners.
-            google.maps.event.addDomListener(controlUI, 'click', function() {
+            google.maps.event.addDomListener(controlUI, 'click', function () {
                 Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].clear();
             });
         };
 
-        this.setMarkersByProjectType = function(project_type_to_display) {
-
+        this.setMarkersByProjectType = function (project_type_to_display) {
 
 
             if (project_type_to_display == 'all') {
@@ -484,11 +487,11 @@ var Projects = (function($) {
             } else {
                 var looking_for = '';
                 var pin_url = 'img/grey-transparent.png';
-                for ( var i in project_type_info ) {
+                for (var i in project_type_info) {
 
                     var rec = project_type_info[i];
 
-                    if ( project_type_to_display == rec.id  ) {
+                    if (project_type_to_display == rec.id) {
 
                         looking_for = i;  // translate back to name
                         pin_url = rec.pin_url;
