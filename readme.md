@@ -1,5 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/codeforkansascity/civic-project-mapping.png?label=ready&title=Ready)](http://waffle.io/codeforkansascity/civic-project-mapping)
-
+##Alert
+This repo is no longer active. Please see <a href="https://github.com/codeforkansascity/CommunityKC">CommunityKC</a>
 ## Problem Statement
 
 Primary goal for this app -- connecting citizens (Tinder for projects).
